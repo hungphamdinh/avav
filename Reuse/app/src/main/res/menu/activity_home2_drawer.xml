@@ -6,12 +6,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_menu"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_menu_manage"
             android:iconTint="#fff"
             android:title="Trang chủ" />
         <item
             android:id="@+id/nav_cart"
-            android:icon="@drawable/shoppingcart"
+            android:icon="@drawable/ic_menu_share"
             android:iconTint="#fff"
             android:title="Giỏ hàng" />
         <item
@@ -23,7 +23,7 @@
             android:id="@+id/nav_signout"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
             android:iconTint="#fff"
-            android:title="Đăng ký" />
+            android:title="Đăng xuất" />
     </group>
 
     <item android:title="Communicate">

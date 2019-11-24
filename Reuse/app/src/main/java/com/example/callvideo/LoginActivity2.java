@@ -15,9 +15,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.Model.User;
 import com.example.callvideo.SQliteDatabase.BaseResipistory;
@@ -28,27 +25,28 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rey.material.widget.CheckBox;
+import com.sinch.android.rtc.SinchError;
 
 import java.io.IOException;
 
 import io.paperdb.Paper;
 
 
-public class LoginActivity2 extends AppCompatActivity {
-    private EditText edntPhone,password;
+public class LoginActivity2 extends BaseActivity implements SinchService.StartFailedListener {
+    private EditText username,password;
     private Button login;
     private TextView txtSignUp;
     private Cursor c=null;
     private DatabaseReference table_user=null;
     private FirebaseDatabase firebaseDatabase=null;
     private CheckBox ckbRemember;
-
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
 
-        edntPhone = (EditText)findViewById(R.id.edtPhoneLogin);
+        username = (EditText)findViewById(R.id.edtPhoneLogin);
         password= (EditText)findViewById(R.id.edtPassword);
         ckbRemember=(CheckBox) findViewById(R.id.ckbRememberUser);
         login= (Button)findViewById(R.id.btnLogin);
@@ -58,8 +56,8 @@ public class LoginActivity2 extends AppCompatActivity {
         table_user=firebaseDatabase.getReference("User");
         Firebase.setAndroidContext(LoginActivity2.this);
         SignUp();
-      ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+//      ActionBar actionBar = getSupportActionBar();
+//        actionBar.hide();
 //        readFromAssets();
         Paper.init(this);
         Login(table_user);
@@ -74,12 +72,7 @@ public class LoginActivity2 extends AppCompatActivity {
 
     private void loginRemember(final String userRemember, final String passRemember) {
         if (Common.isConnectedToInternet(getBaseContext())) {
-
-            final ProgressDialog progress = new ProgressDialog(LoginActivity2.this);
-            progress.setTitle("Loading");
-            progress.setMessage("Wait while loading...");
-            progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-            progress.show();
+            final ProgressDialog progress = getProgressDialog();
             table_user.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -102,7 +95,7 @@ public class LoginActivity2 extends AppCompatActivity {
                             } else {
                                 progress.dismiss();
                                 Toast.makeText(LoginActivity2.this, "Please check your username and password", Toast.LENGTH_SHORT).show();
-                                //  edntPhone.setText(uUser.getPassword());
+                                //  username.setText(uUser.getPassword());
                             }
                         } else {
                             progress.dismiss();
@@ -123,6 +116,15 @@ public class LoginActivity2 extends AppCompatActivity {
         }
     }
 
+    private ProgressDialog getProgressDialog() {
+        final ProgressDialog progress = new ProgressDialog(LoginActivity2.this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+        return progress;
+    }
+
 
     private void SignUp() {
         txtSignUp.setOnClickListener(new View.OnClickListener() {
@@ -140,47 +142,44 @@ public class LoginActivity2 extends AppCompatActivity {
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View view) {
+
                 if (Common.isConnectedToInternet(getBaseContext())) {
                     if(ckbRemember.isChecked()){
-                        Paper.book().write(Common.USER_KEY, edntPhone.getText().toString());
+                        Paper.book().write(Common.USER_KEY, username.getText().toString());
                         Paper.book().write(Common.PWD_KEY,password.getText().toString());
                     }
-                    final ProgressDialog progress = new ProgressDialog(LoginActivity2.this);
-                    progress.setTitle("Loading");
-                    progress.setMessage("Wait while loading...");
-                    progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-                    progress.show();
-                    final String usernameTemp = edntPhone.getText().toString();
+                    progressDialog = getProgressDialog();
+                    final String userNameTemp = username.getText().toString();
                     final String passwordTemp = password.getText().toString();
                     table_user.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (usernameTemp.equals("") || passwordTemp.equals("")) {
-                                progress.dismiss();
+                            if (userNameTemp.equals("") || passwordTemp.equals("")) {
+                                progressDialog.dismiss();
                                 Toast.makeText(LoginActivity2.this, "Please check your username and password", Toast.LENGTH_SHORT).show();
                             } else {
-                                if (dataSnapshot.child(edntPhone.getText().toString()).exists()) {
-                                    User uUser = dataSnapshot.child(edntPhone.getText().toString()).getValue(User.class);
-                                    uUser.setPhone(edntPhone.getText().toString());
+                                if (dataSnapshot.child(username.getText().toString()).exists()) {
+                                    User uUser = dataSnapshot.child(username.getText().toString()).getValue(User.class);
+                                    uUser.setPhone(username.getText().toString());
+
                                     if (uUser.getPassword().equals(password.getText().toString())) {
-                                        progress.dismiss();
-
+                                        if (!getSinchServiceInterface().isStarted()) {
+                                            getSinchServiceInterface().startClient(userNameTemp);
+                                            progressDialog = getProgressDialog();
+                                        }
                                         Intent intent = new Intent(LoginActivity2.this, Home2Activity.class);
-                                        intent.putExtra("phoneUser",usernameTemp);
-
+                                        intent.putExtra("phoneUser",userNameTemp);
                                         Common.currentUser = uUser;
-                                 //       Intent intentPhoneNumber=new Intent(LoginActivity2.this,MyAccountActivity.class);
-                                 //       intentPhoneNumber.putExtra("phoneNum",usernameTemp);
                                         startActivity(intent);
                                         finish();
                                         Toast.makeText(LoginActivity2.this,"Log in successfully",Toast.LENGTH_LONG).show();
+                                        progressDialog.dismiss();
                                     } else {
-                                        progress.dismiss();
+                                        progressDialog.dismiss();
                                         Toast.makeText(LoginActivity2.this, "Please check your username and password", Toast.LENGTH_SHORT).show();
-                                        //  edntPhone.setText(uUser.getPassword());
                                     }
                                 } else {
-                                    progress.dismiss();
+                                    progressDialog.dismiss();
                                     Toast.makeText(LoginActivity2.this, "This account is not exist", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -250,4 +249,37 @@ public class LoginActivity2 extends AppCompatActivity {
             } while (c.moveToNext());
         }
     }
+
+
+
+
+    @Override
+    protected void onServiceConnected() {
+        login.setEnabled(true);
+        getSinchServiceInterface().setStartListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onStartFailed(SinchError error) {
+        Toast.makeText(this, error.toString(), Toast.LENGTH_LONG).show();
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onStarted() {
+//        openPlaceCallActivity();
+    }
+
+
+
 }

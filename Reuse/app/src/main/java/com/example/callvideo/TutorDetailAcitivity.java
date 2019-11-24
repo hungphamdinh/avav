@@ -18,16 +18,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sinch.android.rtc.calling.Call;
 
 import java.util.ArrayList;
 
-public class TutorDetailAcitivity extends AppCompatActivity {
+public class TutorDetailAcitivity extends BaseActivity {
     private DatabaseReference tutor;
     private FirebaseDatabase database;
     private TextView txtUsername,txtTitle,txtCountry,txtEmail,txtExp;
     private String tutorId;
     private String userId;
     private Button btnChat;
+    private Button btnCall;
     private ArrayList<String> listChatID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +37,13 @@ public class TutorDetailAcitivity extends AppCompatActivity {
         setContentView(R.layout.activity_tutor_detail_acitivity);
         database=FirebaseDatabase.getInstance();
         tutor=database.getReference("Tutor");
-        txtUsername=findViewById(R.id.txtUserNameTutor);
-        txtEmail=findViewById(R.id.txtEmailTutor);
-        txtTitle=findViewById(R.id.txtTitleTutorDetail);
-        txtCountry=findViewById(R.id.txtCountryTutor);
-        txtExp=findViewById(R.id.txtExpTutor);
-        btnChat=findViewById(R.id.btnMessage);
+        txtUsername=(TextView)findViewById(R.id.txtUserNameTutor);
+        txtEmail=(TextView)findViewById(R.id.txtEmailTutor);
+        txtTitle=(TextView)findViewById(R.id.txtTitleTutorDetail);
+        txtCountry=(TextView)findViewById(R.id.txtCountryTutor);
+        txtExp=(TextView)findViewById(R.id.txtExpTutor);
+        btnChat=(Button)findViewById(R.id.btnMessage);
+        btnCall=(Button)findViewById(R.id.btnCallTutor);
         if (getIntent() != null)
             listChatID = getIntent().getStringArrayListExtra("ChatID");
         if (!listChatID.isEmpty() && listChatID != null) {
@@ -53,14 +56,43 @@ public class TutorDetailAcitivity extends AppCompatActivity {
                 return;
             }
         }
+        onClickChat();
+        onClickCall();
+    }
+
+    private void onClickCall() {
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callButtonClicked(tutorId);
+            }
+        });
+    }
+
+    private void onClickChat() {
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(TutorDetailAcitivity.this,MainChatActivity.class);
+                Intent intent=new Intent(TutorDetailAcitivity.this, MainChatActivity.class);
                 intent.putStringArrayListExtra("ChatID",listChatID);
                 startActivity(intent);
             }
         });
+    }
+
+    private void callButtonClicked(String userName) {
+        //String userName = mCallName.getText().toString();
+        if (userName.isEmpty()) {
+            Toast.makeText(this, "Please enter a tutor to call", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Call call = getSinchServiceInterface().callUserVideo(userName);
+        String callId = call.getCallId();
+
+        Intent callScreen = new Intent(this, CallScreenActivity.class);
+        callScreen.putExtra(SinchService.CALL_ID, callId);
+        startActivity(callScreen);
     }
     private void getDetailTutor(String tutorId) {
         tutor.child(tutorId).addValueEventListener(new ValueEventListener() {
@@ -80,5 +112,18 @@ public class TutorDetailAcitivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onServiceConnected() {
+//        TextView userName = (TextView) findViewById(R.id.loggedInName);
+//        userName.setText(getSinchServiceInterface().getUserName());
+    }
+
+    private void stopButtonClicked() {
+        if (getSinchServiceInterface() != null) {
+            getSinchServiceInterface().stopClient();
+        }
+        finish();
     }
 }
