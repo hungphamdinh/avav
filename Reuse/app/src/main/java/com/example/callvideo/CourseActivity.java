@@ -41,7 +41,7 @@ public class CourseActivity extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter<Course, CourseViewHolder>
                 (Course.class, R.layout.course_layout,
                         CourseViewHolder.class,
-                        course) {
+                        course.orderByChild("isBuy").equalTo("false")) {
             @Override
             protected void populateViewHolder(CourseViewHolder viewHolder, final Course model, int position) {
                 viewHolder.txtName.setText(model.getCourseName());

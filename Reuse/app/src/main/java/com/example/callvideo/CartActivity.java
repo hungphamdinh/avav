@@ -16,15 +16,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.callvideo.Common.Common;
+import com.example.callvideo.Model.Course;
 import com.example.callvideo.Model.Order;
 import com.example.callvideo.Model.Request;
 import com.example.callvideo.SQliteDatabase.BaseResipistory;
 import com.example.callvideo.ViewHolder.CartAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class CartActivity extends AppCompatActivity {
@@ -87,38 +92,34 @@ public class CartActivity extends AppCompatActivity {
     private void openDialog() {
         LayoutInflater inflater = LayoutInflater.from(CartActivity.this);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(CartActivity.this);
-        alertDialog.setTitle("Purchase");
-        alertDialog.setMessage("Do you want purchase this course");
+        alertDialog.setTitle("Thanh toán");
+        alertDialog.setMessage("Bạn có muốn thanh toán khóa học?");
         // final EditText inputValue = (EditText) subView.findViewById(R.id.edtValue);
         alertDialog.create();
-        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //  String key=inputKey.getText().toString();
                 Request request = new Request(
-//                        cartList,
-//                        Common.currentUser.getUsername(),
-//                        Common.currentUser.getPhone(),
-//                        txtTotalCart.getText().toString()
                 );
                 request.setCourse(cartList);
                 request.setName(Common.currentUser.getUsername());
-                for(int i=0;i<cartList.size();i++) {
-                    request.setCourseId(cartList.get(i).getCourseId());
-                }
                 request.setPhone(Common.currentUser.getPhone());
                 request.setTotal(txtTotalCart.getText().toString());
-
+                for(int i=0;i<cartList.size();i++) {
+                    request.setCourseId(cartList.get(i).getCourseId());
+                    checkBuy(cartList.get(i).getCourseId());
+                }
                 //     Firebase mRefchild=mRef.child(key);
                 //     mRefchild.setValue(data);
                 requestReference.child(String.valueOf(System.currentTimeMillis()))
                         .setValue(request);
                 new BaseResipistory(getBaseContext()).cleanCart();
-                Toast.makeText(CartActivity.this, "Thanks for your oder", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CartActivity.this, "Chúc bạn học thật tốt", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
-        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -136,5 +137,17 @@ public class CartActivity extends AppCompatActivity {
         }
         loadListCourse();//Refresh
 
+    }
+    private void checkBuy(String courseId){
+        final DatabaseReference course = database.getReference("Course").child(courseId);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("isBuy", "true");
+        course.updateChildren(map);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        new BaseResipistory(getBaseContext()).cleanCart();
     }
 }

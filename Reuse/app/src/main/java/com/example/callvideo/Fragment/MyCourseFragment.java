@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.callvideo.Adapter.StaffAdapter;
 import com.example.callvideo.Interface.ItemClickListener;
 import com.example.callvideo.Model.Course;
 import com.example.callvideo.Model.Request;
@@ -48,7 +49,8 @@ public class MyCourseFragment extends Fragment {
     private DatabaseReference request;
     private FirebaseDatabase database;
     private FirebaseRecyclerAdapter<Request, StaffViewHolder> adapter;
-
+    private StaffAdapter staffAdapter;
+    private ArrayList<Request>requestList;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,37 +61,21 @@ public class MyCourseFragment extends Fragment {
         recyclerMenu.setHasFixedSize(true);
         layoutManager= new LinearLayoutManager(getContext());
         recyclerMenu.setLayoutManager(layoutManager);
-        loadListTutor();
+        loadTutor();
         return view;
     }
-    private void loadListTutor() {
-        adapter=new FirebaseRecyclerAdapter<Request, StaffViewHolder>
-                (Request.class,R.layout.my_course_layout,
-                        StaffViewHolder.class,
-                        request.orderByChild("phone").equalTo(userPhone)) {
-            @Override
-            protected void populateViewHolder(StaffViewHolder viewHolder, final Request model, int position) {
-                    viewHolder.txtName.setText(model.getName());
-                    viewHolder.txtEmail.setText(model.getPhone());
-                    loadCourse(model.getCourseId(),viewHolder);
-
-            }
-
-        };
-        adapter.notifyDataSetChanged();
-        recyclerMenu.setAdapter(adapter);
-    }
-    private void loadCourse(String courseID,StaffViewHolder viewHolder){
-        DatabaseReference courseRef=FirebaseDatabase.getInstance().getReference("Course");
-        courseRef.child(courseID).addValueEventListener(new ValueEventListener() {
+    private void loadTutor(){
+        request.orderByChild("phone").equalTo(userPhone).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Course course=dataSnapshot.getValue(Course.class);
-                viewHolder.txtCourseName.setText(course.getCourseName());
-                viewHolder.txtSchedule.setText(course.getSchedule());
-                viewHolder.txtDescript.setText(course.getDescript());
-                loadTutor(course.getTutorPhone(),viewHolder);
-                onClickItem(course, viewHolder);
+                requestList=new ArrayList<>();
+                for (DataSnapshot childSnap :dataSnapshot.getChildren()){
+                    Request requestCk=childSnap.getValue(Request.class);
+                    requestList.add(requestCk);
+                    staffAdapter=new StaffAdapter(context,requestList,requestCk.getCourseId(),userPhone);
+                    staffAdapter.notifyDataSetChanged();
+                    recyclerMenu.setAdapter(staffAdapter);
+                }
             }
 
             @Override
@@ -98,37 +84,74 @@ public class MyCourseFragment extends Fragment {
             }
         });
     }
-
-    private void onClickItem(Course course, StaffViewHolder viewHolder) {
-        viewHolder.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-                Intent intent=new Intent(context, TutorDetailAcitivity.class);
-                String tutorID=course.getTutorPhone();
-                String userID=userPhone;
-                ArrayList<String> listIntent=new ArrayList<>();
-                listIntent.add(tutorID);
-                listIntent.add(userID);
-                intent.putStringArrayListExtra("ChatID",listIntent);
-                //intent.putExtra("tutorID",adapter.getRef(position).getKey());
-                startActivity(intent);                    }
-        });
-    }
-
-    private void loadTutor(String tutorPhone, StaffViewHolder viewHolder){
-        DatabaseReference tutorRef=FirebaseDatabase.getInstance().getReference("Tutor");
-        tutorRef.child(tutorPhone).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Tutor tutor=dataSnapshot.getValue(Tutor.class);
-                viewHolder.txtName.setText(tutor.getUsername());
-                viewHolder.txtEmail.setText(tutor.getEmail());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
+//    private void loadListTutor() {
+//        adapter=new FirebaseRecyclerAdapter<Request, StaffViewHolder>
+//                (Request.class,R.layout.my_course_layout,
+//                        StaffViewHolder.class,
+//                        request.orderByChild("phone").equalTo(userPhone)) {
+//            @Override
+//            protected void populateViewHolder(StaffViewHolder viewHolder, final Request model, int position) {
+//
+//                    viewHolder.txtName.setText(model.getName());
+//                    viewHolder.txtEmail.setText(model.getPhone());
+//                    loadCourse(model.getCourseId(),viewHolder);
+//
+//            }
+//
+//        };
+//        adapter.notifyDataSetChanged();
+//        recyclerMenu.setAdapter(adapter);
+//    }
+//    private void loadCourse(String courseID,StaffViewHolder viewHolder){
+//        DatabaseReference courseRef=FirebaseDatabase.getInstance().getReference("Course");
+//        courseRef.child(courseID).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Course course=dataSnapshot.getValue(Course.class);
+//                viewHolder.txtCourseName.setText(course.getCourseName());
+//                viewHolder.txtSchedule.setText(course.getSchedule());
+//                viewHolder.txtDescript.setText(course.getDescript());
+//                loadTutor(course.getTutorPhone(),viewHolder);
+//                onClickItem(course, viewHolder);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
+//
+//    private void onClickItem(Course course, StaffViewHolder viewHolder) {
+//        viewHolder.setItemClickListener(new ItemClickListener() {
+//            @Override
+//            public void onClick(View view, int position, boolean isLongClick) {
+//                Intent intent=new Intent(context, TutorDetailAcitivity.class);
+//                String tutorID=course.getTutorPhone();
+//                String userID=userPhone;
+//                ArrayList<String> listIntent=new ArrayList<>();
+//                listIntent.add(tutorID);
+//                listIntent.add(userID);
+//                intent.putStringArrayListExtra("ChatID",listIntent);
+//                //intent.putExtra("tutorID",adapter.getRef(position).getKey());
+//                startActivity(intent);                    }
+//        });
+//    }
+//
+//    private void loadTutor(String tutorPhone, StaffViewHolder viewHolder){
+//        DatabaseReference tutorRef=FirebaseDatabase.getInstance().getReference("Tutor");
+//        tutorRef.child(tutorPhone).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Tutor tutor=dataSnapshot.getValue(Tutor.class);
+//                viewHolder.txtName.setText(tutor.getUsername());
+//                viewHolder.txtEmail.setText(tutor.getEmail());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 }
