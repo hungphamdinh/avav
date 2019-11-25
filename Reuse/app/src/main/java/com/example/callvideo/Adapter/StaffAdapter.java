@@ -106,6 +106,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
                 ArrayList<String> listIntent=new ArrayList<>();
                 listIntent.add(tutorID);
                 listIntent.add(userID);
+                listIntent.add(requests.get(position).courseId);
                 intent.putStringArrayListExtra("ChatID",listIntent);
                 //intent.putExtra("tutorID",adapter.getRef(position).getKey());
                 context.startActivity(intent);                    }

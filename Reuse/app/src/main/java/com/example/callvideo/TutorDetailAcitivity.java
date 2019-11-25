@@ -3,6 +3,7 @@ package com.example.callvideo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.callvideo.Common.Common;
+import com.example.callvideo.Model.Course;
+import com.example.callvideo.Model.Doc;
 import com.example.callvideo.Model.Tutor;
 import com.example.callvideo.Model.User;
 import com.google.firebase.database.DataSnapshot;
@@ -25,9 +28,10 @@ import java.util.ArrayList;
 public class TutorDetailAcitivity extends BaseActivity {
     private DatabaseReference tutor;
     private FirebaseDatabase database;
-    private TextView txtUsername,txtTitle,txtCountry,txtEmail,txtExp;
+    private TextView txtUsername,txtTitle,txtCountry,txtEmail,txtExp,txtCourseDoc;
     private String tutorId;
     private String userId;
+    private String courseId;
     private Button btnChat;
     private Button btnCall;
     private ArrayList<String> listChatID;
@@ -42,6 +46,7 @@ public class TutorDetailAcitivity extends BaseActivity {
         txtTitle=(TextView)findViewById(R.id.txtTitleTutorDetail);
         txtCountry=(TextView)findViewById(R.id.txtCountryTutor);
         txtExp=(TextView)findViewById(R.id.txtExpTutor);
+        txtCourseDoc=(TextView)findViewById(R.id.txtCourseDocDetail);
         btnChat=(Button)findViewById(R.id.btnMessage);
         btnCall=(Button)findViewById(R.id.btnCallTutor);
         if (getIntent() != null)
@@ -50,7 +55,9 @@ public class TutorDetailAcitivity extends BaseActivity {
             if (Common.isConnectedToInternet(this)) {
                 tutorId=listChatID.get(0);
                 userId=listChatID.get(1);
+                courseId=listChatID.get(2);
                 getDetailTutor(tutorId);
+                getCourseDoc(courseId);
             } else {
                 Toast.makeText(TutorDetailAcitivity.this, "Check your connection", Toast.LENGTH_SHORT).show();
                 return;
@@ -94,6 +101,36 @@ public class TutorDetailAcitivity extends BaseActivity {
         callScreen.putExtra(SinchService.CALL_ID, callId);
         startActivity(callScreen);
     }
+    private void getCourseDoc(String courseId){
+      DatabaseReference docRef=FirebaseDatabase.getInstance().getReference("Doc");
+      docRef.orderByChild("courseId").equalTo(courseId).addValueEventListener(new ValueEventListener() {
+          @Override
+          public void onDataChange(DataSnapshot dataSnapshot) {
+              for (DataSnapshot childSnap:dataSnapshot.getChildren()) {
+                  Doc doc = childSnap.getValue(Doc.class);
+                  txtCourseDoc.setText(doc.getDocName());
+                  openCourseDoc(doc);
+              }
+          }
+
+          @Override
+          public void onCancelled(DatabaseError databaseError) {
+
+          }
+      });
+    }
+
+    private void openCourseDoc(Doc doc) {
+        txtCourseDoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(doc.getDocUrl());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void getDetailTutor(String tutorId) {
         tutor.child(tutorId).addValueEventListener(new ValueEventListener() {
             @Override

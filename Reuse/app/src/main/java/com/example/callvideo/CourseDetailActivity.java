@@ -3,6 +3,7 @@ package com.example.callvideo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CourseDetailActivity extends AppCompatActivity {
-    private TextView txtDCName, txtDCDiscount, txtDCDescript, txtDCPrice,txtExp,txtTutorName,txtGmail,txtSchedule;
+    private TextView txtDCName, txtDCDiscount, txtDCDescript, txtDCPrice,txtExp,txtTutorName,txtGmail,txtSchedule,txtCourseDoc;
     private DatabaseReference courseReference;
     private FirebaseDatabase database;
     private ArrayList<String> courseDetailList;
@@ -32,6 +33,7 @@ public class CourseDetailActivity extends AppCompatActivity {
     private BaseResipistory baseResipistory;
     private Course course;
     private Order order;
+
     private String courseID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class CourseDetailActivity extends AppCompatActivity {
         txtDCDescript = (TextView) findViewById(R.id.txtCourseDiscriptDetail);
         txtExp=(TextView)findViewById(R.id.txtExpTutorCourse);
         txtTutorName=(TextView)findViewById(R.id.txtUserNameTutorCourse);
+        txtCourseDoc=(TextView)findViewById(R.id.txtCourseDoc);
         txtGmail=(TextView)findViewById(R.id.txtEmailTutorCourse);
         txtSchedule=(TextView)findViewById(R.id.txtScheduleTutor);
         baseResipistory = new BaseResipistory(this);
@@ -60,6 +63,7 @@ public class CourseDetailActivity extends AppCompatActivity {
             }
         }
 
+
     }
 
     private void loadDetaillCourse(String courseId) {
@@ -73,6 +77,7 @@ public class CourseDetailActivity extends AppCompatActivity {
                 txtDCDescript.setText(course.getDescript());
                 txtDCDiscount.setText("Discount" + course.getDiscount());
                 txtSchedule.setText(course.getSchedule());
+    //            txtCourseDoc.setText(course.getCourseDoc());
                 String tutorPhone=course.getTutorPhone();
                 loadDetailTutor(tutorPhone);
                 HashMap<Object, Object> orderMap = new HashMap<>();
@@ -82,6 +87,14 @@ public class CourseDetailActivity extends AppCompatActivity {
                 orderMap.put("price", course.getPrice());
                 orderMap.put("schedule", course.getSchedule());
                 orderMap.put("tutorPhone",course.getTutorPhone());
+//                txtCourseDoc.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Uri uri = Uri.parse(course.getCourseDoc());
+//                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                        startActivity(intent);
+//                    }
+//                });
                 btnAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

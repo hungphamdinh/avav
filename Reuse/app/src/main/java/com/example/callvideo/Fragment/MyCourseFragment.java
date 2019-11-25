@@ -75,6 +75,7 @@ public class MyCourseFragment extends Fragment {
                     staffAdapter=new StaffAdapter(context,requestList,requestCk.getCourseId(),userPhone);
                     staffAdapter.notifyDataSetChanged();
                     recyclerMenu.setAdapter(staffAdapter);
+
                 }
             }
 
