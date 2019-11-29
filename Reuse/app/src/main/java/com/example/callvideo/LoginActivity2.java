@@ -51,7 +51,7 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
         ckbRemember=(CheckBox) findViewById(R.id.ckbRememberUser);
         login= (Button)findViewById(R.id.btnLogin);
         txtSignUp=(TextView)findViewById(R.id.txtSignUpNewAc);
-        setupUI(findViewById(R.id.parent));
+    //    setupUI(findViewById(R.id.parent));
         firebaseDatabase=FirebaseDatabase.getInstance();
         table_user=firebaseDatabase.getReference("User");
         Firebase.setAndroidContext(LoginActivity2.this);
@@ -206,26 +206,26 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
         inputMethodManager.hideSoftInputFromWindow(
                 activity.getCurrentFocus().getWindowToken(), 0);
     }
-    public void setupUI(View view) {
-
-        // Set up touch listener for non-text box views to hide keyboard.
-        if (!(view instanceof EditText)) {
-            view.setOnTouchListener(new View.OnTouchListener() {
-                public boolean onTouch(View v, MotionEvent event) {
-                    hideSoftKeyboard(LoginActivity2.this);
-                    return false;
-                }
-            });
-        }
+//    public void setupUI(View view) {
+//
+//        // Set up touch listener for non-text box views to hide keyboard.
+//        if (!(view instanceof EditText)) {
+//            view.setOnTouchListener(new View.OnTouchListener() {
+//                public boolean onTouch(View v, MotionEvent event) {
+//                    hideSoftKeyboard(LoginActivity2.this);
+//                    return false;
+//                }
+//            });
+//        }
 
         //If a layout container, iterate over children and seed recursion.
-        if (view instanceof ViewGroup) {
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                View innerView = ((ViewGroup) view).getChildAt(i);
-                setupUI(innerView);
-            }
-        }
-    }
+//        if (view instanceof ViewGroup) {
+//            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+//                View innerView = ((ViewGroup) view).getChildAt(i);
+//                setupUI(innerView);
+//            }
+//        }
+//    }
     private void readFromAssets() {
         BaseResipistory myDbHelper = new BaseResipistory(LoginActivity2.this);
         try {

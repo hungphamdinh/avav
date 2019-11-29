@@ -1,10 +1,12 @@
 package com.example.callvideo;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -22,6 +24,7 @@ import com.example.callvideo.Common.Common;
 import com.example.callvideo.Fragment.HomeFragment;
 import com.example.callvideo.Fragment.Tab3Fragment;
 import com.example.callvideo.Fragment.MyCourseFragment;
+import com.example.callvideo.Model.Doc;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DatabaseReference;
@@ -52,8 +55,6 @@ public class Home2Activity extends AppCompatActivity
         //      firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         reference = database.getReference("Category");
         Paper.init(this);
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -143,9 +144,12 @@ public class Home2Activity extends AppCompatActivity
             Intent signIn = new Intent(Home2Activity.this, LoginActivity2.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_feedback) {
+            Uri uri = Uri.parse("https://forms.gle/uKm5YsnwTdje7sFf6");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+                }
+         else if (id == R.id.nav_send) {
 
         }
 
@@ -153,7 +157,9 @@ public class Home2Activity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    private void openFeedBack() {
 
+    }
     public void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         //fragmentTransaction.replace(R.id.main_frame,fragment);

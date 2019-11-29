@@ -2,7 +2,6 @@ package com.example.callvideo.Fragment;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -15,12 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.callvideo.Adapter.StaffAdapter;
-import com.example.callvideo.Interface.ItemClickListener;
-import com.example.callvideo.Model.Course;
 import com.example.callvideo.Model.Request;
-import com.example.callvideo.Model.Tutor;
 import com.example.callvideo.R;
-import com.example.callvideo.TutorDetailAcitivity;
 import com.example.callvideo.ViewHolder.StaffViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -54,7 +49,7 @@ public class MyCourseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tutor,container,false);
+        View view = inflater.inflate(R.layout.fragment_my_course,container,false);
         database= FirebaseDatabase.getInstance();
         request =database.getReference("Requests");
         recyclerMenu=(RecyclerView)view.findViewById(R.id.listOrderRecycler);

@@ -16,11 +16,13 @@ import com.example.callvideo.Model.Course;
 import com.example.callvideo.Model.Doc;
 import com.example.callvideo.Model.Tutor;
 import com.example.callvideo.Model.User;
+import com.example.callvideo.Notification.Token;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.sinch.android.rtc.calling.Call;
 
 import java.util.ArrayList;
@@ -58,6 +60,7 @@ public class TutorDetailAcitivity extends BaseActivity {
                 courseId=listChatID.get(2);
                 getDetailTutor(tutorId);
                 getCourseDoc(courseId);
+                updateToken(FirebaseInstanceId.getInstance().getToken());
             } else {
                 Toast.makeText(TutorDetailAcitivity.this, "Check your connection", Toast.LENGTH_SHORT).show();
                 return;
@@ -75,7 +78,11 @@ public class TutorDetailAcitivity extends BaseActivity {
             }
         });
     }
-
+    private void updateToken(String token){
+        DatabaseReference tokenRef=FirebaseDatabase.getInstance().getReference("Tokens");
+        Token newToken=new Token(token);
+        tokenRef.child(userId).setValue(newToken);
+    }
     private void onClickChat() {
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override

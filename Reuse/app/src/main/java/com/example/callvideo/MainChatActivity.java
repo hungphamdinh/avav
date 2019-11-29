@@ -18,6 +18,12 @@ import com.example.callvideo.Model.Chat;
 import com.example.callvideo.Model.Tutor;
 import com.example.callvideo.Model.User;
 
+import com.example.callvideo.Notification.Client;
+import com.example.callvideo.Notification.Data;
+import com.example.callvideo.Notification.MyRespone;
+import com.example.callvideo.Notification.Sender;
+import com.example.callvideo.Notification.Token;
+import com.example.callvideo.Service.APIService;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +34,10 @@ import com.scaledrone.lib.Scaledrone;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainChatActivity extends AppCompatActivity {
     private EditText editText;
@@ -43,6 +53,8 @@ public class MainChatActivity extends AppCompatActivity {
     private ImageButton btnSubmit;
     private ArrayList<Chat>chats;
     private ArrayList<String> listChatID;
+    private APIService apiService;
+    private boolean notify=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +69,7 @@ public class MainChatActivity extends AppCompatActivity {
         //linearLayoutManager.setStackFromEnd(true);
         messagesView.setHasFixedSize(true);
         messagesView.setLayoutManager(linearLayoutManager);
+        apiService= Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
         if (getIntent() != null)
             listChatID = getIntent().getStringArrayListExtra("ChatID");
         if (!listChatID.isEmpty() && listChatID != null) {
@@ -69,6 +82,8 @@ public class MainChatActivity extends AppCompatActivity {
                 return;
             }
         }
+//        if (getIntent() != null)
+//            userId = getIntent().getStringExtra("userid");
         onClickSend();
         //messageAdapter = new MessageAdapter(this);
 
@@ -101,6 +116,7 @@ public class MainChatActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                notify=true;
                 String msg=editText.getText().toString();
                 if(!msg.equals("")) {
                     sendMessage(userId, tutorId, editText.getText().toString());
@@ -121,7 +137,71 @@ public class MainChatActivity extends AppCompatActivity {
         hashMap.put("reciever",reciever);
         hashMap.put("message",message);
         reference.child("Chat").push().setValue(hashMap);
+        final  String msg=message;
+        reference=FirebaseDatabase.getInstance().getReference("User").child(sender);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user=dataSnapshot.getValue(User.class);
+                ArrayList<String>listChat=new ArrayList<>();
+                listChat.add(reciever);
+                listChat.add(sender);
+                listChat.add(user.getUsername());
+                listChat.add(msg);
+                if(notify){
+                    sendNotification(listChat);
+                }
+                notify=false;
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void sendNotification(ArrayList<String> listChat) {
+        String reciever=listChat.get(0);
+        String sender=listChat.get(1);
+        String userName=listChat.get(2);
+        String msg=listChat.get(3);
+        DatabaseReference tokenRef=FirebaseDatabase.getInstance().getReference("Tokens");
+        tokenRef.orderByKey().equalTo(reciever).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childSnap:dataSnapshot.getChildren()){
+                    Token token=childSnap.getValue(Token.class);
+                    Data data=new Data(sender,R.mipmap.ic_launcher,userName+": "+msg,"Tin nhắn mới",
+                    reciever);
+                    Sender send=new Sender(data,token.getToken());
+                    apiService.sendNotification(send)
+                            .enqueue(new Callback<MyRespone>() {
+                                @Override
+                                public void onResponse(Call<MyRespone> call, Response<MyRespone> response) {
+                                    if(response.code()==200){
+                                        if(response.body().success!=1){
+                                            Toast.makeText(MainChatActivity.this,"Failed",Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<MyRespone> call, Throwable t) {
+
+                                }
+                            });
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
