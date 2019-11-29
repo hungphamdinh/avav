@@ -168,7 +168,7 @@ public class MainChatActivity extends AppCompatActivity {
         String userName=listChat.get(2);
         String msg=listChat.get(3);
         DatabaseReference tokenRef=FirebaseDatabase.getInstance().getReference("Tokens");
-        tokenRef.orderByKey().equalTo(reciever).addValueEventListener(new ValueEventListener() {
+        tokenRef.orderByKey().equalTo(reciever).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnap:dataSnapshot.getChildren()){

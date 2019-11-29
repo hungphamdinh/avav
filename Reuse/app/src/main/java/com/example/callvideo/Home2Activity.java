@@ -183,18 +183,18 @@ public class Home2Activity extends AppCompatActivity
         //  user.child(phone).setValue(map);
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        setStatus("online");
-//    }
-//
-//      @Override
-//    protected void onStop() {
-//        super.onStop();
-//        setStatus("offline");
-//    }
-//
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setStatus("online");
+    }
+
+      @Override
+    protected void onStop() {
+        super.onStop();
+        setStatus("offline");
+    }
+
 //    @Override
 //    protected void onDestroy() {
 //        super.onDestroy();
