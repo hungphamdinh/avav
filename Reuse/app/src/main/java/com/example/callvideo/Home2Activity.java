@@ -70,11 +70,8 @@ public class Home2Activity extends AppCompatActivity
             return;
         }
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         if (getIntent() != null)
@@ -119,7 +116,9 @@ public class Home2Activity extends AppCompatActivity
         if (id == R.id.refresh) {
             // loadMenu();
         } else if (id == R.id.accountInform) {
-            startActivity(new Intent(Home2Activity.this, MyAccountActivity.class));
+            Intent intent=new Intent(Home2Activity.this, MyAccountActivity.class);
+            intent.putExtra("phoneKey",userPhone);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

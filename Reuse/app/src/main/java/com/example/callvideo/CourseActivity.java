@@ -8,12 +8,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.example.callvideo.Interface.ItemClickListener;
 import com.example.callvideo.Model.Course;
 import com.example.callvideo.ViewHolder.CourseViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.rey.material.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -23,7 +25,6 @@ public class CourseActivity extends AppCompatActivity {
     private DatabaseReference course;
     private FirebaseDatabase database;
     private FirebaseRecyclerAdapter<Course, CourseViewHolder> adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,11 @@ public class CourseActivity extends AppCompatActivity {
                 viewHolder.txtName.setText(model.getCourseName());
                 viewHolder.txtPrice.setText("Giá: " + model.getPrice());
                 viewHolder.txtDescript.setText(model.getDescript());
+                Glide.with(CourseActivity.this)
+                        .load(model.getImage())
+                        .centerCrop()
+                        // .placeholder(R.drawable.loading_spinner)
+                        .into(viewHolder.courseImage);
                 //viewHolder.txtTutorName.setText("Giảng viên: " + model.getTutorPhone());
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/side_nav_bar"
+    android:background="#fff"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context=".CourseActivity"
@@ -13,13 +13,13 @@
         android:layout_width="match_parent"
         android:layout_weight="2"
         android:layout_height="0dp"
-        android:background="@drawable/side_nav_bar"
+        android:background="#666666"
         android:orientation="vertical">
         <TextView
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="20dp"
+            android:textSize="24dp"
             android:textFontWeight="bold"
             android:layout_marginLeft="5dp"
             android:layout_gravity="center_vertical"
@@ -35,18 +35,21 @@
     <LinearLayout
          android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@drawable/side_nav_bar"
+        android:background="#fff"
         android:orientation="vertical"
         >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="16dp"
         android:text="Thông tin giảng viên"
         />
     <androidx.cardview.widget.CardView
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="10dp"
         android:layout_height="wrap_content">
         <LinearLayout
             android:background="#fff"
@@ -67,27 +70,27 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_gravity="end"
                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/imgProfile"
+                        android:id="@+id/imgProfileDetail"
                         android:layout_width="50dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="5dp"
                         android:layout_height="50dp"
                         android:src="@drawable/profile"
                         app:civ_border_width="1dp"
-                        app:civ_border_color="@color/fbutton_color_emerald"/>
+                        app:civ_border_color="#666666"/>
                     <de.hdodenhof.circleimageview.CircleImageView
                         xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/imgStatus"
                         android:layout_gravity="end|right|bottom"
                         android:layout_width="15dp"
                         android:layout_marginTop="10dp"
-                        android:layout_below="@id/imgProfile"
+                        android:layout_below="@id/imgProfileDetail"
                         android:layout_height="15dp"
                         android:src="@mipmap/ic_launcher"
                         app:civ_border_width="10dp"
                         app:civ_border_color="#05df29"
-                        android:layout_toRightOf="@id/imgProfile"
-                        android:layout_toEndOf="@id/imgProfile"
+                        android:layout_toRightOf="@id/imgProfileDetail"
+                        android:layout_toEndOf="@id/imgProfileDetail"
                         />
                 </FrameLayout>
 
@@ -105,9 +108,10 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/txtUserNameTutor"
                         android:textStyle="bold"
+                        android:textSize="16dp"
                         android:text="UserName"
                         android:layout_marginTop="6dp"
-                        android:textColor="#000"
+                        android:textColor="#666666"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -115,7 +119,7 @@
                         android:id="@+id/txtCountryTutor"
                         android:textStyle="italic"
                         android:text="4543534"
-                        android:textColor="#000"
+                        android:textColor="#666666"
                         android:layout_marginTop="6dp"
 
                         />
@@ -125,15 +129,15 @@
                         android:id="@+id/txtEmailTutor"
                         android:textStyle="italic"
                         android:text="Address"
-                        android:textColor="#000"
+                        android:textColor="#666666"
                         android:layout_marginTop="6dp"
 
                         />
                 </LinearLayout>
 
             </LinearLayout>
-            <Button android:layout_height="wrap_content" android:id="@+id/btnCallTutor" android:layout_width="200dp" android:layout_marginVertical="10dp" android:layout_gravity="center" android:background="#01b0a9" android:textSize="25dp" android:textColor="#fff" android:hint="Thực hành" android:textAlignment="center"/>
-            <Button android:layout_height="wrap_content" android:id="@+id/btnMessage" android:layout_width="200dp" android:layout_marginVertical="10dp" android:layout_gravity="center" android:background="#01b0a9" android:textSize="25dp" android:textColor="#fff" android:hint="Nhắn tin" android:textAlignment="center"/>
+            <Button android:layout_height="wrap_content" android:id="@+id/btnCallTutor" android:layout_width="200dp" android:layout_marginVertical="10dp" android:layout_gravity="center" android:background="#666666" android:textSize="24dp" android:textColor="#fff" android:hint="Thực hành" android:textAlignment="center"/>
+            <Button android:layout_height="wrap_content" android:id="@+id/btnMessage" android:layout_width="200dp" android:layout_marginVertical="10dp" android:layout_gravity="center" android:background="#666666" android:textSize="24dp" android:textColor="#fff" android:hint="Nhắn tin" android:textAlignment="center"/>
 
         </LinearLayout>
 
@@ -142,19 +146,21 @@
         android:layout_marginTop="20dp"
         android:background="#fff"
         android:layout_width="match_parent"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="10dp"
         android:layout_height="wrap_content">
                 <LinearLayout
-                    android:layout_marginRight="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/side_nav_bar"
+                    android:background="#fff"
                     android:orientation="vertical">
 
 
                     <TextView
                         android:layout_width="match_parent"
                         android:padding="5dp"
-                        android:background="#000"
+                        android:background="#666666"
                         android:layout_height="wrap_content"
                         android:id="@+id/txtTitleTutor"
                         android:text="Kinh nghiệm giảng dạy"
@@ -168,14 +174,14 @@
                         android:id="@+id/txtExpTutor"
                         android:textStyle="italic"
                         android:text="4543534"
-                        android:textColor="#000"
+                        android:textColor="#666"
                         android:background="#fff"
-                        android:textSize="20dp"
+                        android:textSize="16dp"
                         />
                     <TextView
                         android:layout_width="match_parent"
                         android:padding="5dp"
-                        android:background="#000"
+                        android:background="#666666"
                         android:layout_height="wrap_content"
                         android:text="Tài liệu học"
                         android:textSize="20dp"
@@ -199,8 +205,8 @@
                             android:id="@+id/txtCourseDocDetail"
                             android:textStyle="italic"
                             android:text="4543534"
-                            android:textColor="#000"
-                            android:textSize="20dp"
+                            android:textColor="#666666"
+                            android:textSize="16dp"
                             android:background="#fff"
                             />
                     </LinearLayout>

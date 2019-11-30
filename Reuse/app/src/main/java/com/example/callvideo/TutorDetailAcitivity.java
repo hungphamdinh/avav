@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.Model.Course;
 import com.example.callvideo.Model.Doc;
@@ -27,6 +28,8 @@ import com.sinch.android.rtc.calling.Call;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class TutorDetailAcitivity extends BaseActivity {
     private DatabaseReference tutor;
     private FirebaseDatabase database;
@@ -34,6 +37,7 @@ public class TutorDetailAcitivity extends BaseActivity {
     private String tutorId;
     private String userId;
     private String courseId;
+    private CircleImageView profileImage;
     private Button btnChat;
     private Button btnCall;
     private ArrayList<String> listChatID;
@@ -48,6 +52,7 @@ public class TutorDetailAcitivity extends BaseActivity {
         txtTitle=(TextView)findViewById(R.id.txtTitleTutorDetail);
         txtCountry=(TextView)findViewById(R.id.txtCountryTutor);
         txtExp=(TextView)findViewById(R.id.txtExpTutor);
+        profileImage=(CircleImageView)findViewById(R.id.imgProfileDetail);
         txtCourseDoc=(TextView)findViewById(R.id.txtCourseDocDetail);
         btnChat=(Button)findViewById(R.id.btnMessage);
         btnCall=(Button)findViewById(R.id.btnCallTutor);
@@ -149,6 +154,10 @@ public class TutorDetailAcitivity extends BaseActivity {
                 txtUsername.setText(tutor.getUsername());
                 txtEmail.setText(tutor.getEmail());
                 txtExp.setText(tutor.getExperience());
+                Glide.with(TutorDetailAcitivity.this)
+                        .load(tutor.getAvatar())
+                        .centerCrop()
+                        .into(profileImage);
             }
 
             @Override

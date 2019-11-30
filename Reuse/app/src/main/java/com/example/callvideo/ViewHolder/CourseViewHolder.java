@@ -2,6 +2,7 @@ package com.example.callvideo.ViewHolder;
 
 import android.view.ContextMenu;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import com.example.callvideo.R;
 
 public class CourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnCreateContextMenuListener {
     public TextView txtName,txtPrice,txtDescript, txtTutorName;
+    public ImageView courseImage;
     private ItemClickListener itemClickListener;
     public CourseViewHolder(View itemView) {
         super(itemView);
@@ -19,6 +21,7 @@ public class CourseViewHolder extends RecyclerView.ViewHolder implements View.On
         txtPrice=(TextView)itemView.findViewById(R.id.txtCoursePrice);
         txtDescript=(TextView)itemView.findViewById(R.id.txtCourseDescript);
         txtTutorName =(TextView)itemView.findViewById(R.id.txtTutorName);
+        courseImage=(ImageView)itemView.findViewById(R.id.imgCourse);
         itemView.setOnClickListener(this);
         itemView.setOnCreateContextMenuListener(this);
     }

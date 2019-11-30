@@ -54,7 +54,7 @@ public class MyCourseFragment extends Fragment {
         request =database.getReference("Requests");
         recyclerMenu=(RecyclerView)view.findViewById(R.id.listOrderRecycler);
         recyclerMenu.setHasFixedSize(true);
-        layoutManager= new LinearLayoutManager(getContext());
+        layoutManager= new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
         recyclerMenu.setLayoutManager(layoutManager);
         loadTutor();
         return view;

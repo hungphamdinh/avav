@@ -4,78 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".MyAccountActivity"
+    android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".MyAccountActivity">
-    <TextView
+    >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_gravity="center"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgProfileMyAccount"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/profile"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/fbutton_color_emerald"/>
+    </FrameLayout>
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Username"
-        android:textSize="12dp"
+        android:hint="Tên người dùng"
+        android:id="@+id/edtNameU"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="12dp"
-        android:enabled="false"
-        android:id="@+id/edtUsernameMyAc"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Phone number"
-        android:textSize="12dp"
+        android:hint="Mật khẩu"
+        android:inputType="textPassword"
+        android:id="@+id/edtPassU"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="12dp"
-        android:enabled="false"
-        android:id="@+id/edtPhoneMyAc"
+        android:hint="Email"
+        android:id="@+id/edtEmailtU"
         />
-        <TextView
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email"
-            android:textSize="12dp"
+            android:hint="Hình ảnh"
+            android:id="@+id/edtProfileU"
+            android:inputType="phone"
             />
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_gravity="right"
-            >
-            <EditText
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:hint="Email"
-                android:textSize="12dp"
-                android:id="@+id/edtEmailAc"
-                >
-            </EditText>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12dp"
-                android:text="Add Email"
-                android:id="@+id/btnAddEmail"
-                />
-        </LinearLayout>
+            android:hint="Chọn file"
+            android:id="@+id/btnUpdateFile"
+            />
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Password"
-        android:textSize="12dp"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="********"
-        android:enabled="false"
-        android:textSize="12dp"
+        android:hint="Thay đổi"
+        android:id="@+id/btnUpdate"
         />
 </LinearLayout>

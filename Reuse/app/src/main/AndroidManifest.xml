@@ -62,7 +62,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MyAccountActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
         <activity
             android:name=".LoginActivity2"
             android:screenOrientation="portrait">

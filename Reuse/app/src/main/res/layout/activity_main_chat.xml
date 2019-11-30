@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/side_nav_bar"
+    android:background="#fff"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context="com.example.callvideo.MainChatActivity"    >
@@ -12,13 +12,13 @@
         android:layout_width="match_parent"
         android:layout_weight="2"
         android:layout_height="0dp"
-        android:background="@drawable/side_nav_bar"
+        android:background="#666666"
         android:orientation="vertical">
         <TextView
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="20dp"
+            android:textSize="24dp"
             android:textFontWeight="bold"
             android:layout_marginLeft="5dp"
             android:layout_gravity="center_vertical"
@@ -41,14 +41,15 @@
         android:layout_width="match_parent"
         android:id="@+id/messages_view"
         android:layout_weight="2"
-        android:background="@drawable/side_nav_bar"
+        android:background="#fff"
         android:layout_height="wrap_content"
         />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/side_nav_bar"
+        android:background="#fff"
         android:orientation="horizontal">
 
         <EditText
@@ -57,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:ems="10"
-            android:textColor="#000"
+            android:textColor="#666666"
+            android:textColorHint="#666666"
             android:hint="Write a message"
             android:inputType="text"
             android:paddingHorizontal="10dp"

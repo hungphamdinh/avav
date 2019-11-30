@@ -7,9 +7,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.Model.Course;
 import com.example.callvideo.Model.Order;
@@ -31,6 +33,7 @@ public class CourseDetailActivity extends AppCompatActivity {
     private ArrayList<String> courseDetailList;
     private Button btnAdd;
     private BaseResipistory baseResipistory;
+    private ImageView imageCourse,profile;
     private Course course;
     private Order order;
 
@@ -49,7 +52,9 @@ public class CourseDetailActivity extends AppCompatActivity {
         txtTutorName=(TextView)findViewById(R.id.txtUserNameTutorCourse);
         txtCourseDoc=(TextView)findViewById(R.id.txtCourseDoc);
         txtGmail=(TextView)findViewById(R.id.txtEmailTutorCourse);
+        imageCourse=(ImageView)findViewById(R.id.imgDetailCourse);
         txtSchedule=(TextView)findViewById(R.id.txtScheduleTutor);
+        profile=(ImageView) findViewById(R.id.imgProfileCourseDetail);
         baseResipistory = new BaseResipistory(this);
         btnAdd = (Button) findViewById(R.id.btnAddCart);
         if (getIntent() != null) {
@@ -73,10 +78,15 @@ public class CourseDetailActivity extends AppCompatActivity {
                 course = dataSnapshot.getValue(Course.class);
                 //Picasso.with(getBaseContext()).load(curentFood.getImage()).into(foodImage);
                 txtDCName.setText(course.getCourseName());
-                txtDCPrice.setText("Price: " + course.getPrice());
+                txtDCPrice.setText(course.getPrice());
                 txtDCDescript.setText(course.getDescript());
-                txtDCDiscount.setText("Discount" + course.getDiscount());
+                txtDCDiscount.setText(course.getDiscount());
                 txtSchedule.setText(course.getSchedule());
+                Glide.with(CourseDetailActivity.this)
+                        .load(course.getImage())
+                        .centerCrop()
+                        // .placeholder(R.drawable.loading_spinner)
+                        .into(imageCourse);
     //            txtCourseDoc.setText(course.getCourseDoc());
                 String tutorPhone=course.getTutorPhone();
                 loadDetailTutor(tutorPhone);
@@ -123,7 +133,11 @@ public class CourseDetailActivity extends AppCompatActivity {
                 txtExp.setText(tutor.getExperience());
                 txtGmail.setText(tutor.getEmail());
                 txtTutorName.setText(tutor.getUsername());
-
+                Glide.with(CourseDetailActivity.this)
+                        .load(tutor.getAvatar())
+                        .centerCrop()
+                        // .placeholder(R.drawable.loading_spinner)
+                        .into(profile);
             }
 
             @Override

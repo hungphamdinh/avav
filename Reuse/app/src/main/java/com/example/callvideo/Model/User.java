@@ -4,16 +4,16 @@ public class User {
     private String username;
     private String password;
     private String phone;
+    private String avatar;
 
-    public String getExperience() {
-        return experience;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setExperience(String experience) {
-        this.experience = experience;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
-    private String experience;
 
     public String getStatus() {
         return status;

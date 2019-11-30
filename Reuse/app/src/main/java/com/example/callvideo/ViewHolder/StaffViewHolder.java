@@ -20,8 +20,8 @@ public class StaffViewHolder extends RecyclerView.ViewHolder implements View.OnC
         txtName=(TextView)itemView.findViewById(R.id.txtUserNameMyCourse);
         txtEmail=(TextView)itemView.findViewById(R.id.txtEmailMyCourse);
         txtCourseName=(TextView)itemView.findViewById(R.id.txtTitleMyCourse);
-        txtDescript=(TextView)itemView.findViewById(R.id.txtCourseDescriptMyCourse);
-        txtSchedule=(TextView)itemView.findViewById(R.id.txtScheduleMyCourse);
+//        txtDescript=(TextView)itemView.findViewById(R.id.txtCourseDescriptMyCourse);
+//        txtSchedule=(TextView)itemView.findViewById(R.id.txtScheduleMyCourse);
         itemView.setOnClickListener(this);
         itemView.setOnCreateContextMenuListener(this);
     }

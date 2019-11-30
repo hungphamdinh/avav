@@ -11,14 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:background="#01b0a9"
+        android:background="#fff"
         >
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_height="100dp"
-       android:background="@color/cardview_dark_background"
+        android:background="#0080ff"
+
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -34,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
-                    android:text="Total: "
+                    android:text="Tổng tiền: "
                     android:textColor="#fff"
                     />
                 <TextView
@@ -54,12 +55,12 @@
                 android:layout_marginTop="6dp"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="center"
-                android:background="#01b0a9"
+                android:background="#0080ff"
                 android:textSize="24dp"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="#fff"
                 android:layout_marginRight="40dp"
                 android:layout_marginLeft="40dp"
-                android:hint="Place Order" android:textAlignment="center"/>
+                android:hint="Thanh toán" android:textAlignment="center"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

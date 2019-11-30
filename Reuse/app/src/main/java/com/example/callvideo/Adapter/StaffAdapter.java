@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.Interface.ItemClickListener;
 import com.example.callvideo.Model.Course;
@@ -28,6 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHolder>  {
@@ -69,7 +72,11 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
                 Course course=dataSnapshot.getValue(Course.class);
                 holder.txtCourseName.setText(course.getCourseName());
                 holder.txtSchedule.setText(course.getSchedule());
-                holder.txtDescript.setText(course.getDescript());
+//                holder.txtDescript.setText(course.getDescript());
+                Glide.with(context)
+                        .load(course.getImage())
+                        .centerCrop()
+                        .into(holder.imgCourse);
                 loadTutor(course.getTutorPhone(),holder);
                 onClickItem(course, holder);
             }
@@ -88,6 +95,12 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
                 Tutor tutor=dataSnapshot.getValue(Tutor.class);
                 viewHolder.txtName.setText(tutor.getUsername());
                 viewHolder.txtEmail.setText(tutor.getEmail());
+                Glide.with(context)
+                        .load(tutor.getAvatar())
+                        .centerCrop()
+                        // .placeholder(R.drawable.loading_spinner)
+                        .into(viewHolder.profileImage);
+
             }
 
             @Override
@@ -121,6 +134,8 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
 
     public class StaffViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {
         public TextView txtName,txtCourseName,txtDescript,txtEmail,txtSchedule;
+        private CircleImageView profileImage;
+        private ImageView imgCourse;
         private ItemClickListener itemClickListener;
 
         public StaffViewHolder(View itemView) {
@@ -128,8 +143,10 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
             txtName=(TextView)itemView.findViewById(R.id.txtUserNameMyCourse);
             txtEmail=(TextView)itemView.findViewById(R.id.txtEmailMyCourse);
             txtCourseName=(TextView)itemView.findViewById(R.id.txtTitleMyCourse);
-            txtDescript=(TextView)itemView.findViewById(R.id.txtCourseDescriptMyCourse);
+            //txtDescript=(TextView)itemView.findViewById(R.id.txtCourseDescriptMyCourse);
             txtSchedule=(TextView)itemView.findViewById(R.id.txtScheduleMyCourse);
+            profileImage=(CircleImageView)itemView.findViewById(R.id.imgProfileMyCourse);
+            imgCourse=(ImageView)itemView.findViewById(R.id.imgMyCourse);
             itemView.setOnClickListener(this);
             itemView.setOnCreateContextMenuListener(this);
         }
