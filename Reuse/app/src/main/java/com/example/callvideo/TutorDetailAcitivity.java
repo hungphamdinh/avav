@@ -1,11 +1,9 @@
 package com.example.callvideo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,10 +11,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.callvideo.Common.Common;
-import com.example.callvideo.Model.Course;
 import com.example.callvideo.Model.Doc;
 import com.example.callvideo.Model.Tutor;
-import com.example.callvideo.Model.User;
 import com.example.callvideo.Notification.Token;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,31 +23,35 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.sinch.android.rtc.calling.Call;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TutorDetailAcitivity extends BaseActivity {
-    private DatabaseReference tutor;
+    private DatabaseReference tutorRef;
     private FirebaseDatabase database;
-    private TextView txtUsername,txtTitle,txtCountry,txtEmail,txtExp,txtCourseDoc;
+    private TextView txtUsername,txtTitle,txtStatus,txtEmail,txtExp,txtCourseDoc;
     private String tutorId;
     private String userId;
     private String courseId;
-    private CircleImageView profileImage;
+    private CircleImageView profileImage,imgStatus;
     private Button btnChat;
     private Button btnCall;
+    //private String status;
     private ArrayList<String> listChatID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_detail_acitivity);
         database=FirebaseDatabase.getInstance();
-        tutor=database.getReference("Tutor");
+        tutorRef =database.getReference("Tutor");
         txtUsername=(TextView)findViewById(R.id.txtUserNameTutor);
         txtEmail=(TextView)findViewById(R.id.txtEmailTutor);
         txtTitle=(TextView)findViewById(R.id.txtTitleTutorDetail);
-        txtCountry=(TextView)findViewById(R.id.txtCountryTutor);
+        txtStatus=(TextView)findViewById(R.id.txtTutorStatusDe);
         txtExp=(TextView)findViewById(R.id.txtExpTutor);
+        imgStatus=(CircleImageView)findViewById(R.id.imgStatusTutorDe);
+
         profileImage=(CircleImageView)findViewById(R.id.imgProfileDetail);
         txtCourseDoc=(TextView)findViewById(R.id.txtCourseDocDetail);
         btnChat=(Button)findViewById(R.id.btnMessage);
@@ -63,6 +63,7 @@ public class TutorDetailAcitivity extends BaseActivity {
                 tutorId=listChatID.get(0);
                 userId=listChatID.get(1);
                 courseId=listChatID.get(2);
+                //status=listChatID.get(3);
                 getDetailTutor(tutorId);
                 getCourseDoc(courseId);
                 updateToken(FirebaseInstanceId.getInstance().getToken());
@@ -102,7 +103,7 @@ public class TutorDetailAcitivity extends BaseActivity {
     private void callButtonClicked(String userName) {
         //String userName = mCallName.getText().toString();
         if (userName.isEmpty()) {
-            Toast.makeText(this, "Please enter a tutor to call", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please enter a tutorRef to call", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -142,14 +143,31 @@ public class TutorDetailAcitivity extends BaseActivity {
             }
         });
     }
-
+    private void setStatus(String status){
+        HashMap<String,Object>map=new HashMap<>();
+        map.put("status",status);
+        DatabaseReference userRef=FirebaseDatabase.getInstance().getReference("User");
+        userRef.child(userId).updateChildren(map);
+    }
     private void getDetailTutor(String tutorId) {
-        tutor.child(tutorId).addValueEventListener(new ValueEventListener() {
+        tutorRef.child(tutorId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Tutor tutor=dataSnapshot.getValue(Tutor.class);
+
 //                Picasso.with(getBaseContext()).load(curentFood.getImage()).into(foodImage);
 //                collapsingToolbarLayout.setTitle(curentFood.getName());
+                if(tutor.getStatus().equals("offline")){
+                    txtStatus.setTextColor(Color.parseColor("#FF0000"));
+                    txtStatus.setText("Giảng viên hiện không hoạt động");
+                    imgStatus.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    txtStatus.setText("Giảng viên hiện đang hoạt động");
+                    txtStatus.setTextColor(Color.parseColor("#00FF00"));
+                    imgStatus.setVisibility(View.VISIBLE);
+
+                }
                 txtTitle.setText(tutor.getUsername());
                 txtUsername.setText(tutor.getUsername());
                 txtEmail.setText(tutor.getEmail());
@@ -178,5 +196,16 @@ public class TutorDetailAcitivity extends BaseActivity {
             getSinchServiceInterface().stopClient();
         }
         finish();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setStatus("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        setStatus("offline");
     }
 }

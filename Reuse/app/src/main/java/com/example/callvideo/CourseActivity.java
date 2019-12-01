@@ -7,23 +7,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.callvideo.Common.Common;
 import com.example.callvideo.Interface.ItemClickListener;
 import com.example.callvideo.Model.Course;
 import com.example.callvideo.ViewHolder.CourseViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.rey.material.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CourseActivity extends AppCompatActivity {
     private RecyclerView recyclerMenu;
     private RecyclerView.LayoutManager layoutManager;
     private DatabaseReference course;
     private FirebaseDatabase database;
+    private String phoneUser;
     private FirebaseRecyclerAdapter<Course, CourseViewHolder> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +36,27 @@ public class CourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course);
         database = FirebaseDatabase.getInstance();
         course = database.getReference("Course");
+        if (getIntent() != null)
+            phoneUser = getIntent().getStringExtra("phoneUser");
+        if (!phoneUser.isEmpty() && phoneUser != null) {
+            if (Common.isConnectedToInternet(this)) {
+            } else {
+                Toast.makeText(CourseActivity.this, "Check your connection", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
         recyclerMenu = (RecyclerView) findViewById(R.id.listCourse);
         recyclerMenu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerMenu.setLayoutManager(layoutManager);
         loadListCourse();
     }
-
+    private void setStatus(String status){
+        HashMap<String,Object>map=new HashMap<>();
+        map.put("status",status);
+        DatabaseReference userRef=FirebaseDatabase.getInstance().getReference("User");
+        userRef.child(phoneUser).updateChildren(map);
+    }
     private void loadListCourse() {
         adapter = new FirebaseRecyclerAdapter<Course, CourseViewHolder>
                 (Course.class, R.layout.course_layout,
@@ -75,6 +94,17 @@ public class CourseActivity extends AppCompatActivity {
         };
         adapter.notifyDataSetChanged();
         recyclerMenu.setAdapter(adapter);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setStatus("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        setStatus("offline");
     }
 }
 

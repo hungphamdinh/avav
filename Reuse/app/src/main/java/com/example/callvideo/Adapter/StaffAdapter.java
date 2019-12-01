@@ -3,6 +3,7 @@ package com.example.callvideo.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
     private String userId;
     public static final int MSG_RIGHT = 1;
     private String courseId;
+ //   private String status;
     //private String imgUrl;
     public StaffAdapter(Context context, ArrayList<Request> requests, String courseId,String userId) {
         this.context = context;
@@ -93,6 +95,16 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Tutor tutor=dataSnapshot.getValue(Tutor.class);
+                if(tutor.getStatus().equals("offline")){
+                    viewHolder.txtStatus.setTextColor(Color.parseColor("#FF0000"));
+                    viewHolder.txtStatus.setText("Giảng viên hiện không hoạt động");
+                    viewHolder.imgStatus.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    viewHolder.txtStatus.setText("Giảng viên đang hoạt động");
+                    viewHolder.txtStatus.setTextColor(Color.parseColor("#00FF00"));
+                    viewHolder.imgStatus.setVisibility(View.VISIBLE);
+                }
                 viewHolder.txtName.setText(tutor.getUsername());
                 viewHolder.txtEmail.setText(tutor.getEmail());
                 Glide.with(context)
@@ -100,7 +112,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
                         .centerCrop()
                         // .placeholder(R.drawable.loading_spinner)
                         .into(viewHolder.profileImage);
-
+   //             status=tutor.getStatus();
             }
 
             @Override
@@ -120,6 +132,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
                 listIntent.add(tutorID);
                 listIntent.add(userID);
                 listIntent.add(requests.get(position).courseId);
+        //        listIntent.add(status);
                 intent.putStringArrayListExtra("ChatID",listIntent);
                 //intent.putExtra("tutorID",adapter.getRef(position).getKey());
                 context.startActivity(intent);                    }
@@ -133,8 +146,8 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
 
 
     public class StaffViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {
-        public TextView txtName,txtCourseName,txtDescript,txtEmail,txtSchedule;
-        private CircleImageView profileImage;
+        public TextView txtName,txtCourseName,txtStatus,txtEmail,txtSchedule;
+        private CircleImageView profileImage,imgStatus;
         private ImageView imgCourse;
         private ItemClickListener itemClickListener;
 
@@ -143,8 +156,9 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
             txtName=(TextView)itemView.findViewById(R.id.txtUserNameMyCourse);
             txtEmail=(TextView)itemView.findViewById(R.id.txtEmailMyCourse);
             txtCourseName=(TextView)itemView.findViewById(R.id.txtTitleMyCourse);
-            //txtDescript=(TextView)itemView.findViewById(R.id.txtCourseDescriptMyCourse);
+            txtStatus=(TextView)itemView.findViewById(R.id.txtTutorStatus);
             txtSchedule=(TextView)itemView.findViewById(R.id.txtScheduleMyCourse);
+            imgStatus=(CircleImageView)itemView.findViewById(R.id.imgStatusMyCourse);
             profileImage=(CircleImageView)itemView.findViewById(R.id.imgProfileMyCourse);
             imgCourse=(ImageView)itemView.findViewById(R.id.imgMyCourse);
             itemView.setOnClickListener(this);

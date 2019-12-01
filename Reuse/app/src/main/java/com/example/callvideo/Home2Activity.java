@@ -1,5 +1,8 @@
 package com.example.callvideo;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.List;
 
 import io.paperdb.Paper;
 
@@ -133,9 +137,13 @@ public class Home2Activity extends AppCompatActivity
         if (id == R.id.nav_menu) {
 
         } else if (id == R.id.nav_cart) {
-            startActivity(new Intent(Home2Activity.this, CartActivity.class));
+//            Intent intent=new Intent(Home2Activity.this, CartActivity.class);
+//            intent.putExtra("phoneUser",userPhone);
+//            startActivity(intent);
+
         } else if (id == R.id.nav_order) {
             Intent intent = new Intent(Home2Activity.this, CourseActivity.class);
+            intent.putExtra("phoneUser",userPhone);
             startActivity(intent);
 
         } else if (id == R.id.nav_signout) {
@@ -169,7 +177,7 @@ public class Home2Activity extends AppCompatActivity
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment(Home2Activity.this, userPhone), "Trang chủ");
         adapter.addFragment(new MyCourseFragment(Home2Activity.this,userPhone), "Khóa học đã đăng ký");
-        adapter.addFragment(new Tab3Fragment(), "TAB3");
+        adapter.addFragment(new Tab3Fragment(), "Về chúng tôi");
         viewPager.setAdapter(adapter);
 
     }
@@ -183,21 +191,15 @@ public class Home2Activity extends AppCompatActivity
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         setStatus("online");
     }
 
-      @Override
-    protected void onStop() {
-        super.onStop();
+    @Override
+    protected void onPause() {
+        super.onPause();
         setStatus("offline");
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        setStatus("offline");
-//
-//    }
 }
