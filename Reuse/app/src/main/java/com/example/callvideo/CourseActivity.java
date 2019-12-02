@@ -81,7 +81,7 @@ public class CourseActivity extends AppCompatActivity {
                         listIntent.add(viewHolder.txtName.getText().toString());
                         listIntent.add(viewHolder.txtPrice.getText().toString());
                         listIntent.add(viewHolder.txtTutorName.getText().toString());
-                        listIntent.add(viewHolder.txtDescript.getText().toString());
+                        listIntent.add(phoneUser);
                         listIntent.add(adapter.getRef(position).getKey());
                         intent.putStringArrayListExtra("DetailList", listIntent);
                         //intent.putExtra("DetailList", (Parcelable) listIntent);

@@ -172,7 +172,7 @@ public class TutorDetailAcitivity extends BaseActivity {
                 txtUsername.setText(tutor.getUsername());
                 txtEmail.setText(tutor.getEmail());
                 txtExp.setText(tutor.getExperience());
-                Glide.with(TutorDetailAcitivity.this)
+                Glide.with(getApplicationContext())
                         .load(tutor.getAvatar())
                         .centerCrop()
                         .into(profileImage);

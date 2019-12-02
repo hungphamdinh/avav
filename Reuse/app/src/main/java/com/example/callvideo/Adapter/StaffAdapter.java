@@ -75,7 +75,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
                 holder.txtCourseName.setText(course.getCourseName());
                 holder.txtSchedule.setText(course.getSchedule());
 //                holder.txtDescript.setText(course.getDescript());
-                Glide.with(context)
+                Glide.with(context.getApplicationContext())
                         .load(course.getImage())
                         .centerCrop()
                         .into(holder.imgCourse);

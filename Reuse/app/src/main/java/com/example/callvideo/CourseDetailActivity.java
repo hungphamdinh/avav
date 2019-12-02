@@ -36,7 +36,7 @@ public class CourseDetailActivity extends AppCompatActivity {
     private ImageView imageCourse,profile;
     private Course course;
     private Order order;
-
+    private String userPhone;
     private String courseID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public class CourseDetailActivity extends AppCompatActivity {
         }
         if (!courseDetailList.isEmpty() && courseDetailList != null) {
             if (Common.isConnectedToInternet(this)) {
+                userPhone=courseDetailList.get(3);
                 courseID=courseDetailList.get(4);
                 loadDetaillCourse(courseID);
             }
@@ -146,6 +147,22 @@ public class CourseDetailActivity extends AppCompatActivity {
             }
         });
     }
+    private void setStatus(String status){
+        HashMap<String,Object>map=new HashMap<>();
+        map.put("status",status);
+        DatabaseReference userRef=FirebaseDatabase.getInstance().getReference("User");
+        userRef.child(userPhone).updateChildren(map);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setStatus("online");
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        setStatus("offline");
+    }
 
 }
