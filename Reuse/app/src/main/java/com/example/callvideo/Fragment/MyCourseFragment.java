@@ -60,7 +60,7 @@ public class MyCourseFragment extends Fragment {
         return view;
     }
     private void loadTutor(){
-        request.orderByChild("phone").equalTo(userPhone).addValueEventListener(new ValueEventListener() {
+        request.orderByChild("phone").equalTo(userPhone).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 requestList=new ArrayList<>();

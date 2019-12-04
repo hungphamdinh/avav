@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class BaseResipistory extends SQLiteOpenHelper {
@@ -108,15 +109,15 @@ public class BaseResipistory extends SQLiteOpenHelper {
     }
 
 
-    public void insert(Map<Object, Object> map) {
+    public void insert(HashMap<String, Object> map) {
         openDataBase();
         //  myDataBase=this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("CourseId", String.valueOf(map.get("courseId")));
-        contentValues.put("CourseName", String.valueOf(map.get("courseName")));
-        contentValues.put("Price", String.valueOf(map.get("price")));
-        contentValues.put("Schedule", String.valueOf(map.get("schedule")));
-        contentValues.put("TutorPhone", String.valueOf(map.get("tutorPhone")));
+        contentValues.put("CourseId", map.get("courseId").toString());
+        contentValues.put("CourseName", map.get("courseName").toString());
+        contentValues.put("Price", map.get("coursePrice").toString());
+        contentValues.put("Schedule", map.get("courseSchedule").toString());
+        contentValues.put("TutorPhone", map.get("tutorPhone").toString());
 
         myDataBase.insert("OrderDetail", null, contentValues);
         close();

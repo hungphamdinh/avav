@@ -13,12 +13,11 @@ import com.bumptech.glide.Glide;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.Interface.ItemClickListener;
 import com.example.callvideo.Model.Course;
+import com.example.callvideo.View.LoadMyCourse.CourseDetailActivity;
 import com.example.callvideo.ViewHolder.CourseViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.rey.material.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -170,7 +170,8 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
 
 
     @Override
-    public void onLoginSucess(String msg) {
+    public void setDisplaySuccess(String msg) {
+        Toast.makeText(LoginActivity2.this,msg,Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(LoginActivity2.this, Home2Activity.class);
         intent.putExtra("phoneUser",username.getText().toString());
         //Common.currentUser = uUser;
@@ -178,12 +179,10 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
             getSinchServiceInterface().startClient(username.getText().toString());
         }
         startActivity(intent);
-        Toast.makeText(LoginActivity2.this,msg,Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
-    public void onLoginError(String msg) {
+    public void setDisplayError(String msg) {
         Toast.makeText(LoginActivity2.this,msg,Toast.LENGTH_SHORT).show();
     }
 }

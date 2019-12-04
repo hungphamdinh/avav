@@ -1,36 +1,58 @@
 package com.example.callvideo.Model.User.Login;
 
+import android.content.Context;
+
+import com.example.callvideo.Common.Common;
 import com.example.callvideo.Model.User.User;
+import com.firebase.client.Firebase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class UserLogin implements IUserLogin{
-    private String phone;
-    private String passWord;
-
-    public UserLogin(String phone,String passWord){
-        this.phone=phone;
-        this.passWord=passWord;
+public class UserLogin {
+    private Context context;
+    private IUserLoginListener userLoginListener;
+    public UserLogin(IUserLoginListener userLoginListener,Context context){
+        this.userLoginListener=userLoginListener;
+        this.context=context;
     }
-    public int isValidData(String password,boolean phoneExist) {
+    public void isValidData(String phone,String password) {
+        if (Common.isConnectedToInternet(context)) {
 
-        User user=new User(phone,password);
-        if (user.getPhone().equals("") || user.getPassword().equals("")) {
-            return 0;
+//        User user=new User(phone,password);
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("User");
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (phone.equals("") || password.equals("")) {
+                        userLoginListener.onLoginError("Null");
+                    } else {
+                        if (dataSnapshot.child(phone).exists()) {
+                            User uUser = dataSnapshot.child(phone).getValue(User.class);
+                            if (password.equals(uUser.getPassword())) {
+                                userLoginListener.onLoginSucess("Success");
+                            } else {
+                                userLoginListener.onLoginError("WrongPass");
+                            }
+
+                        } else {
+                            userLoginListener.onLoginError("PhoneNotExist");
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
         else {
-            if (phoneExist==true&&password!=null) {
-//                        User uUser = dataSnapshot.child(getPhone()).getValue(User.class);
-                if (password.equals(user.getPassword())) {
-                    return 1;
-
-                }
-                else {
-                    return 2;
-                }
-            }
-            else {
-                return 3;
-            }
+            userLoginListener.onLoginError("Please check your connection");
         }
     }
+
 
 }
