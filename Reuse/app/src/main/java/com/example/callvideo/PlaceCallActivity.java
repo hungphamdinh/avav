@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.callvideo.Interface.ItemClickListener;
-import com.example.callvideo.Model.User;
+import com.example.callvideo.Model.User.User;
 import com.example.callvideo.ViewHolder.StaffViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;

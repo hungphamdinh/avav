@@ -1,17 +1,12 @@
 package com.example.callvideo.Notification;
 
-import com.example.callvideo.Model.Tutor;
-import com.example.callvideo.Model.User;
-import com.firebase.client.Firebase;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.callvideo.Model.User.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdReceiver;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
 public class MyFirebaseService extends FirebaseInstanceIdService {

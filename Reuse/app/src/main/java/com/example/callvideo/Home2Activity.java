@@ -1,15 +1,11 @@
 package com.example.callvideo;
 
-import android.app.ActivityManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 
@@ -27,14 +23,13 @@ import com.example.callvideo.Common.Common;
 import com.example.callvideo.Fragment.HomeFragment;
 import com.example.callvideo.Fragment.Tab3Fragment;
 import com.example.callvideo.Fragment.MyCourseFragment;
-import com.example.callvideo.Model.Doc;
+import com.example.callvideo.View.Login.LoginActivity2;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
-import java.util.List;
 
 import io.paperdb.Paper;
 

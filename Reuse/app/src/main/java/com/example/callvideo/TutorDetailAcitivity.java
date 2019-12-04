@@ -9,7 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.example.callvideo.Adapter.DocAdapter;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.Model.Doc;
 import com.example.callvideo.Model.Tutor;
@@ -37,6 +41,10 @@ public class TutorDetailAcitivity extends BaseActivity {
     private CircleImageView profileImage,imgStatus;
     private Button btnChat;
     private Button btnCall;
+    private RecyclerView recyclerMenu;
+    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<Doc> docList;
+    private DocAdapter docAdapter;
     //private String status;
     private ArrayList<String> listChatID;
     @Override
@@ -51,9 +59,12 @@ public class TutorDetailAcitivity extends BaseActivity {
         txtStatus=(TextView)findViewById(R.id.txtTutorStatusDe);
         txtExp=(TextView)findViewById(R.id.txtExpTutor);
         imgStatus=(CircleImageView)findViewById(R.id.imgStatusTutorDe);
-
+        recyclerMenu = (RecyclerView) findViewById(R.id.listDoc);
+        recyclerMenu.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerMenu.setLayoutManager(layoutManager);
         profileImage=(CircleImageView)findViewById(R.id.imgProfileDetail);
-        txtCourseDoc=(TextView)findViewById(R.id.txtCourseDocDetail);
+        //txtCourseDoc=(TextView)findViewById(R.id.txtCourseDocDetail);
         btnChat=(Button)findViewById(R.id.btnMessage);
         btnCall=(Button)findViewById(R.id.btnCallTutor);
         if (getIntent() != null)
@@ -119,10 +130,15 @@ public class TutorDetailAcitivity extends BaseActivity {
       docRef.orderByChild("courseId").equalTo(courseId).addValueEventListener(new ValueEventListener() {
           @Override
           public void onDataChange(DataSnapshot dataSnapshot) {
+              docList=new ArrayList<>();
               for (DataSnapshot childSnap:dataSnapshot.getChildren()) {
                   Doc doc = childSnap.getValue(Doc.class);
-                  txtCourseDoc.setText(doc.getDocName());
-                  openCourseDoc(doc);
+                  docList.add(doc);
+          //        txtCourseDoc.setText(doc.getDocName());
+                  docAdapter=new DocAdapter(TutorDetailAcitivity.this,docList);
+                  docAdapter.notifyDataSetChanged();
+                  recyclerMenu.setAdapter(docAdapter);
+
               }
           }
 
@@ -133,16 +149,7 @@ public class TutorDetailAcitivity extends BaseActivity {
       });
     }
 
-    private void openCourseDoc(Doc doc) {
-        txtCourseDoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri uri = Uri.parse(doc.getDocUrl());
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        });
-    }
+
     private void setStatus(String status){
         HashMap<String,Object>map=new HashMap<>();
         map.put("status",status);

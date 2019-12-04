@@ -1,11 +1,10 @@
-package com.example.callvideo.Model;
+package com.example.callvideo.Model.User;
 
 public class User {
     private String username;
     private String password;
     private String phone;
     private String avatar;
-
     public String getAvatar() {
         return avatar;
     }
@@ -51,6 +50,7 @@ public class User {
         return password;
     }
 
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -64,11 +64,19 @@ public class User {
         this.phone = phone;
     }
 
-    public User(String username, String password,String email) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
         //this.phone = phone;
     }
+    public User(String phone, String password) {
+        this.phone = phone;
+        this.password = password;
+        //this.phone = phone;
+    }
+
+
+
 
 }
