@@ -174,7 +174,7 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
         Toast.makeText(LoginActivity2.this,msg,Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(LoginActivity2.this, Home2Activity.class);
         intent.putExtra("phoneUser",username.getText().toString());
-        //Common.currentUser = uUser;
+
         if (!getSinchServiceInterface().isStarted()) {
             getSinchServiceInterface().startClient(username.getText().toString());
         }

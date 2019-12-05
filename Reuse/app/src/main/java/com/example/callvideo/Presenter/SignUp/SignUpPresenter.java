@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.example.callvideo.Common.Common;
-import com.example.callvideo.Model.User.SignUp.UserSignUp;
+import com.example.callvideo.Model.SignUp.UserSignUp;
 import com.example.callvideo.View.SignUp.ISignUpView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

@@ -16,7 +16,7 @@ import com.example.callvideo.Adapter.MessageAdapter;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.Model.Chat;
 import com.example.callvideo.Model.Tutor;
-import com.example.callvideo.Model.User.User;
+import com.example.callvideo.Model.User;
 
 import com.example.callvideo.Notification.Client;
 import com.example.callvideo.Notification.Data;

@@ -1,6 +1,4 @@
-package com.example.callvideo.Model.User.Login;
-
-import com.google.firebase.database.DatabaseReference;
+package com.example.callvideo.Model.Login;
 
 public interface IUserLoginListener {
     void onLoginSucess(String status);

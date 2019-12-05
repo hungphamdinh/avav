@@ -1,10 +1,9 @@
-package com.example.callvideo.Model.User.Login;
+package com.example.callvideo.Model.Login;
 
 import android.content.Context;
 
 import com.example.callvideo.Common.Common;
-import com.example.callvideo.Model.User.User;
-import com.firebase.client.Firebase;
+import com.example.callvideo.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,7 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UserLogin {
     private Context context;
-    private IUserLoginListener userLoginListener;
+    public IUserLoginListener userLoginListener;
     public UserLogin(IUserLoginListener userLoginListener,Context context){
         this.userLoginListener=userLoginListener;
         this.context=context;
@@ -31,7 +30,10 @@ public class UserLogin {
                     } else {
                         if (dataSnapshot.child(phone).exists()) {
                             User uUser = dataSnapshot.child(phone).getValue(User.class);
+                            uUser.setPhone(phone);
+                            //uUser.setUsername(uUser.getUsername());
                             if (password.equals(uUser.getPassword())) {
+                                Common.currentUser = uUser;
                                 userLoginListener.onLoginSucess("Success");
                             } else {
                                 userLoginListener.onLoginError("WrongPass");

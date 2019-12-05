@@ -32,7 +32,7 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         super(itemView);
         txtItemName=(TextView)itemView.findViewById(R.id.txtCartItemName);
         txtPrice=(TextView)itemView.findViewById(R.id.txtCartItemPrice);
-        imageCartCount=(ImageView)itemView.findViewById(R.id.itemCartCount);
+     //   imageCartCount=(ImageView)itemView.findViewById(R.id.itemCartCount);
       //  itemView.setOnClickListener(this);
         itemView.setOnCreateContextMenuListener(this);
     }
@@ -70,9 +70,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder cartViewHolder, int i) {
-        TextDrawable drawable= TextDrawable.builder()
-                .buildRound(""+listData.get(i).getSchedule(), Color.RED);
-        cartViewHolder.imageCartCount.setImageDrawable(drawable);
+//        TextDrawable drawable= TextDrawable.builder()
+//                .buildRound(""+listData.get(i).getSchedule(), Color.RED);
+//        cartViewHolder.imageCartCount.setImageDrawable(drawable);
         Locale locale=new Locale("en","US");//change country language
         NumberFormat fmt= NumberFormat.getCurrencyInstance(locale);//format and parse numbers for any locale
         int price=(Integer.parseInt(listData.get(i).getPrice()));

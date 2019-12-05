@@ -22,7 +22,7 @@ public class LoadCourse implements ILoadCourse{
     public void loadDetailCourse(String courseId,HashMap<String,Object>tutorMap,HashMap<String,Object> courseMap) {
         //Firebase.setAndroidContext(context);
         DatabaseReference courseReference= FirebaseDatabase.getInstance().getReference("Course");
-        courseReference.child(courseId).addValueEventListener(new ValueEventListener() {
+        courseReference.child(courseId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {

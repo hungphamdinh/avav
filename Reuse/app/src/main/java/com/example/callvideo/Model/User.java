@@ -1,4 +1,4 @@
-package com.example.callvideo.Model.User;
+package com.example.callvideo.Model;
 
 public class User {
     private String username;

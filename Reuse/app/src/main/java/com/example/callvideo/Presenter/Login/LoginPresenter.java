@@ -3,9 +3,8 @@ package com.example.callvideo.Presenter.Login;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import com.example.callvideo.Common.Common;
-import com.example.callvideo.Model.User.Login.IUserLoginListener;
-import com.example.callvideo.Model.User.Login.UserLogin;
+import com.example.callvideo.Model.Login.IUserLoginListener;
+import com.example.callvideo.Model.Login.UserLogin;
 import com.example.callvideo.View.Login.ILoginView;
 
 public class LoginPresenter implements  ILoginPresenter, IUserLoginListener {

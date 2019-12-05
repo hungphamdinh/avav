@@ -1,4 +1,4 @@
-package com.example.callvideo.Model.User.SignUp;
+package com.example.callvideo.Model.SignUp;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
