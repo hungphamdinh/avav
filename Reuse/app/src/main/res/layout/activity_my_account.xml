@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyAccountActivity"
+    tools:context=".View.MyAccountView.MyAccountActivity"
     android:gravity="center"
+    android:background="#fff"
+    android:padding="10dp"
     android:orientation="vertical"
     >
     <FrameLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_gravity="center"
@@ -18,46 +20,78 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/profile"
-            app:civ_border_width="1dp"
+            app:civ_border_width="4dp"
             app:civ_border_color="@color/fbutton_color_emerald"/>
     </FrameLayout>
-    <EditText
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên người dùng"
-        android:id="@+id/edtNameU"
-        />
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/icon_user"
+            />
+        <EditText
+            android:textColor="#666666"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tên người dùng"
+            android:textColorHint="#666666"
+            android:id="@+id/edtNameU"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/icon_pass"
+            />
     <EditText
+        android:textColorHint="#666666"
+        android:textColor="#666666"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Mật khẩu"
         android:inputType="textPassword"
         android:id="@+id/edtPassU"
         />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/icon_email"
+            />
     <EditText
+        android:textColorHint="#666666"
+        android:textColor="#666666"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
         android:id="@+id/edtEmailtU"
         />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Hình ảnh"
-            android:id="@+id/edtProfileU"
-            android:inputType="phone"
-            />
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:hint="Chọn file"
-            android:id="@+id/btnUpdateFile"
-            />
+
     </LinearLayout>
 
     <Button

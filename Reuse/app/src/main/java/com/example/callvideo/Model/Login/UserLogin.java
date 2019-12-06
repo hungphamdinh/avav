@@ -19,14 +19,12 @@ public class UserLogin {
     }
     public void isValidData(String phone,String password) {
         if (Common.isConnectedToInternet(context)) {
-
-//        User user=new User(phone,password);
             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("User");
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (phone.equals("") || password.equals("")) {
-                        userLoginListener.onLoginError("Null");
+                        userLoginListener.onLoginError("Please check your username and password");
                     } else {
                         if (dataSnapshot.child(phone).exists()) {
                             User uUser = dataSnapshot.child(phone).getValue(User.class);

@@ -20,8 +20,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.callvideo.Adapter.SectionsPageAdapter;
 import com.example.callvideo.Common.Common;
-import com.example.callvideo.Fragment.HomeFragment;
-import com.example.callvideo.Fragment.Tab3Fragment;
+import com.example.callvideo.View.HomeFragment;
+import com.example.callvideo.View.MyAccountView.MyAccountActivity;
+import com.example.callvideo.View.Tab3Fragment;
 import com.example.callvideo.View.CourseList.CourseActivity;
 import com.example.callvideo.View.MyCourseList.MyCourseFragment;
 import com.example.callvideo.View.Login.LoginActivity2;
@@ -59,7 +60,6 @@ public class Home2Activity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         if (Common.isConnectedToInternet(this)) {
@@ -77,7 +77,6 @@ public class Home2Activity extends AppCompatActivity
             userPhone = getIntent().getStringExtra("phoneUser");
         if (!userPhone.isEmpty() && userPhone != null) {
             if (Common.isConnectedToInternet(this)) {
-           //       setStatus("online");
                 setupViewPager(mViewPager);
             } else {
                 Toast.makeText(Home2Activity.this, "Check your connection", Toast.LENGTH_SHORT).show();
@@ -128,14 +127,8 @@ public class Home2Activity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_menu) {
-
         } else if (id == R.id.nav_cart) {
-//            Intent intent=new Intent(Home2Activity.this, CartActivity.class);
-//            intent.putExtra("phoneUser",userPhone);
-//            startActivity(intent);
-
         } else if (id == R.id.nav_order) {
             Intent intent = new Intent(Home2Activity.this, CourseActivity.class);
             intent.putExtra("phoneUser",userPhone);
@@ -152,9 +145,7 @@ public class Home2Activity extends AppCompatActivity
             startActivity(intent);
                 }
          else if (id == R.id.nav_send) {
-
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

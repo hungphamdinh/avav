@@ -9,6 +9,6 @@
     <item
         android:id="@+id/accountInform"
         android:orderInCategory="100"
-        android:title="Tài khỏa của tôi"
+        android:title="Cập nhật thông tin"
         app:showAsAction="never" />
 </menu>

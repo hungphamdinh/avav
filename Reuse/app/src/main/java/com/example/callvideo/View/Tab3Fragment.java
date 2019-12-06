@@ -1,4 +1,4 @@
-package com.example.callvideo.Fragment;
+package com.example.callvideo.View;
 
 import android.os.Bundle;
 

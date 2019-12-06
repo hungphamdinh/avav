@@ -17,37 +17,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SignUpPresenter implements ISignUpPresenter, ISignUpListener {
-    private ProgressDialog progressDialog;
     private ISignUpView signUpView;
     private Context context;
     private UserSignUp userSignUp;
     public SignUpPresenter(ISignUpView signUpView,Context context){
         this.signUpView=signUpView;
         this.context=context;
-        this.userSignUp=new UserSignUp(this);
+        this.userSignUp=new UserSignUp(this,context);
     }
     @Override
     public void onSignUp(HashMap<String,Object>edt){
-        progressDialog=getProgressDialog();
         userSignUp.isValidData(edt);
     }
-    private ProgressDialog getProgressDialog() {
-        final ProgressDialog progress = new ProgressDialog(context);
-        progress.setTitle("Loading");
-        progress.setMessage("Wait while loading...");
-        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-        progress.show();
-        return progress;
-    }
+
     @Override
     public void onSuccess(String msg) {
-        progressDialog.cancel();
         signUpView.onSignUpSuccess(msg);
     }
 
     @Override
     public void onError(String msg) {
-        progressDialog.cancel();
         signUpView.onSignUpFailed(msg);
     }
 }

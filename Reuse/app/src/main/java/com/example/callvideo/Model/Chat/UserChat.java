@@ -1,10 +1,5 @@
 package com.example.callvideo.Model.Chat;
 
-import android.view.View;
-import android.widget.Toast;
-
-import com.example.callvideo.Adapter.MessageAdapter;
-import com.example.callvideo.MainChatActivity;
 import com.example.callvideo.Model.Entities.Chat;
 import com.example.callvideo.Model.Entities.Tutor;
 import com.example.callvideo.Model.Entities.User;

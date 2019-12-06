@@ -1,6 +1,7 @@
 package com.example.callvideo.View.SignUp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,8 +27,8 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
     private EditText edtPhone, password, edtUsername;
     private Button btnSignUp;
     private EditText emailId;
-    private String emailPattern = "[a-zA-Z0-9._-]+@gmail+\\.+com+";
     private ISignUpPresenter signUpPresenter;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,30 +43,30 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog=getProgressDialog();
                 HashMap<String,Object>edt=new HashMap<>();
                 edt.clear();
                 edt.put("userName",edtUsername.getText().toString());
                 edt.put("phone",edtPhone.getText().toString());
                 edt.put("pass",password.getText().toString());
                 edt.put("email",emailId.getText().toString());
+
                 signUpPresenter.onSignUp(edt);
             }
         });
         setupUI(findViewById(R.id.parentSignUp));
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference table_user = firebaseDatabase.getReference("User");
-        Firebase.setAndroidContext(SignUpActivity.this);
-
 
     }
 
     @Override
     public void onSignUpSuccess(String msg) {
+        progressDialog.cancel();
         Toast.makeText(SignUpActivity.this,msg,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSignUpFailed(String msg) {
+        progressDialog.cancel();
         Toast.makeText(SignUpActivity.this,msg,Toast.LENGTH_SHORT).show();
 
     }
@@ -97,5 +98,13 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
                 setupUI(innerView);
             }
         }
+    }
+    private ProgressDialog getProgressDialog() {
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+        return progress;
     }
 }

@@ -58,30 +58,11 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog=getProgressDialog();
                 loginPresenter.onLogin(username.getText().toString(),password.getText().toString());
             }
         });
-
-
-        //Login(table_user);
-//        String userRemember=Paper.book().read(Common.USER_KEY);
-//        String passRemember=Paper.book().read(Common.PWD_KEY);
-//        if(userRemember!=null&&passRemember!=null) {
-//            if (!userRemember.isEmpty() && !passRemember.isEmpty())
-//                loginRemember(userRemember, passRemember);
-//        }
-        readFromAssets();
     }
-
-    private ProgressDialog getProgressDialog() {
-        final ProgressDialog progress = new ProgressDialog(LoginActivity2.this);
-        progress.setTitle("Loading");
-        progress.setMessage("Wait while loading...");
-        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-        progress.show();
-        return progress;
-    }
-
 
     private void SignUp() {
         txtSignUp.setOnClickListener(new View.OnClickListener() {
@@ -122,22 +103,6 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
 //            }
 //        }
 //    }
-    private void readFromAssets() {
-        BaseResipistory myDbHelper = new BaseResipistory(LoginActivity2.this);
-        try {
-            myDbHelper.createDataBase();
-        } catch (IOException ioe) {
-            throw new Error("Unable to create database");
-        }
-        myDbHelper.openDataBase();
-        //     Toast.makeText(LoginActivity.this, "Successfully Imported", Toast.LENGTH_SHORT).show();
-        c = myDbHelper.query("OrderDetail", null, null, null, null, null, null);
-        if (c.moveToFirst()) {
-            do {
-            } while (c.moveToNext());
-        }
-    }
-
 
 
 
@@ -153,6 +118,14 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
             progressDialog.cancel();
         }
         super.onPause();
+    }
+    private ProgressDialog getProgressDialog() {
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Wait while loading...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+        return progress;
     }
 
     @Override
@@ -171,10 +144,10 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
 
     @Override
     public void setDisplaySuccess(String msg) {
+        progressDialog.cancel();
         Toast.makeText(LoginActivity2.this,msg,Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(LoginActivity2.this, Home2Activity.class);
         intent.putExtra("phoneUser",username.getText().toString());
-
         if (!getSinchServiceInterface().isStarted()) {
             getSinchServiceInterface().startClient(username.getText().toString());
         }
@@ -183,6 +156,7 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
 
     @Override
     public void setDisplayError(String msg) {
+        progressDialog.cancel();
         Toast.makeText(LoginActivity2.this,msg,Toast.LENGTH_SHORT).show();
     }
 }

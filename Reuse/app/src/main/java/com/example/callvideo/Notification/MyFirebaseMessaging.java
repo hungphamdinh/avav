@@ -1,6 +1,5 @@
 package com.example.callvideo.Notification;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,12 +8,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
 
 import androidx.core.app.NotificationCompat;
 
-import com.example.callvideo.MainChatActivity;
+import com.example.callvideo.View.Chat.MainChatActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

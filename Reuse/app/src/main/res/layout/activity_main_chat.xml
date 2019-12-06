@@ -7,7 +7,7 @@
     android:background="#fff"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context="com.example.callvideo.MainChatActivity"    >
+    tools:context="com.example.callvideo.View.Chat.MainChatActivity"    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_weight="2"

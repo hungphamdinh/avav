@@ -16,7 +16,7 @@ import com.example.callvideo.Adapter.DocAdapter;
 import com.example.callvideo.Sinch.BaseActivity;
 import com.example.callvideo.Sinch.CallScreenActivity;
 import com.example.callvideo.Common.Common;
-import com.example.callvideo.MainChatActivity;
+import com.example.callvideo.View.Chat.MainChatActivity;
 import com.example.callvideo.Model.Entities.Doc;
 import com.example.callvideo.Presenter.LoadMyCourse.DetailMyCoursePresenter;
 import com.example.callvideo.R;
