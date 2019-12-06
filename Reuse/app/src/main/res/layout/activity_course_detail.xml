@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical"
-    tools:context=".CourseActivity"
+    tools:context=".View.CourseList.CourseActivity"
     >
     <LinearLayout
         android:layout_width="match_parent"

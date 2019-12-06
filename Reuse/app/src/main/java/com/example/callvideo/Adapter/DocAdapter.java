@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.Interface.ItemClickListener;
-import com.example.callvideo.Model.Doc;
+import com.example.callvideo.Model.Entities.Doc;
 import com.example.callvideo.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,25 +26,16 @@ import java.util.ArrayList;
 public class DocAdapter extends RecyclerView.Adapter<DocAdapter.DocViewHolder>  {
     private Context context;
     private ArrayList<Doc> doc;
-    public static final int MSG_LEFT = 0;
     public DatabaseReference courseRef;
     public FirebaseDatabase database;
     private String userId;
-    public static final int MSG_RIGHT = 1;
     private String courseId;
-    //   private String status;
-    //private String imgUrl;
     public DocAdapter(Context context, ArrayList<Doc> doc) {
         this.context = context;
         this.doc = doc;
-//        this.courseId=courseId;
-//        this.userId=userId;
     }
-
     public DocAdapter() {
-
     }
-
     @NonNull
     @Override
     public DocAdapter.DocViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

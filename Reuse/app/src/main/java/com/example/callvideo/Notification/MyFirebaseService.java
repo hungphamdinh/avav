@@ -1,6 +1,6 @@
 package com.example.callvideo.Notification;
 
-import com.example.callvideo.Model.User;
+import com.example.callvideo.Model.Entities.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

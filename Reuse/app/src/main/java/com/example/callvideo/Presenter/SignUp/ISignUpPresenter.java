@@ -1,7 +1,8 @@
 package com.example.callvideo.Presenter.SignUp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface ISignUpPresenter {
-    void onSignUp(ArrayList<String>list);
+    void onSignUp(HashMap<String,Object>edt);
 }

@@ -22,7 +22,8 @@ import com.example.callvideo.Adapter.SectionsPageAdapter;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.Fragment.HomeFragment;
 import com.example.callvideo.Fragment.Tab3Fragment;
-import com.example.callvideo.Fragment.MyCourseFragment;
+import com.example.callvideo.View.CourseList.CourseActivity;
+import com.example.callvideo.View.MyCourseList.MyCourseFragment;
 import com.example.callvideo.View.Login.LoginActivity2;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -51,7 +52,6 @@ public class Home2Activity extends AppCompatActivity
         toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
         database = FirebaseDatabase.getInstance();
-        //      firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         reference = database.getReference("Category");
         Paper.init(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -164,7 +164,6 @@ public class Home2Activity extends AppCompatActivity
     }
     public void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        //fragmentTransaction.replace(R.id.main_frame,fragment);
         fragmentTransaction.commit();
     }
 

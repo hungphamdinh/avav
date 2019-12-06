@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity implements ISignUpView {
     private EditText edtPhone, password, edtUsername;
@@ -36,18 +37,18 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
         password = findViewById(R.id.edtPasswordSignUp);
         emailId = findViewById(R.id.edtEmailSignUp);
         btnSignUp = findViewById(R.id.btnSignUpSignIn);
-        ArrayList<String> list=new ArrayList<>();
 
         signUpPresenter=new SignUpPresenter(this,this);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.clear();
-                list.add(edtUsername.getText().toString());
-                list.add(edtPhone.getText().toString());
-                list.add(password.getText().toString());
-                list.add(emailId.getText().toString());
-                signUpPresenter.onSignUp(list);
+                HashMap<String,Object>edt=new HashMap<>();
+                edt.clear();
+                edt.put("userName",edtUsername.getText().toString());
+                edt.put("phone",edtPhone.getText().toString());
+                edt.put("pass",password.getText().toString());
+                edt.put("email",emailId.getText().toString());
+                signUpPresenter.onSignUp(edt);
             }
         });
         setupUI(findViewById(R.id.parentSignUp));
@@ -57,72 +58,6 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
 
 
     }
-//
-//    public void SignUp(final DatabaseReference table_user) {
-//        btnSignUp.setOnClickListener(new View.OnClickListener() {
-//            @SuppressLint("ResourceType")
-//            @Override
-//            public void onClick(View view) {
-//                if (Common.isConnectedToInternet(getBaseContext())) {
-//                    final ProgressDialog progress = new ProgressDialog(SignUpActivity.this);
-//                    progress.setTitle("Loading");
-//                    progress.setMessage("Wait while loading...");
-//                    progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-//                    progress.show();
-//                    String usernameTemp = edtUsername.getText().toString();
-//                    String passwordTemp = password.getText().toString();
-//                    String emailTemp = emailId.getText().toString();
-//                    table_user.orderByChild("email").equalTo(emailTemp).addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                        //    for (DataSnapshot uniqueKeySnapshot : dataSnapshot.getChildren()) {
-//                                    if (usernameTemp.equals("") || passwordTemp.equals("") || edtPhone.getText().toString().equals("") || emailId.getText().toString().isEmpty()) {
-//                                        progress.dismiss();
-//                                        Toast.makeText(SignUpActivity.this, "Please check your username. phone, password and email", Toast.LENGTH_SHORT).show();
-//                                    } else {
-//                                        if (emailTemp.trim().matches(emailPattern)) {
-//                                            if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
-//                                                progress.dismiss();
-//                                                Toast.makeText(SignUpActivity.this, "This phone number is exist", Toast.LENGTH_SHORT).show();
-//                                            }
-//                                            if(dataSnapshot.exists()){
-//                                                progress.dismiss();
-//                                                Toast.makeText(SignUpActivity.this, "This email is exist, please check your email", Toast.LENGTH_SHORT).show();                                            }
-//                                            else {
-//                                                progress.dismiss();
-//                                                HashMap<String, String> map = new HashMap<>();
-//                                                //User user = new User(usernameTemp, passwordTemp,"");
-//                                                map.put("username", usernameTemp);
-//                                                map.put("password", passwordTemp);
-//                                                map.put("email", emailTemp);//
-//                                                map.put("status","offline");
-//                                                map.put("avatar","default");
-//                                                table_user.child(edtPhone.getText().toString()).setValue(map);
-//                                                Toast.makeText(SignUpActivity.this, "Sign up successfully", Toast.LENGTH_SHORT).show();
-//                                                //finish();
-//
-//
-//                                            }
-//                                        } else {
-//                                            progress.dismiss();
-//                                            Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT).show();
-//                                        }
-//
-//                                    }
-//                          //      }
-//                            }
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//                } else {
-//                    Toast.makeText(SignUpActivity.this, "Check your connection", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//            }
-//        });
-//    }
 
     @Override
     public void onSignUpSuccess(String msg) {

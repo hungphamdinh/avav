@@ -2,15 +2,9 @@ package com.example.callvideo.Presenter.LoadCourse;
 
 import android.content.Context;
 
-import com.example.callvideo.Model.Course;
 import com.example.callvideo.Model.LoadCourse.ILoadCourseListener;
 import com.example.callvideo.Model.LoadCourse.LoadCourse;
-import com.example.callvideo.View.LoadMyCourse.LoadCourseDetailView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.callvideo.View.LoadCourse.LoadCourseDetailView;
 
 import java.util.HashMap;
 
@@ -26,7 +20,6 @@ public class DetailCoursePresenter implements IDetailCoursePresenter,ILoadCourse
     public void loadDetailPresenter(String courseId) {
         HashMap<String, Object> courseMap = new HashMap<>();
         HashMap<String, Object> tutorMap = new HashMap<>();
-        //                    LoadCourse loadCourse = new LoadCourse(courseId, context);
         mainInterator.loadDetailCourse(courseId,courseMap, tutorMap);
 
     }

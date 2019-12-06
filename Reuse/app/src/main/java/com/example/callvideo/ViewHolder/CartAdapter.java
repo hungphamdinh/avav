@@ -1,7 +1,6 @@
 package com.example.callvideo.ViewHolder;
 
 import android.content.Context;
-import android.graphics.Color;
 
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -13,10 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.Interface.ItemClickListener;
-import com.example.callvideo.Model.Order;
+import com.example.callvideo.Model.Entities.Order;
 import com.example.callvideo.R;
 
 import java.text.NumberFormat;

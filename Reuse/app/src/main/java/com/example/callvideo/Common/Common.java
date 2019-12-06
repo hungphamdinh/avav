@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.example.callvideo.Model.User;
+import com.example.callvideo.Model.Entities.User;
 
 public class Common {
   public static User currentUser;

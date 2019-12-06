@@ -10,14 +10,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.callvideo.BaseActivity;
+import com.example.callvideo.Sinch.BaseActivity;
 import com.example.callvideo.Home2Activity;
 import com.example.callvideo.Presenter.Login.ILoginPresenter;
 import com.example.callvideo.Presenter.Login.LoginPresenter;
 import com.example.callvideo.R;
 import com.example.callvideo.SQliteDatabase.BaseResipistory;
 import com.example.callvideo.View.SignUp.SignUpActivity;
-import com.example.callvideo.SinchService;
+import com.example.callvideo.Sinch.SinchService;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

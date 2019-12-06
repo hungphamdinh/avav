@@ -1,10 +1,9 @@
 package com.example.callvideo.Model.LoadCourse;
 
-import android.content.Context;
 import android.util.Log;
 
-import com.example.callvideo.Model.Course;
-import com.example.callvideo.Model.Tutor;
+import com.example.callvideo.Model.Entities.Course;
+import com.example.callvideo.Model.Entities.Tutor;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,7 +14,6 @@ import java.util.HashMap;
 
 public class LoadCourse implements ILoadCourse{
     private ILoadCourseListener loadCourseListener;
-    private Context context;
     public LoadCourse(ILoadCourseListener loadCourseListener){
         this.loadCourseListener=loadCourseListener;
     }

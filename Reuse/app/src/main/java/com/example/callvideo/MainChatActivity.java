@@ -14,16 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.callvideo.Adapter.MessageAdapter;
 import com.example.callvideo.Common.Common;
-import com.example.callvideo.Model.Chat;
-import com.example.callvideo.Model.Tutor;
-import com.example.callvideo.Model.User;
+import com.example.callvideo.Model.Chat.UserChat;
+import com.example.callvideo.Model.Entities.Chat;
+import com.example.callvideo.Model.Entities.Tutor;
+import com.example.callvideo.Model.Entities.User;
 
 import com.example.callvideo.Notification.Client;
 import com.example.callvideo.Notification.Data;
 import com.example.callvideo.Notification.MyRespone;
 import com.example.callvideo.Notification.Sender;
 import com.example.callvideo.Notification.Token;
+import com.example.callvideo.Presenter.Chat.ChatPresenter;
 import com.example.callvideo.Service.APIService;
+import com.example.callvideo.View.Chat.IUserChatView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +42,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainChatActivity extends AppCompatActivity {
+public class MainChatActivity extends AppCompatActivity implements IUserChatView {
     private EditText editText;
     private TextView txtName;
     private Scaledrone scaledrone;
@@ -55,6 +58,7 @@ public class MainChatActivity extends AppCompatActivity {
     private ArrayList<String> listChatID;
     private APIService apiService;
     private boolean notify=false;
+    private ChatPresenter chatPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,24 +74,25 @@ public class MainChatActivity extends AppCompatActivity {
         messagesView.setHasFixedSize(true);
         messagesView.setLayoutManager(linearLayoutManager);
         apiService= Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+        chatPresenter=new ChatPresenter(this);
         if (getIntent() != null)
             listChatID = getIntent().getStringArrayListExtra("ChatID");
         if (!listChatID.isEmpty() && listChatID != null) {
             if (Common.isConnectedToInternet(this)) {
                 tutorId=listChatID.get(0);
                 userId=listChatID.get(1);
-                accessToUser(userId,tutorId);
+                HashMap<String,Object>sendMap=new HashMap<>();
+                HashMap<String,Object>idMap=new HashMap<>();
+                idMap.put("senderId",userId);
+                idMap.put("receiverId",tutorId);
+                chatPresenter.loadChat(idMap);
+                //accessToUser(userId,tutorId);
+                onClickSend(sendMap);
             } else {
                 Toast.makeText(MainChatActivity.this, "Check your connection", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
-//        if (getIntent() != null)
-//            userId = getIntent().getStringExtra("userid");
-        onClickSend();
-        //messageAdapter = new MessageAdapter(this);
-
-//        messagesView.setAdapter(messageAdapter);
 
     }
 
@@ -112,19 +117,15 @@ public class MainChatActivity extends AppCompatActivity {
         });
     }
 
-    private void onClickSend() {
+    private void onClickSend(HashMap<String,Object>sendMap) {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notify=true;
-                String msg=editText.getText().toString();
-                if(!msg.equals("")) {
-                    sendMessage(userId, tutorId, editText.getText().toString());
-                }
-                else {
-                    Toast.makeText(MainChatActivity.this, "You can't send empty message", Toast.LENGTH_SHORT).show();
-                }
-                editText.setText("");
+                sendMap.put("userId",userId);
+                sendMap.put("tutorId",tutorId);
+                sendMap.put("msg",editText.getText().toString());
+                chatPresenter.clickSend(sendMap);
+             //   editText.setText("");
             }
 
         });
@@ -254,6 +255,28 @@ public class MainChatActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         setStatus("offline");
+    }
+
+    @Override
+    public void onClickSendMsg(HashMap<String, Object> msgMap) {
+        editText.setText("");
+    }
+
+    @Override
+    public void onError(String msg) {
+        Toast.makeText(MainChatActivity.this,msg,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void readMsg(ArrayList<Chat> chats) {
+        messageAdapter=new MessageAdapter(MainChatActivity.this,chats,userId);
+        messageAdapter.notifyDataSetChanged();
+        messagesView.setAdapter(messageAdapter);
+    }
+
+    @Override
+    public void onAccesstoUser(String tutorName) {
+
     }
 }
 
