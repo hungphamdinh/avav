@@ -1,20 +1,13 @@
-package com.example.callvideo.Model.LoadDetailMyCourse;
+package com.example.callvideo.Presenter.LoadDetailMyCourse;
 
-import android.content.Context;
-
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.callvideo.Adapter.DocAdapter;
 import com.example.callvideo.Model.Entities.Doc;
 import com.example.callvideo.Model.Entities.Tutor;
 import com.example.callvideo.Notification.Token;
-import com.example.callvideo.View.LoadDetailMyCourse.TutorDetailAcitivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.HashMap;

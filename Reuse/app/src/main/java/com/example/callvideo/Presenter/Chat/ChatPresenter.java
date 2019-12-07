@@ -1,7 +1,5 @@
 package com.example.callvideo.Presenter.Chat;
 
-import com.example.callvideo.Model.Chat.ChatListener;
-import com.example.callvideo.Model.Chat.UserChat;
 import com.example.callvideo.Model.Entities.Chat;
 import com.example.callvideo.View.Chat.IUserChatView;
 

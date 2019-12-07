@@ -1,4 +1,4 @@
-package com.example.callvideo.Model.LoadCourse;
+package com.example.callvideo.Presenter.LoadCourse;
 
 import android.util.Log;
 
@@ -12,7 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-public class LoadCourse implements ILoadCourse{
+public class LoadCourse  {
     private ILoadCourseListener loadCourseListener;
     public LoadCourse(ILoadCourseListener loadCourseListener){
         this.loadCourseListener=loadCourseListener;

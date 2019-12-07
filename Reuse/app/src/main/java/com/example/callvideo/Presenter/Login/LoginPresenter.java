@@ -1,23 +1,15 @@
 package com.example.callvideo.Presenter.Login;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-
-import com.example.callvideo.Model.Login.IUserLoginListener;
-import com.example.callvideo.Model.Login.UserLogin;
 import com.example.callvideo.View.Login.ILoginView;
 
-public class LoginPresenter implements  ILoginPresenter, IUserLoginListener {
+public class LoginPresenter implements  IUserLoginListener {
     private ILoginView loginView;
-    private Context context;
     private UserLogin mainLogin;
-    public LoginPresenter(ILoginView loginView,Context context){
+    public LoginPresenter(ILoginView loginView){
         this.loginView=loginView;
-        this.context=context;
-        mainLogin=new UserLogin(this,context);
+        mainLogin=new UserLogin(this);
     }
 
-    @Override
     public void onLogin(String phone,String password) {
             //User user = new User();
         mainLogin.isValidData(phone,password);

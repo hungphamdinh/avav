@@ -11,12 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.callvideo.CartActivity;
+import com.example.callvideo.View.CartActivity;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.Model.Entities.Course;
 import com.example.callvideo.Model.Entities.Order;
 import com.example.callvideo.Presenter.LoadCourse.DetailCoursePresenter;
-import com.example.callvideo.Presenter.LoadCourse.IDetailCoursePresenter;
 import com.example.callvideo.R;
 import com.example.callvideo.SQliteDatabase.BaseResipistory;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +32,7 @@ public class CourseDetailActivity extends AppCompatActivity implements LoadCours
     private Button btnAdd;
     private BaseResipistory baseResipistory;
     private ImageView imageCourse,profile;
-    private IDetailCoursePresenter detailCoursePresenter;
+    private DetailCoursePresenter detailCoursePresenter;
     private Course course;
     private Order order;
     private String userPhone;
@@ -57,7 +56,7 @@ public class CourseDetailActivity extends AppCompatActivity implements LoadCours
         profile=(ImageView) findViewById(R.id.imgProfileCourseDetail);
         baseResipistory = new BaseResipistory(this);
         btnAdd = (Button) findViewById(R.id.btnAddCart);
-        detailCoursePresenter=new DetailCoursePresenter(this,this);
+        detailCoursePresenter=new DetailCoursePresenter(this);
 
         if (getIntent() != null) {
             courseDetailList = getIntent().getStringArrayListExtra("DetailList");

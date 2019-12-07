@@ -29,7 +29,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".CartActivity"
+            android:name=".View.CartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
@@ -53,7 +53,7 @@
             </intent-filter>
         </service>
         <activity
-            android:name=".Home2Activity"
+            android:name=".View.Home2Activity"
             android:label="@string/title_activity_home2"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

@@ -1,4 +1,4 @@
-package com.example.callvideo.Model.Chat;
+package com.example.callvideo.Presenter.Chat;
 
 import com.example.callvideo.Model.Entities.Chat;
 import com.example.callvideo.Model.Entities.Tutor;

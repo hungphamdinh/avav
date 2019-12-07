@@ -1,4 +1,4 @@
-package com.example.callvideo.Model.LoadCourse;
+package com.example.callvideo.Presenter.LoadCourse;
 
 import java.util.HashMap;
 

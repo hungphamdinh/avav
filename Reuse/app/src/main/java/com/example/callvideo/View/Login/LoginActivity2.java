@@ -11,20 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.callvideo.Sinch.BaseActivity;
-import com.example.callvideo.Home2Activity;
-import com.example.callvideo.Presenter.Login.ILoginPresenter;
+import com.example.callvideo.View.Home2Activity;
 import com.example.callvideo.Presenter.Login.LoginPresenter;
 import com.example.callvideo.R;
-import com.example.callvideo.SQliteDatabase.BaseResipistory;
 import com.example.callvideo.View.SignUp.SignUpActivity;
 import com.example.callvideo.Sinch.SinchService;
-import com.firebase.client.Firebase;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.rey.material.widget.CheckBox;
 import com.sinch.android.rtc.SinchError;
-
-import java.io.IOException;
 
 import io.paperdb.Paper;
 
@@ -34,11 +27,9 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
     private Button login;
     private TextView txtSignUp;
     private Cursor c=null;
-    private DatabaseReference table_user=null;
-    private FirebaseDatabase firebaseDatabase=null;
     private CheckBox ckbRemember;
     private ProgressDialog progressDialog;
-    private ILoginPresenter loginPresenter;
+    private LoginPresenter loginPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +40,13 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
         login= (Button)findViewById(R.id.btnLogin);
         txtSignUp=(TextView)findViewById(R.id.txtSignUpNewAc);
        // setupUI(findViewById(R.id.parent));
-        firebaseDatabase=FirebaseDatabase.getInstance();
-        table_user=firebaseDatabase.getReference("User");
-        Firebase.setAndroidContext(LoginActivity2.this);
         SignUp();
         Paper.init(this);
-        loginPresenter=new LoginPresenter(this,this);
+        loginPresenter=new LoginPresenter(this);
+        onLogin();
+    }
+
+    private void onLogin() {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

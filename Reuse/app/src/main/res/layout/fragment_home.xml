@@ -10,7 +10,7 @@
     android:layout_alignParentBottom="true"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Home2Activity"
+    tools:context=".View.Home2Activity"
    >
     <ImageView
         android:layout_width="200dp"

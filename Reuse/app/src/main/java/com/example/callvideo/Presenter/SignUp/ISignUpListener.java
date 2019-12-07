@@ -1,4 +1,4 @@
-package com.example.callvideo.Model.SignUp;
+package com.example.callvideo.Presenter.SignUp;
 
 public interface ISignUpListener {
    void onSuccess(String msg);

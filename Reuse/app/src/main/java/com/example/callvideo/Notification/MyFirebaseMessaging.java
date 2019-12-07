@@ -28,7 +28,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         String sented=remoteMessage.getData().get("sented");
         DatabaseReference userRef= FirebaseDatabase.getInstance().getReference("User");
-        userRef.addValueEventListener(new ValueEventListener() {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnap:dataSnapshot.getChildren()){

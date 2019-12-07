@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.callvideo.Presenter.SignUp.ISignUpPresenter;
 import com.example.callvideo.Presenter.SignUp.SignUpPresenter;
 import com.example.callvideo.R;
 import com.firebase.client.Firebase;
@@ -27,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
     private EditText edtPhone, password, edtUsername;
     private Button btnSignUp;
     private EditText emailId;
-    private ISignUpPresenter signUpPresenter;
+    private SignUpPresenter signUpPresenter;
     private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
         emailId = findViewById(R.id.edtEmailSignUp);
         btnSignUp = findViewById(R.id.btnSignUpSignIn);
 
-        signUpPresenter=new SignUpPresenter(this,this);
+        signUpPresenter=new SignUpPresenter(this);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

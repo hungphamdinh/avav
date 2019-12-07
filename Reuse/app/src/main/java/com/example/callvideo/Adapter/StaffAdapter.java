@@ -40,15 +40,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHolder> implements IMyListCourseView {
     private Context context;
     private ArrayList<Request> requests;
-    public static final int MSG_LEFT = 0;
-    public DatabaseReference courseRef;
-    public FirebaseDatabase database;
     private String userId;
-    public static final int MSG_RIGHT = 1;
     private String courseId;
     private MyCourseListPresenter courseListPresenter;
- //   private String status;
-    //private String imgUrl;
     public StaffAdapter(Context context, ArrayList<Request> requests, String courseId,String userId) {
         this.context = context;
         this.requests = requests;
@@ -85,7 +79,6 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
         Glide.with(context)
                 .load(map.get("tutorImage"))
                 .centerCrop()
-                // .placeholder(R.drawable.loading_spinner)
                 .into(holder.profileImage);
     }
     @Override

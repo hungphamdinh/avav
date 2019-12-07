@@ -60,7 +60,7 @@ public class MyAccountActivity extends AppCompatActivity implements MyAccountVie
         btnUpdate = (Button)findViewById(R.id.btnUpdate);
         profile=(CircleImageView)findViewById(R.id.imgProfileMyAccount);
         btnUpdate.setEnabled(false);
-        myAccountPresenter=new MyAccountPresenter(this,this);
+        myAccountPresenter=new MyAccountPresenter(this);
         HashMap<String,Object>edtMap=new HashMap<>();
         if (getIntent() != null)
             phoneKey = getIntent().getStringExtra("phoneKey");

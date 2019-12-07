@@ -18,7 +18,7 @@ import com.example.callvideo.Sinch.CallScreenActivity;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.View.Chat.MainChatActivity;
 import com.example.callvideo.Model.Entities.Doc;
-import com.example.callvideo.Presenter.LoadMyCourse.DetailMyCoursePresenter;
+import com.example.callvideo.Presenter.LoadDetailMyCourse.DetailMyCoursePresenter;
 import com.example.callvideo.R;
 import com.example.callvideo.Sinch.SinchService;
 import com.google.firebase.database.DatabaseReference;
@@ -68,10 +68,8 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
                 tutorId=listChatID.get(0);
                 userId=listChatID.get(1);
                 courseId=listChatID.get(2);
-
                 detailMyCoursePresenter.loadDetailMyCourse(tutorId,courseId);
                 detailMyCoursePresenter.setToken(FirebaseInstanceId.getInstance().getToken(),userId);
-                //updateToken(FirebaseInstanceId.getInstance().getToken());
             } else {
                 Toast.makeText(TutorDetailAcitivity.this, "Check your connection", Toast.LENGTH_SHORT).show();
                 return;
@@ -99,7 +97,6 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
         });
     }
     private void callButtonClicked(String userName) {
-        //String userName = mCallName.getText().toString();
         if (userName.isEmpty()) {
             Toast.makeText(this, "Please enter a tutorRef to call", Toast.LENGTH_LONG).show();
             return;

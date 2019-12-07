@@ -47,18 +47,16 @@ public class DocAdapter extends RecyclerView.Adapter<DocAdapter.DocViewHolder>  
     @Override
     public void onBindViewHolder(@NonNull DocViewHolder holder, int position) {
         holder.txtDocName.setText(doc.get(position).getDocName());
-        openCourseDoc(doc.get(position).getDocUrl(),holder);
-    }
-    private void openCourseDoc(String doc,DocViewHolder holder) {
-        holder.txtDocName.setOnClickListener(new View.OnClickListener() {
+        holder.setItemClickListener(new ItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Uri uri = Uri.parse(doc);
+            public void onClick(View view, int position, boolean isLongClick) {
+                Uri uri = Uri.parse(doc.get(position).getDocUrl());
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 context.startActivity(intent);
             }
         });
     }
+
     @Override
     public int getItemCount() {
         return doc.size();

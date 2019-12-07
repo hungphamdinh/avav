@@ -1,4 +1,4 @@
-package com.example.callvideo.Model.Login;
+package com.example.callvideo.Presenter.Login;
 
 public interface IUserLoginListener {
     void onLoginSucess(String status);

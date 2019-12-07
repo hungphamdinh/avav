@@ -1,11 +1,7 @@
 package com.example.callvideo.Presenter.MyCourseList;
 
 import com.example.callvideo.Adapter.StaffAdapter;
-import com.example.callvideo.Model.Entities.Doc;
 import com.example.callvideo.Model.Entities.Request;
-import com.example.callvideo.Model.MyCourseList.IMyCourseListListener;
-import com.example.callvideo.Model.MyCourseList.MyCourseList;
-import com.example.callvideo.View.LoadCourse.LoadCourseDetailView;
 import com.example.callvideo.View.MyCourseList.IMyListCourseView;
 
 import java.util.ArrayList;

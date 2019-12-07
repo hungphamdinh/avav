@@ -1,10 +1,5 @@
-package com.example.callvideo.Model.MyCourseList;
+package com.example.callvideo.Presenter.MyCourseList;
 
-import android.graphics.Color;
-import android.view.View;
-
-import com.bumptech.glide.Glide;
-import com.example.callvideo.Adapter.StaffAdapter;
 import com.example.callvideo.Model.Entities.Course;
 import com.example.callvideo.Model.Entities.Request;
 import com.example.callvideo.Model.Entities.Tutor;

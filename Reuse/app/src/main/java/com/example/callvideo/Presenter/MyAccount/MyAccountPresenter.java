@@ -1,27 +1,20 @@
 package com.example.callvideo.Presenter.MyAccount;
 
-import android.content.Context;
 
-import com.example.callvideo.Model.MyAccount.MyAccount;
-import com.example.callvideo.Model.MyAccount.MyAccountListener;
 import com.example.callvideo.View.MyAccountView.MyAccountView;
 
 import java.util.HashMap;
 
-public class MyAccountPresenter implements MyAccountListener,IMyAcountPresenter {
+public class MyAccountPresenter implements MyAccountListener {
     private MyAccountView myAccountView;
-    private Context context;
     private MyAccount mainInterator;
-    public MyAccountPresenter(MyAccountView myAccountView,Context context){
+    public MyAccountPresenter(MyAccountView myAccountView){
         this.myAccountView=myAccountView;
-        this.context=context;
         this.mainInterator=new MyAccount(this);
     }
-    @Override
     public void loadData(String phoneKey,HashMap<String,Object>map){
         mainInterator.updateTutor(phoneKey,map);
     }
-    @Override
     public void setOnClick(String phoneKey,HashMap<String,Object>map){
         mainInterator.setOnClick(phoneKey,map);
     }

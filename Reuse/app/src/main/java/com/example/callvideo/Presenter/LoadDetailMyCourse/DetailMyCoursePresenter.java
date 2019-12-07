@@ -1,17 +1,13 @@
-package com.example.callvideo.Presenter.LoadMyCourse;
+package com.example.callvideo.Presenter.LoadDetailMyCourse;
 
-import android.content.Context;
 
 import com.example.callvideo.Model.Entities.Doc;
-import com.example.callvideo.Model.LoadCourse.ILoadCourseListener;
-import com.example.callvideo.Model.LoadDetailMyCourse.ILoadMyCourseListener;
-import com.example.callvideo.Model.LoadDetailMyCourse.LoadMyCourse;
 import com.example.callvideo.View.LoadDetailMyCourse.ILoadDetailMyCourseView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DetailMyCoursePresenter implements ILoadMyCourseListener,IDetailMyCoursePresenter {
+public class DetailMyCoursePresenter implements ILoadMyCourseListener {
     private ILoadDetailMyCourseView loadView;
     private LoadMyCourse mainInterator;
     public DetailMyCoursePresenter(ILoadDetailMyCourseView loadView){

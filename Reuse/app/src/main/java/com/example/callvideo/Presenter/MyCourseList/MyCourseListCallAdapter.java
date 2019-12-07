@@ -1,13 +1,11 @@
-package com.example.callvideo.Model.MyCourseList;
+package com.example.callvideo.Presenter.MyCourseList;
 
-import com.example.callvideo.Adapter.StaffAdapter;
 import com.example.callvideo.Model.Entities.Request;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 

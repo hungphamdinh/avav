@@ -1,8 +1,6 @@
 package com.example.callvideo.Presenter.MyCourseList;
 
 import com.example.callvideo.Model.Entities.Request;
-import com.example.callvideo.Model.MyCourseList.IMyCourseListAdaperListener;
-import com.example.callvideo.Model.MyCourseList.MyCourseListCallAdapter;
 import com.example.callvideo.View.MyCourseList.IMyCourseAdapterView;
 
 import java.util.ArrayList;

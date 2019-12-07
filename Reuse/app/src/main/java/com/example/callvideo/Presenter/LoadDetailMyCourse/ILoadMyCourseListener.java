@@ -1,4 +1,4 @@
-package com.example.callvideo.Model.LoadDetailMyCourse;
+package com.example.callvideo.Presenter.LoadDetailMyCourse;
 
 import com.example.callvideo.Model.Entities.Doc;
 

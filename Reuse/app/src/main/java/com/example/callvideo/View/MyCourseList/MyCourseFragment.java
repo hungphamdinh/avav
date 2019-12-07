@@ -42,12 +42,9 @@ public class MyCourseFragment extends Fragment implements IMyCourseAdapterView{
     private static final String TAG = "MyCourseFragment";
     private RecyclerView recyclerMenu;
     private RecyclerView.LayoutManager layoutManager;
-    private DatabaseReference request;
-    private FirebaseDatabase database;
     private FirebaseRecyclerAdapter<Request, StaffViewHolder> adapter;
     private StaffAdapter staffAdapter;
     private MyCourseListAdapterPre myCourseListAdapterPre;
-    private ArrayList<Request>requestList;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

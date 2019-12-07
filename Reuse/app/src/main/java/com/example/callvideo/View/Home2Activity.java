@@ -1,4 +1,4 @@
-package com.example.callvideo;
+package com.example.callvideo.View;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -20,9 +20,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.callvideo.Adapter.SectionsPageAdapter;
 import com.example.callvideo.Common.Common;
-import com.example.callvideo.View.HomeFragment;
+import com.example.callvideo.R;
 import com.example.callvideo.View.MyAccountView.MyAccountActivity;
-import com.example.callvideo.View.Tab3Fragment;
 import com.example.callvideo.View.CourseList.CourseActivity;
 import com.example.callvideo.View.MyCourseList.MyCourseFragment;
 import com.example.callvideo.View.Login.LoginActivity2;

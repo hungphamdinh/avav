@@ -1,4 +1,4 @@
-package com.example.callvideo.Model.Login;
+package com.example.callvideo.Presenter.Login;
 
 import android.content.Context;
 
@@ -13,12 +13,10 @@ import com.google.firebase.database.ValueEventListener;
 public class UserLogin {
     private Context context;
     public IUserLoginListener userLoginListener;
-    public UserLogin(IUserLoginListener userLoginListener,Context context){
+    public UserLogin(IUserLoginListener userLoginListener){
         this.userLoginListener=userLoginListener;
-        this.context=context;
     }
     public void isValidData(String phone,String password) {
-        if (Common.isConnectedToInternet(context)) {
             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("User");
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -49,10 +47,7 @@ public class UserLogin {
                 }
             });
         }
-        else {
-            userLoginListener.onLoginError("Please check your connection");
-        }
-    }
+
 
 
 }
