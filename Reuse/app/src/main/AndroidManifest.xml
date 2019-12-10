@@ -16,8 +16,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".View.NewsActivity"></activity>
+        <activity android:name=".View.TranslationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".View.Chat.MainChatActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".Translatetion.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
@@ -38,20 +45,23 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <service android:name=".Sinch.SinchService" />
-        <service android:name=".Notification.MyFirebaseService"
+        <service
+            android:name=".Notification.MyFirebaseService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".Notification.MyFirebaseMessaging"
+        <service
+            android:name=".Notification.MyFirebaseMessaging"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".View.Home2Activity"
             android:label="@string/title_activity_home2"
@@ -63,8 +73,7 @@
         <activity
             android:name=".View.MyAccountView.MyAccountActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".View.Login.LoginActivity2"
             android:screenOrientation="portrait">
@@ -74,9 +83,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".Sinch.CallScreenActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

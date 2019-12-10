@@ -206,6 +206,25 @@
                         >
                     </androidx.recyclerview.widget.RecyclerView>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="#666666"
+                        android:layout_height="wrap_content"
+                        android:text="Các bài kiểm tra của giảng viên"
+                        android:textSize="20dp"
+                        android:layout_marginTop="6dp"
+                        android:textColor="#fff"
+                        />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/listTest"
+                        >
+                    </androidx.recyclerview.widget.RecyclerView>
+
+
 
                 </LinearLayout>
 

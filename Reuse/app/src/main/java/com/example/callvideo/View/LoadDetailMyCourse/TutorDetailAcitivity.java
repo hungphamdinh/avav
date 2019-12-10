@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.callvideo.Adapter.DocAdapter;
+import com.example.callvideo.Adapter.TestAdapter;
 import com.example.callvideo.Sinch.BaseActivity;
 import com.example.callvideo.Sinch.CallScreenActivity;
 import com.example.callvideo.Common.Common;
@@ -26,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.sinch.android.rtc.calling.Call;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -42,6 +46,8 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
     private RecyclerView recyclerMenu;
     private RecyclerView.LayoutManager layoutManager;
     private DocAdapter docAdapter;
+    private RecyclerView testList;
+    private TestAdapter testAdapter;
     private ArrayList<String> listChatID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +64,9 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
         layoutManager = new LinearLayoutManager(this);
         recyclerMenu.setLayoutManager(layoutManager);
         profileImage=(CircleImageView)findViewById(R.id.imgProfileDetail);
+        testList=(RecyclerView)findViewById(R.id.listTest);
+        testList.setHasFixedSize(true);
+        testList.setLayoutManager(new LinearLayoutManager(this));
         btnChat=(Button)findViewById(R.id.btnMessage);
         btnCall=(Button)findViewById(R.id.btnCallTutor);
         DetailMyCoursePresenter detailMyCoursePresenter=new DetailMyCoursePresenter(this);
@@ -159,6 +168,16 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
     }
 
     @Override
+    public void onDisplayTutorTest(ArrayList<Doc> docArrayList, ArrayList<String> docKey) {
+        testAdapter=new TestAdapter(TutorDetailAcitivity.this,docArrayList,docKey);
+        testAdapter.notifyDataSetChanged();
+        if(docArrayList.size()==0){
+            testList.setVisibility(View.INVISIBLE);
+        }
+        testList.setAdapter(testAdapter);
+    }
+
+    @Override
     public void onDisplayOnline(String msg) {
         txtStatus.setText(msg);
         txtStatus.setTextColor(Color.parseColor("#00FF00"));
@@ -175,5 +194,22 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
     @Override
     public void onUpdateToken(String msg) {
         Toast.makeText(TutorDetailAcitivity.this,msg,Toast.LENGTH_SHORT).show();
+
+    }
+    private void startScroll(AbsListView view)
+    {
+        try
+        {
+            Field field = android.widget.AbsListView.class.getDeclaredField("mFlingRunnable");
+            field.setAccessible(true);
+            Object flingRunnable = field.get(view);
+            if (flingRunnable != null)
+            {
+                Method method = Class.forName("android.widget.AbsListView$FlingRunnable").getDeclaredMethod("endFling");
+                method.setAccessible(true);
+                method.invoke(flingRunnable);
+            }
+        }
+        catch (Exception e) {}
     }
 }

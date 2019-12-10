@@ -46,14 +46,17 @@ public class LoadMyCourse {
     }
     public void loadCourseDoc(String courseId){
         DatabaseReference docRef=FirebaseDatabase.getInstance().getReference("Doc");
+        ArrayList<Doc>docList=new ArrayList<>();
         docRef.orderByChild("courseId").equalTo(courseId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Doc>docList=new ArrayList<>();
+                docList.clear();
                 for (DataSnapshot childSnap:dataSnapshot.getChildren()) {
                     Doc doc = childSnap.getValue(Doc.class);
-                    docList.add(doc);
-                    loadCourseListener.onLoadDocMyCourse(docList);
+                    if(doc.getType().compareTo("tutorTest")!=0) {
+                        docList.add(doc);
+                        loadCourseListener.onLoadDocMyCourse(docList);
+                    }
                 }
             }
 
@@ -63,6 +66,33 @@ public class LoadMyCourse {
             }
         });
     }
+    public void loadTutorTest(String courseId){
+        DatabaseReference docRef=FirebaseDatabase.getInstance().getReference("Doc");
+        ArrayList<Doc>docList=new ArrayList<>();
+        ArrayList<String>docKey=new ArrayList<>();
+        docRef.orderByChild("courseId").equalTo(courseId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                docList.clear();
+                docKey.clear();
+                for (DataSnapshot childSnap:dataSnapshot.getChildren()) {
+
+                    Doc doc = childSnap.getValue(Doc.class);
+                    if(doc.getType().equals("tutorTest")) {
+                        docList.add(doc);
+                        docKey.add(childSnap.getKey());
+                        loadCourseListener.onLoadTutorTest(docList,docKey);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void updateToken(String userId,String token){
         DatabaseReference tokenRef=FirebaseDatabase.getInstance().getReference("Tokens");
         Token newToken=new Token(token);

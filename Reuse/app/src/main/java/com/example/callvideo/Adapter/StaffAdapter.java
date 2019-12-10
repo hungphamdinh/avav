@@ -76,7 +76,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
     public void onDisplayTutor(HashMap<String, Object> map, StaffViewHolder holder) {
         holder.txtName.setText(map.get("tutorName").toString());
         holder.txtEmail.setText(map.get("tutorMail").toString());
-        Glide.with(context)
+        Glide.with(context.getApplicationContext())
                 .load(map.get("tutorImage"))
                 .centerCrop()
                 .into(holder.profileImage);

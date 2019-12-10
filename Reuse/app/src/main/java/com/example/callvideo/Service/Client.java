@@ -1,4 +1,4 @@
-package com.example.callvideo.Notification;
+package com.example.callvideo.Service;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

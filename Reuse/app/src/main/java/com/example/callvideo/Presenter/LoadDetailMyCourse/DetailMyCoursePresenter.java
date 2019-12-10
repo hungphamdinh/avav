@@ -19,6 +19,7 @@ public class DetailMyCoursePresenter implements ILoadMyCourseListener {
         HashMap<String,Object>tutorMap=new HashMap<>();
         mainInterator.getDetailTutor(tutorId,tutorMap);
         mainInterator.loadCourseDoc(courseId);
+        mainInterator.loadTutorTest(courseId);
     }
     public void setToken(String token,String userId){
         mainInterator.updateToken(userId,token);
@@ -32,6 +33,11 @@ public class DetailMyCoursePresenter implements ILoadMyCourseListener {
     @Override
     public void onLoadDocMyCourse(ArrayList<Doc> docList) {
         loadView.onDisplayDoc(docList);
+    }
+
+    @Override
+    public void onLoadTutorTest(ArrayList<Doc> docArrayList, ArrayList<String> key) {
+        loadView.onDisplayTutorTest(docArrayList, key);
     }
 
     @Override

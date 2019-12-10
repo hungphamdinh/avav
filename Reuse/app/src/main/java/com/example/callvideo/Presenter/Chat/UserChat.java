@@ -3,7 +3,7 @@ package com.example.callvideo.Presenter.Chat;
 import com.example.callvideo.Model.Entities.Chat;
 import com.example.callvideo.Model.Entities.Tutor;
 import com.example.callvideo.Model.Entities.User;
-import com.example.callvideo.Notification.Client;
+import com.example.callvideo.Service.Client;
 import com.example.callvideo.Notification.Data;
 import com.example.callvideo.Notification.MyRespone;
 import com.example.callvideo.Notification.Sender;
