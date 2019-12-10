@@ -21,7 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.callvideo.Adapter.SectionsPageAdapter;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.R;
-import com.example.callvideo.Translatetion.MainActivity;
+import com.example.callvideo.Translatetion.TranslateActivity;
 import com.example.callvideo.View.MyAccountView.MyAccountActivity;
 import com.example.callvideo.View.CourseList.CourseActivity;
 import com.example.callvideo.View.MyCourseList.MyCourseFragment;
@@ -39,7 +39,7 @@ public class Home2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseDatabase database;
     private DatabaseReference reference;
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "TranslateActivity";
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
     private String userPhone = "";
@@ -128,8 +128,10 @@ public class Home2Activity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_menu) {
-        } else if (id == R.id.nav_cart) {
-            startActivity(new Intent(Home2Activity.this,TranslationActivity.class));
+        } else if (id == R.id.nav_translate) {
+            Intent intent=new Intent(Home2Activity.this,TranslateActivity.class);
+            intent.putExtra("userPhone",userPhone);
+            startActivity(intent);
         } else if (id == R.id.nav_order) {
             Intent intent = new Intent(Home2Activity.this, CourseActivity.class);
             intent.putExtra("phoneUser",userPhone);
@@ -146,7 +148,6 @@ public class Home2Activity extends AppCompatActivity
             startActivity(intent);
                 }
          else if (id == R.id.nav_send) {
-            startActivity(new Intent(Home2Activity.this, MainActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

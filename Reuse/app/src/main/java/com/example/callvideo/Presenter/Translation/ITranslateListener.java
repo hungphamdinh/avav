@@ -10,4 +10,5 @@ import retrofit2.Call;
 
 public interface ITranslateListener {
     void onReturnRespone( Call<TranslatedText> call,String textTranslate);
+    void onSetFavorite(String mssg);
 }

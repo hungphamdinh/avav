@@ -4,6 +4,8 @@ import com.example.callvideo.Service.APIHelper;
 import com.example.callvideo.Service.Client;
 import com.example.callvideo.Translatetion.Languages;
 import com.example.callvideo.Translatetion.TranslatedText;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.HashMap;
@@ -22,6 +24,7 @@ public class Translate {
     public Translate(ITranslateListener iTranslateListener){
         this.iTranslateListener=iTranslateListener;
     }
+
     public void textChangedListener(String textToTranslate, HashMap<String,Object>spinnerMap) {
          translate(textToTranslate,spinnerMap);
          //checkIfInFavourites();
@@ -45,24 +48,6 @@ public class Translate {
         Call<TranslatedText> call = apiHelper.getTranslation(APIKey, text,
                 langCode(language1) + "-" + langCode(language2));
         iTranslateListener.onReturnRespone(call,text);
-//        call.enqueue(new Callback<TranslatedText>() {
-//            @Override
-//            public void onResponse(Call<TranslatedText> call, Response<TranslatedText> response) {
-//                if(response.isSuccessful()){
-//                    context.getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            translatedText.setText(response.body().getText().get(0));
-//                            //                     checkIfInFavourites();
-//                            //                         addToHistory();
-//                        }
-//                    });
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TranslatedText> call, Throwable t) {}
-//        });
     }
 
     public String langCode(String selectedLang) {
@@ -82,5 +67,10 @@ public class Translate {
             }
         }
         return code;
+    }
+    public void setTextToFirebase(HashMap<String,Object>wordMap){
+        DatabaseReference wordRef= FirebaseDatabase.getInstance().getReference("Word");
+        wordRef.push().setValue(wordMap);
+        iTranslateListener.onSetFavorite("Đã thêm vào sổ tay từ vựng");
     }
 }

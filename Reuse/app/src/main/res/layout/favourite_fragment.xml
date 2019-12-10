@@ -23,34 +23,15 @@
         android:textSize="19sp"
         android:id="@+id/no_words_in_listview" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/search"
-        android:layout_above="@+id/api_info"/>
+        android:layout_below="@+id/search">
 
-    <TextView
-        android:id="@+id/api_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/api_info"
-        android:textSize="19sp"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/link"
-        android:visibility="invisible"/>
+    </androidx.recyclerview.widget.RecyclerView>
 
-    <TextView
-        android:id="@+id/link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="19sp"
-        android:text="@string/link"
-        android:autoLink="web"
-        android:textColorLink="@color/fbutton_color_midnight_blue"
-        android:layout_alignParentBottom="true"
-        android:visibility="invisible"/>
+
 
 </RelativeLayout>
