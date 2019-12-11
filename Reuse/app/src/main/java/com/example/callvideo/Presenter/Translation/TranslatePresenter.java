@@ -1,6 +1,6 @@
 package com.example.callvideo.Presenter.Translation;
 
-import com.example.callvideo.Translatetion.TranslatedText;
+import com.example.callvideo.Model.Entities.TranslatedText;
 import com.example.callvideo.View.Translate.ITranslateView;
 
 import java.util.HashMap;

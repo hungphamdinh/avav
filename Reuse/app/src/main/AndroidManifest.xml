@@ -24,7 +24,7 @@
             android:name=".View.Chat.MainChatActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Translatetion.TranslateActivity"
+        <activity android:name=".View.Translate.TranslateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity

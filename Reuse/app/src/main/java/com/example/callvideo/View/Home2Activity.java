@@ -21,11 +21,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.callvideo.Adapter.SectionsPageAdapter;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.R;
-import com.example.callvideo.Translatetion.TranslateActivity;
 import com.example.callvideo.View.MyAccountView.MyAccountActivity;
 import com.example.callvideo.View.CourseList.CourseActivity;
 import com.example.callvideo.View.MyCourseList.MyCourseFragment;
 import com.example.callvideo.View.Login.LoginActivity2;
+import com.example.callvideo.View.Translate.TranslateActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DatabaseReference;
@@ -129,7 +129,7 @@ public class Home2Activity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_menu) {
         } else if (id == R.id.nav_translate) {
-            Intent intent=new Intent(Home2Activity.this,TranslateActivity.class);
+            Intent intent=new Intent(Home2Activity.this, TranslateActivity.class);
             intent.putExtra("userPhone",userPhone);
             startActivity(intent);
         } else if (id == R.id.nav_order) {

@@ -21,8 +21,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.callvideo.Presenter.Translation.TranslatePresenter;
 import com.example.callvideo.R;
-import com.example.callvideo.Translatetion.Languages;
-import com.example.callvideo.Translatetion.TranslatedText;
+import com.example.callvideo.Model.Entities.Languages;
+import com.example.callvideo.Model.Entities.TranslatedText;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,9 +94,22 @@ public class MainFragment extends Fragment implements ITranslateView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         setSpinners();
+        swapLanguage();
         onClickTranslate();
         onAddFavour();
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void swapLanguage() {
+        btnChangeLanguages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int sourceLng = spinner1.getSelectedItemPosition();
+                int targetLng = spinner2.getSelectedItemPosition();
+                spinner1.setSelection(targetLng);
+                spinner2.setSelection(sourceLng);
+            }
+        });
     }
 
     private void onAddFavour() {
@@ -152,11 +165,20 @@ public class MainFragment extends Fragment implements ITranslateView {
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        String compareValue1="English";
+        String compareValue2="Vietnamese";
 
         // attaching data adapter to spinner
         spinner1.setAdapter(dataAdapter);
+        if (compareValue1 != null) {
+            int spinnerPosition = dataAdapter.getPosition(compareValue1);
+            spinner1.setSelection(spinnerPosition);
+        }
         spinner2.setAdapter(dataAdapter);
-        spinner2.setSelection(1);
+        if (compareValue2 != null) {
+            int spinnerPosition = dataAdapter.getPosition(compareValue2);
+            spinner2.setSelection(spinnerPosition);
+        }
     }
 
     @Override
@@ -165,6 +187,8 @@ public class MainFragment extends Fragment implements ITranslateView {
             @Override
             public void onResponse(Call<TranslatedText> call, Response<TranslatedText> response) {
                 if(response.isSuccessful()){
+                    if(getActivity() == null)
+                        return;
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

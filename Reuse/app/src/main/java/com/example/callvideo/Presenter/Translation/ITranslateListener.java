@@ -1,10 +1,6 @@
 package com.example.callvideo.Presenter.Translation;
 
-import android.widget.ArrayAdapter;
-
-import com.example.callvideo.Translatetion.TranslatedText;
-
-import java.util.ArrayList;
+import com.example.callvideo.Model.Entities.TranslatedText;
 
 import retrofit2.Call;
 

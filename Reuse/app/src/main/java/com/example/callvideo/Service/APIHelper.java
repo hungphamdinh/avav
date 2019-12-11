@@ -1,6 +1,6 @@
 package com.example.callvideo.Service;
 
-import com.example.callvideo.Translatetion.TranslatedText;
+import com.example.callvideo.Model.Entities.TranslatedText;
 
 import retrofit2.Call;
 import retrofit2.http.POST;

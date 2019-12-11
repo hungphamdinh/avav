@@ -2,21 +2,16 @@ package com.example.callvideo.Presenter.Translation;
 
 import com.example.callvideo.Service.APIHelper;
 import com.example.callvideo.Service.Client;
-import com.example.callvideo.Translatetion.Languages;
-import com.example.callvideo.Translatetion.TranslatedText;
+import com.example.callvideo.Model.Entities.Languages;
+import com.example.callvideo.Model.Entities.TranslatedText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
-import rx.functions.Action1;
 
 public class Translate {
     private ITranslateListener iTranslateListener;

@@ -1,4 +1,4 @@
-package com.example.callvideo.Translatetion;
+package com.example.callvideo.Model.Entities;
 
 public class Languages{
 

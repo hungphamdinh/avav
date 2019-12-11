@@ -13,10 +13,5 @@
         android:icon="@drawable/default_favourites_icon"
         android:title="@string/text_favourites"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_history"
-        android:enabled="true"
-        android:icon="@drawable/history_icon"
-        android:title="@string/text_history"
-        app:showAsAction="ifRoom" />
+
 </menu>

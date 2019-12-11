@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.callvideo.Adapter.DocAdapter;
 import com.example.callvideo.Adapter.TestAdapter;
+import com.example.callvideo.Adapter.WordFavAdapter;
 import com.example.callvideo.Sinch.BaseActivity;
 import com.example.callvideo.Sinch.CallScreenActivity;
 import com.example.callvideo.Common.Common;

@@ -1,19 +1,14 @@
-package com.example.callvideo.Translatetion;
+package com.example.callvideo.View.Translate;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.callvideo.R;
-import com.example.callvideo.View.Translate.MainFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class TranslateActivity extends AppCompatActivity {
@@ -47,9 +42,6 @@ public class TranslateActivity extends AppCompatActivity {
                             case R.id.action_favourites:
                                 changeToFavourite();
                                 break;
-                            case R.id.action_history:
-                                changeToFavourite();
-                                break;
                         }
                         return true;
                     }
@@ -59,7 +51,7 @@ public class TranslateActivity extends AppCompatActivity {
     public void changeToFavourite() {
         // Change current fragment in activity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        FavouriteFragment favouriteFragment = new FavouriteFragment(userPhone);
+        FavouriteFragment favouriteFragment = new FavouriteFragment(userPhone,TranslateActivity.this);
         ft.replace(R.id.fragment, favouriteFragment);
         ft.commit();
     }

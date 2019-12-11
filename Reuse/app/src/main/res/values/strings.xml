@@ -59,9 +59,8 @@
     <string name="not_found">Error</string>
     <string name="source_language">Russian</string>
     <string name="target_language">English</string>
-    <string name="text_favourites">Favourites</string>
-    <string name="text_history">History</string>
-    <string name="write_word">Enter word or text</string>
+    <string name="text_favourites">Sổ tay</string>
+    <string name="write_word">Vui lòng điền tù</string>
     <string name="link" translatable="false">http://translate.yandex.ru/</string>
-    <string name="text_translate">Translation</string>
+    <string name="text_translate">Trang dịch</string>
 </resources>
