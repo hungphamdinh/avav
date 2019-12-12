@@ -1,11 +1,14 @@
 package com.example.callvideo.View;
 
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -18,8 +21,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.example.callvideo.Adapter.SectionsPageAdapter;
 import com.example.callvideo.Common.Common;
+import com.example.callvideo.Model.Entities.User;
 import com.example.callvideo.R;
 import com.example.callvideo.View.MyAccountView.MyAccountActivity;
 import com.example.callvideo.View.CourseList.CourseActivity;
@@ -28,8 +33,11 @@ import com.example.callvideo.View.Login.LoginActivity2;
 import com.example.callvideo.View.Translate.TranslateActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -89,6 +97,25 @@ public class Home2Activity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ImageView avatar=(ImageView)findViewById(R.id.imageView);
+        TextView userName=(TextView)findViewById(R.id.textView);
+//        DatabaseReference userRef=FirebaseDatabase.getInstance().getReference("User");
+//        userRef.child(userPhone).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                User user=dataSnapshot.getValue(User.class);
+//                Glide.with(Home2Activity.this)
+//                        .load(user.getAvatar())
+//                        .centerCrop()
+//                        .into(avatar);
+//                userName.setText(user.getUsername());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

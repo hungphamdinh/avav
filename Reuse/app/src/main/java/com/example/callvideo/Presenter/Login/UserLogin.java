@@ -21,8 +21,8 @@ public class UserLogin {
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (phone.equals("") || password.equals("")) {
-                        userLoginListener.onLoginError("Please check your username and password");
+                    if (phone.equals("") || password.equals("")||phone.length()!=10) {
+                        userLoginListener.onLoginError("Vui lòng kiểm tra lại thông tin");
                     } else {
                         if (dataSnapshot.child(phone).exists()) {
                             User uUser = dataSnapshot.child(phone).getValue(User.class);
@@ -30,13 +30,13 @@ public class UserLogin {
                             //uUser.setUsername(uUser.getUsername());
                             if (password.equals(uUser.getPassword())) {
                                 Common.currentUser = uUser;
-                                userLoginListener.onLoginSucess("Success");
+                                userLoginListener.onLoginSucess("Đăng nhập thành công");
                             } else {
-                                userLoginListener.onLoginError("WrongPass");
+                                userLoginListener.onLoginError("Vui lòng kiểm tra lại mật khẩu");
                             }
 
                         } else {
-                            userLoginListener.onLoginError("PhoneNotExist");
+                            userLoginListener.onLoginError("Số điện thoại này không tồn tại");
                         }
                     }
                 }

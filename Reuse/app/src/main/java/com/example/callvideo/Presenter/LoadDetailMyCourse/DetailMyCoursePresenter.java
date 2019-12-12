@@ -21,6 +21,9 @@ public class DetailMyCoursePresenter implements ILoadMyCourseListener {
         mainInterator.loadCourseDoc(courseId);
         mainInterator.loadTutorTest(courseId);
     }
+    public void setStatus(String status,String userPhone){
+        mainInterator.setStatus(status,userPhone);
+    }
     public void setToken(String token,String userId){
         mainInterator.updateToken(userId,token);
     }

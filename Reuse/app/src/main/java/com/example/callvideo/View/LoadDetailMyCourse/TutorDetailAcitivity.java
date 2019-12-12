@@ -50,6 +50,7 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
     private RecyclerView testList;
     private TestAdapter testAdapter;
     private ArrayList<String> listChatID;
+    private DetailMyCoursePresenter detailMyCoursePresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +71,7 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
         testList.setLayoutManager(new LinearLayoutManager(this));
         btnChat=(Button)findViewById(R.id.btnMessage);
         btnCall=(Button)findViewById(R.id.btnCallTutor);
-        DetailMyCoursePresenter detailMyCoursePresenter=new DetailMyCoursePresenter(this);
+        detailMyCoursePresenter=new DetailMyCoursePresenter(this);
         if (getIntent() != null)
             listChatID = getIntent().getStringArrayListExtra("ChatID");
         if (!listChatID.isEmpty() && listChatID != null) {
@@ -120,12 +121,6 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
         startActivity(callScreen);
     }
 
-    private void setStatus(String status){
-        HashMap<String,Object>map=new HashMap<>();
-        map.put("status",status);
-        DatabaseReference userRef=FirebaseDatabase.getInstance().getReference("User");
-        userRef.child(userId).updateChildren(map);
-    }
     @Override
     protected void onServiceConnected() {
 
@@ -140,13 +135,13 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
     @Override
     protected void onResume() {
         super.onResume();
-        setStatus("online");
+        detailMyCoursePresenter.setStatus("online",userId);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        setStatus("offline");
+        detailMyCoursePresenter.setStatus("offline",userId);
     }
 
     @Override

@@ -70,4 +70,10 @@ public class LoadCourse  {
             }
         });
     }
+    public void  setStatus(String status,String userPhone){
+        HashMap<String,Object>map=new HashMap<>();
+        map.put("status",status);
+        DatabaseReference userRef=FirebaseDatabase.getInstance().getReference("User");
+        userRef.child(userPhone).updateChildren(map);
+    }
 }

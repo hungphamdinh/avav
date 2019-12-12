@@ -10,6 +10,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.callvideo.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class TranslateActivity extends AppCompatActivity {
     private   BottomNavigationView bottomNavigationView;
@@ -63,5 +67,23 @@ public class TranslateActivity extends AppCompatActivity {
         ft.commit();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setStatus("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        setStatus("offline");
+    }
+    private void setStatus(final String status) {
+        final DatabaseReference user = FirebaseDatabase.getInstance().getReference("User").child(userPhone);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("status", status);
+        user.updateChildren(map);
+        //  user.child(phone).setValue(map);
+    }
 
 }

@@ -72,25 +72,16 @@ public class CourseDetailActivity extends AppCompatActivity implements LoadCours
 
 
     }
-
-
-
-    private void setStatus(String status){
-        HashMap<String,Object>map=new HashMap<>();
-        map.put("status",status);
-        DatabaseReference userRef=FirebaseDatabase.getInstance().getReference("User");
-        userRef.child(userPhone).updateChildren(map);
-    }
     @Override
     protected void onResume() {
         super.onResume();
-        setStatus("online");
+        detailCoursePresenter.setStatus("online",userPhone);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        setStatus("offline");
+        detailCoursePresenter.setStatus("offline",userPhone);
     }
 
  

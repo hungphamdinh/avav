@@ -53,28 +53,35 @@ public class WordFavAdapter extends RecyclerView.Adapter<WordFavAdapter.WordFavV
         holder.imgBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteDialog(docKey.get(position));
+
+                deleteDialog(docKey.get(position),holder);
+
             }
         });
 
     }
 
-    private void deleteDialog(final String key) {
+    private void deleteDialog(final String key,WordFavViewHolder holder) {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setTitle("Xóa");
         alertDialog.setMessage("Bạn có chắc muốn xóa?");
         //alertDialog.create();
         //alertDialog.show();
-        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 DatabaseReference docRef=FirebaseDatabase.getInstance().getReference("Word");
-                docRef.child(key).removeValue();
-                Toast.makeText(context,"Xóa thành công",Toast.LENGTH_SHORT).show();
-                dialogInterface.dismiss();
+                if(words.size()==0||words==null){
+                    holder.itemView.setVisibility(View.GONE);
+                }
+                else {
+                    docRef.child(key).removeValue();
+                    Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    dialogInterface.dismiss();
+                }
             }
         });
-        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();

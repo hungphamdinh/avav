@@ -8,6 +8,6 @@ import java.util.HashMap;
 public interface IUserChatView {
     void onClickSendMsg(HashMap<String,Object> msgMap);
     void onError(String msg);
-    void readMsg(ArrayList<Chat>chats);
+    void readMsg(ArrayList<Chat>chats,ArrayList<String>keys);
     void onAccesstoUser(String tutorName);
 }

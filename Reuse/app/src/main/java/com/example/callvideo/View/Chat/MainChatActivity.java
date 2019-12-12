@@ -85,22 +85,16 @@ public class MainChatActivity extends AppCompatActivity implements IUserChatView
         super.onStart();
 
     }
-    private void setStatus(String status){
-        HashMap<String,Object>map=new HashMap<>();
-        map.put("status",status);
-        DatabaseReference userRef=FirebaseDatabase.getInstance().getReference("User");
-        userRef.child(userId).updateChildren(map);
-    }
     @Override
     protected void onResume() {
         super.onResume();
-        setStatus("online");
+        chatPresenter.setStatus("online",userId);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        setStatus("offline");
+        chatPresenter.setStatus("offline",userId);
     }
 
     @Override
@@ -114,11 +108,11 @@ public class MainChatActivity extends AppCompatActivity implements IUserChatView
     }
 
     @Override
-    public void readMsg(ArrayList<Chat> chats) {
+    public void readMsg(ArrayList<Chat> chats,ArrayList<String>keys) {
         HashMap<String,Object>idMap=new HashMap<>();
         idMap.put("userId",userId);
         idMap.put("tutorId",tutorId);
-        messageAdapter=new MessageAdapter(MainChatActivity.this,chats,idMap);
+        messageAdapter=new MessageAdapter(MainChatActivity.this,chats,idMap,keys);
         messageAdapter.notifyDataSetChanged();
         messagesView.setAdapter(messageAdapter);
     }

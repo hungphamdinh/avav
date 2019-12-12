@@ -16,6 +16,9 @@ public class DetailCoursePresenter implements ILoadCourseListener{
         mainInterator.loadDetailCourse(courseId,courseMap, tutorMap);
 
     }
+    public void setStatus(String status,String phoneKey){
+        mainInterator.setStatus(status,phoneKey);
+    }
 
     @Override
     public void onLoadDataCourse(HashMap<String, Object> courseMap) {

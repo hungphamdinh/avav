@@ -20,6 +20,9 @@ public class ChatPresenter implements ChatListener {
     public void clickSend(HashMap<String,Object>sendMap){
         userChat.onClickSend(sendMap);
     }
+    public void setStatus(String status,String userPhone){
+        userChat.setStatus(status,userPhone);
+    }
     @Override
     public void onClickSendMsg(HashMap<String, Object> msgMap) {
         userChatView.onClickSendMsg(msgMap);
@@ -32,7 +35,7 @@ public class ChatPresenter implements ChatListener {
 
     @Override
     public void sendMsg(HashMap<String, Object> map) {
-
+        userChatView.onClickSendMsg(map);
     }
 
     @Override
@@ -41,7 +44,7 @@ public class ChatPresenter implements ChatListener {
     }
 
     @Override
-    public void readMsg(ArrayList<Chat> chats) {
-        userChatView.readMsg(chats);
+    public void readMsg(ArrayList<Chat> chats,ArrayList<String>keys) {
+        userChatView.readMsg(chats,keys);
     }
 }

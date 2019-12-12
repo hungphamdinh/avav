@@ -1,16 +1,22 @@
 package com.example.callvideo.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.callvideo.Interface.ItemClickListener;
 import com.example.callvideo.Model.Entities.Chat;
 import com.example.callvideo.Model.Entities.Tutor;
 import com.example.callvideo.R;
@@ -31,11 +37,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ChatView
     public DatabaseReference chatRef;
     public FirebaseDatabase database;
     private HashMap<String,Object>id;
+    private ArrayList<String>keys;
     public static final int MSG_RIGHT=1;
-    public MessageAdapter(Context context, ArrayList<Chat> chat, HashMap<String,Object>id) {
+    public MessageAdapter(Context context, ArrayList<Chat> chat, HashMap<String,Object>id,ArrayList<String>keys) {
         this.context = context;
         this.chat = chat;
         this.id=id;
+        this.keys=keys;
     }
     public MessageAdapter(){
 
@@ -75,7 +83,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ChatView
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Tutor tutor=dataSnapshot.getValue(Tutor.class);
-                Glide.with(context)
+                if(tutor.getStatus().equals("offline")){
+                    holder.status.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    holder.status.setVisibility(View.VISIBLE);
+                }
+                Glide.with(context.getApplicationContext())
                         .load(tutor.getAvatar())
                         .centerCrop()
                         // .placeholder(R.drawable.loading_spinner)
@@ -87,21 +101,65 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ChatView
 
             }
         });
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onClick(View view, int position, boolean isLongClick) {
+                deleteDialog(keys.get(position),holder);
+            }
+        });
     }
-
+    private void deleteDialog(final String key, ChatViewHolder holder) {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        alertDialog.setTitle("Xóa");
+        alertDialog.setMessage("Bạn có chắc muốn xóa tin nhắn?");
+        //alertDialog.create();
+        //alertDialog.show();
+        alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DatabaseReference docRef=FirebaseDatabase.getInstance().getReference("Chat");
+                if(chat.size()==0){
+                    holder.itemView.setVisibility(View.GONE);
+                }
+                else {
+                    docRef.child(key).removeValue();
+                    Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
     @Override
     public int getItemCount() {
         return chat.size();
     }
 
-    public class ChatViewHolder extends RecyclerView.ViewHolder {
+    public class ChatViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView showMessage;
-        public ImageView profileImage;
-
+        private ItemClickListener itemClickListener;
+        public ImageView profileImage,status;
+        private ImageButton btnDelete;
         public ChatViewHolder(@NonNull View itemView) {
             super(itemView);
             showMessage=(TextView)itemView.findViewById(R.id.showMessage);
             profileImage=(ImageView)itemView.findViewById(R.id.profileImage);
+            status=(ImageView)itemView.findViewById(R.id.imgStatusChat);
+            itemView.setOnClickListener(this);
+        }
+        public void setItemClickListener(ItemClickListener itemClickListener){
+            this.itemClickListener=itemClickListener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            itemClickListener.onClick(view,getAdapterPosition(),false);
         }
     }
 
