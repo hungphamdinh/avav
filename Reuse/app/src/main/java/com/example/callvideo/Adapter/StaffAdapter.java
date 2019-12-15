@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,7 +86,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
     public void onDisplayCourse(HashMap<String, Object> map, StaffViewHolder holder) {
         holder.txtCourseName.setText(map.get("courseName").toString());
         holder.txtSchedule.setText(map.get("courseSchedule").toString());
-        Glide.with(context)
+        Glide.with(context.getApplicationContext())
                 .load(map.get("courseImage").toString())
                 .centerCrop()
                 .into(holder.imgCourse);
@@ -102,6 +103,12 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
         holder.txtStatus.setTextColor(Color.parseColor("#FF0000"));
         holder.txtStatus.setText(msg);
         holder.imgStatus.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onDisplayError(String msg,StaffViewHolder holder) {
+        Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
+        holder.itemView.setVisibility(View.INVISIBLE);
     }
 
     @Override

@@ -64,7 +64,8 @@ public class CourseActivity extends AppCompatActivity {
                         course.orderByChild("isBuy").equalTo("false")) {
             @Override
             protected void populateViewHolder(CourseViewHolder viewHolder, final Course model, int position) {
-                viewHolder.txtName.setText(model.getCourseName());
+                viewHolder.txtName.setText(model.
+                        getCourseName());
                 viewHolder.txtPrice.setText("Giá: " + model.getPrice());
                 viewHolder.txtDescript.setText(model.getDescript());
                 Glide.with(CourseActivity.this)
@@ -96,13 +97,13 @@ public class CourseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setStatus("online");
+        //setStatus("online");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        setStatus("offline");
+       // setStatus("offline");
     }
 }
 

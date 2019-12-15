@@ -208,13 +208,13 @@ public class Home2Activity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        setStatus("online");
+        //setStatus("online");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        setStatus("offline");
+        //setStatus("offline");
     }
 
 }

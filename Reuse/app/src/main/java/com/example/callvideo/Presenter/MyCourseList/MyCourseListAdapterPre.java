@@ -13,6 +13,7 @@ public class MyCourseListAdapterPre implements IMyCourseListAdaperListener {
         this.mainInterator=new MyCourseListCallAdapter(this);
     }
     public void setAdapter(String userPhone){
+        //ArrayList<Request>requests=new ArrayList<>();
         mainInterator.loadTutor(userPhone);
     }
     @Override

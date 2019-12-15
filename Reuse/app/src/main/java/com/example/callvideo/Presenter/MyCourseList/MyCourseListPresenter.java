@@ -19,12 +19,10 @@ public class MyCourseListPresenter implements IMyCourseListListener {
         this.holder=holder;
     }
     public void setCourseList(int pos,String userId){
-        HashMap<String,Object>courseMap=new HashMap<>();
-        HashMap<String,Object>tutorMap=new HashMap<>();
         HashMap<String,Object>posMap=new HashMap<>();
         posMap.put("pos",pos);
         posMap.put("userId",userId);
-        mainInterator.loadCourse(tutorMap,posMap,courseMap);
+        mainInterator.loadCourse(posMap);
     }
     @Override
     public void onLoadTutorMyCourse(HashMap<String, Object> tutorMap) {
@@ -34,6 +32,11 @@ public class MyCourseListPresenter implements IMyCourseListListener {
     @Override
     public void onLoadCourseMyCourse(HashMap<String, Object> courseMap) {
         courseView.onDisplayCourse(courseMap,holder);
+    }
+
+    @Override
+    public void onErrorLoadData(String msg) {
+        courseView.onDisplayError(msg,holder);
     }
 
     @Override

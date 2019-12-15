@@ -71,10 +71,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
 //        TextDrawable drawable= TextDrawable.builder()
 //                .buildRound(""+listData.get(i).getSchedule(), Color.RED);
 //        cartViewHolder.imageCartCount.setImageDrawable(drawable);
-        Locale locale=new Locale("en","US");//change country language
-        NumberFormat fmt= NumberFormat.getCurrencyInstance(locale);//format and parse numbers for any locale
+        //Locale locale=new Locale("en","US");//change country language
+        //NumberFormat fmt= NumberFormat.getCurrencyInstance(locale);//format and parse numbers for any locale
         int price=(Integer.parseInt(listData.get(i).getPrice()));
-        cartViewHolder.txtPrice.setText(fmt.format(price));
+        cartViewHolder.txtPrice.setText(""+price);
         cartViewHolder.txtItemName.setText(listData.get(i).getCourseName());
     }
 

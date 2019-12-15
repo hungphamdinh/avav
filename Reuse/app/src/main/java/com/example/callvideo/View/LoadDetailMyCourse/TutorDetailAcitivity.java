@@ -135,13 +135,13 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
     @Override
     protected void onResume() {
         super.onResume();
-        detailMyCoursePresenter.setStatus("online",userId);
+        //detailMyCoursePresenter.setStatus("online",userId);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        detailMyCoursePresenter.setStatus("offline",userId);
+        //detailMyCoursePresenter.setStatus("offline",userId);
     }
 
     @Override
@@ -191,21 +191,5 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
     public void onUpdateToken(String msg) {
         Toast.makeText(TutorDetailAcitivity.this,msg,Toast.LENGTH_SHORT).show();
 
-    }
-    private void startScroll(AbsListView view)
-    {
-        try
-        {
-            Field field = android.widget.AbsListView.class.getDeclaredField("mFlingRunnable");
-            field.setAccessible(true);
-            Object flingRunnable = field.get(view);
-            if (flingRunnable != null)
-            {
-                Method method = Class.forName("android.widget.AbsListView$FlingRunnable").getDeclaredMethod("endFling");
-                method.setAccessible(true);
-                method.invoke(flingRunnable);
-            }
-        }
-        catch (Exception e) {}
     }
 }

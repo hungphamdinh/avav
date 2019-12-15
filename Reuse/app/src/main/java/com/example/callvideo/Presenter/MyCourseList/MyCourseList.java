@@ -1,5 +1,7 @@
 package com.example.callvideo.Presenter.MyCourseList;
 
+import android.widget.Toast;
+
 import com.example.callvideo.Model.Entities.Course;
 import com.example.callvideo.Model.Entities.Request;
 import com.example.callvideo.Model.Entities.Tutor;
@@ -19,19 +21,28 @@ public class MyCourseList {
         this.myCourseListListener=myCourseListListener;
         this.requests=requests;
     }
-    public void loadCourse(HashMap<String,Object>tutorMap,HashMap<String,Object>posMap,HashMap<String,Object>map){
+    public void loadCourse(HashMap<String,Object>posMap){
         DatabaseReference courseRef=FirebaseDatabase.getInstance().getReference("Course");
-        courseRef.child(requests.get((Integer) posMap.get("pos")).courseId).addValueEventListener(new ValueEventListener() {
+        int pos= (int) posMap.get("pos");
+        courseRef.child(requests.get(pos).getCourseId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //requests=new ArrayList<>();
                 Course course=dataSnapshot.getValue(Course.class);
-                map.put("courseName",course.getCourseName());
-                map.put("courseSchedule",course.getSchedule());
-                map.put("courseImage",course.getImage());
-                myCourseListListener.onLoadCourseMyCourse(map);
-                onClickItem(course,posMap.get("userId").toString(), (Integer) posMap.get("pos"));
-                loadTutor(course.getTutorPhone(),tutorMap);
-
+                if(course==null){
+//                    map.put("courseName", "");
+                    myCourseListListener.onErrorLoadData("Cập nhật khóa học");
+                }
+                else {
+                    HashMap<String,Object>tutorMap=new HashMap<>();
+                    HashMap<String,Object>map=new HashMap<>();
+                    map.put("courseName", course.getCourseName());
+                    map.put("courseSchedule", course.getSchedule());
+                    map.put("courseImage", course.getImage());
+                    myCourseListListener.onLoadCourseMyCourse(map);
+                    onClickItem(course, posMap.get("userId").toString(), (Integer) posMap.get("pos"));
+                    loadTutor(course.getTutorPhone(), tutorMap);
+                }
             }
 
             @Override

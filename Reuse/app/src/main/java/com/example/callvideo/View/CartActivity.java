@@ -66,12 +66,12 @@ public class CartActivity extends AppCompatActivity {
         cartList = new BaseResipistory(this).getinform();
         cartAdapter = new CartAdapter(cartList, this);
         recyclerList.setAdapter(cartAdapter);
-        int total = 0;
-        for (Order order : cartList)
-            total += Integer.parseInt(order.getPrice());
-        Locale locale = new Locale("en", "US");
-        NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        txtTotalCart.setText(fmt.format(total));
+//        int total = 0;
+//        for (Order order : cartList)
+//            total += Integer.parseInt(order.getPrice());
+        //Locale locale = new Locale("en", "US");
+        //NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
+        //txtTotalCart.setText(total);
     }
 
     @Override
@@ -102,14 +102,14 @@ public class CartActivity extends AppCompatActivity {
                 request.setName(Common.currentUser.getUsername());
                 request.setPhone(Common.currentUser.getPhone());
                 request.setTotal(txtTotalCart.getText().toString());
+                request.setStatus("On");
                 for(int i=0;i<cartList.size();i++) {
                     request.setCourseId(cartList.get(i).getCourseId());
                     checkBuy(cartList.get(i).getCourseId());
                 }
                 //     Firebase mRefchild=mRef.child(key);
                 //     mRefchild.setValue(data);
-                requestReference.child(String.valueOf(System.currentTimeMillis()))
-                        .setValue(request);
+                requestReference.push().setValue(request);
                 new BaseResipistory(getBaseContext()).cleanCart();
                 Toast.makeText(CartActivity.this, "Chúc bạn học thật tốt", Toast.LENGTH_SHORT).show();
                 finish();

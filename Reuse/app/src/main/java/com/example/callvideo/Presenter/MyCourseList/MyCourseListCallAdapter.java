@@ -14,24 +14,28 @@ public class MyCourseListCallAdapter {
     public MyCourseListCallAdapter(IMyCourseListAdaperListener myCourseListAdaperListener){
         this.myCourseListAdaperListener=myCourseListAdaperListener;
     }
-    public void loadTutor(String userPhone){
-        DatabaseReference request= FirebaseDatabase.getInstance().getReference("Requests");
-        request.orderByChild("phone").equalTo(userPhone).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Request>requestList=new ArrayList<>();
-                for (DataSnapshot childSnap :dataSnapshot.getChildren()){
-                    Request requestCk=childSnap.getValue(Request.class);
-                    requestList.add(requestCk);
-                    myCourseListAdaperListener.callAdapter(requestList);
+    public void loadTutor(String userPhone) {
+        //requestList.remove(0);
+        DatabaseReference request = FirebaseDatabase.getInstance().getReference("Requests");
+            request.orderByChild("phone").equalTo(userPhone).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ArrayList<Request> requestList = new ArrayList<>();
+                    for (DataSnapshot childSnap : dataSnapshot.getChildren()) {
+                        Request requestCk = childSnap.getValue(Request.class);
+                        //  if (requestCk.getStatus().equals("On")) {
+                        requestList.add(requestCk);
+                        myCourseListAdaperListener.callAdapter(requestList);
+                        //  }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+            });
     }
+
 }
