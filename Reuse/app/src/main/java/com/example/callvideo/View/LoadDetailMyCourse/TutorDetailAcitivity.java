@@ -141,7 +141,6 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
     @Override
     protected void onPause() {
         super.onPause();
-        //detailMyCoursePresenter.setStatus("offline",userId);
     }
 
     @Override

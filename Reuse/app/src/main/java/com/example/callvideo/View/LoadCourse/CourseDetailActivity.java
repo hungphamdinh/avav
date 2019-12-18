@@ -60,29 +60,29 @@ public class CourseDetailActivity extends AppCompatActivity implements LoadCours
 
         if (getIntent() != null) {
             courseDetailList = getIntent().getStringArrayListExtra("DetailList");
+            userPhone=courseDetailList.get(3);
+            courseID=courseDetailList.get(4);
 
         }
         if (!courseDetailList.isEmpty() && courseDetailList != null) {
             if (Common.isConnectedToInternet(this)) {
-                userPhone=courseDetailList.get(3);
-                courseID=courseDetailList.get(4);
                 detailCoursePresenter.loadDetailPresenter(courseID);
             }
         }
 
 
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        detailCoursePresenter.setStatus("online",userPhone);
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        detailCoursePresenter.setStatus("online",userPhone);
+//    }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        detailCoursePresenter.setStatus("offline",userPhone);
-    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        detailCoursePresenter.setStatus("offline",userPhone);
+//    }
 
  
     @Override

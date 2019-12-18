@@ -77,8 +77,25 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ChatView
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         Chat chatItem=chat.get(position);
+
+        if(chatItem.getReciever().equals(id.get("userId"))&&chatItem.getSender().equals(id.get("tutorId"))){
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("seen", true);
+            chatRef.child(keys.get(position)).updateChildren(map);
+
+        }
+        if(chatItem.isSeen()==true){
+            holder.seen.setVisibility(View.VISIBLE);
+        }
+        else {
+            holder.seen.setVisibility(View.GONE);
+        }
+        //onCheckSeen(holder);
         holder.showMessage.setText(chatItem.getMessage());
-        DatabaseReference receiverRef=FirebaseDatabase.getInstance().getReference("Tutor");
+        onLoadData(holder);
+    }
+    private void onLoadData(@NonNull ChatViewHolder holder) {
+        DatabaseReference receiverRef= FirebaseDatabase.getInstance().getReference("Tutor");
         receiverRef.child(id.get("tutorId").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -108,6 +125,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ChatView
             }
         });
     }
+
     private void deleteDialog(final String key, ChatViewHolder holder) {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setTitle("Xóa");
@@ -142,7 +160,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ChatView
     }
 
     public class ChatViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView showMessage;
+        public TextView showMessage,seen;
         private ItemClickListener itemClickListener;
         public ImageView profileImage,status;
         private ImageButton btnDelete;
@@ -150,6 +168,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ChatView
             super(itemView);
             showMessage=(TextView)itemView.findViewById(R.id.showMessage);
             profileImage=(ImageView)itemView.findViewById(R.id.profileImage);
+            seen=(TextView)itemView.findViewById(R.id.txtSeen);
             status=(ImageView)itemView.findViewById(R.id.imgStatusChat);
             itemView.setOnClickListener(this);
         }

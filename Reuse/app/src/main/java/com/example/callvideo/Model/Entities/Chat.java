@@ -4,6 +4,16 @@ public class Chat {
     private String sender;
     private String reciever;
     private String message;
+    private boolean seen;
+
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
+    }
+
     public Chat(){}
     public String getSender() {
         return sender;

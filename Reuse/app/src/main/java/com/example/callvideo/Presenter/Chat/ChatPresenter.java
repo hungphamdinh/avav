@@ -14,11 +14,13 @@ public class ChatPresenter implements ChatListener {
         this.userChatView=userChatView;
         userChat=new UserChat(this);
     }
-    public void loadChat(HashMap<String,Object>idMap){
+    public void loadChat(HashMap<String,Object>idMap)
+    {
         userChat.accessToUser(idMap);
     }
     public void clickSend(HashMap<String,Object>sendMap){
         userChat.onClickSend(sendMap);
+
     }
     public void setStatus(String status,String userPhone){
         userChat.setStatus(status,userPhone);

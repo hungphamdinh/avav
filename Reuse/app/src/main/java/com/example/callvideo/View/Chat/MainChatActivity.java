@@ -88,13 +88,13 @@ public class MainChatActivity extends AppCompatActivity implements IUserChatView
     @Override
     protected void onResume() {
         super.onResume();
-        chatPresenter.setStatus("online",userId);
+        //chatPresenter.setStatus("online",userId);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        chatPresenter.setStatus("offline",userId);
+        //chatPresenter.setStatus("offline",userId);
     }
 
     @Override
@@ -115,11 +115,13 @@ public class MainChatActivity extends AppCompatActivity implements IUserChatView
         messageAdapter=new MessageAdapter(MainChatActivity.this,chats,idMap,keys);
         messageAdapter.notifyDataSetChanged();
         messagesView.setAdapter(messageAdapter);
+        messagesView.scrollToPosition(chats.size()-1);
     }
 
     @Override
     public void onAccesstoUser(String tutorName) {
 
     }
+
 }
 

@@ -53,6 +53,7 @@ public class UserChat {
         hashMap.put("sender",sender);
         hashMap.put("reciever",reciever);
         hashMap.put("message",message);
+        hashMap.put("seen",false);
         reference.child("Chat").push().setValue(hashMap);
         final  String msg=message;
         reference=FirebaseDatabase.getInstance().getReference("User").child(sender);

@@ -22,7 +22,6 @@ public class UserSignUp  {
                 String pass = editText.get("pass").toString();
                 String phone = editText.get("phone").toString();
                 String email = editText.get("email").toString();
-
                 String emailPattern = "[a-zA-Z0-9._-]+@gmail+\\.+com+";
                 if (userName.equals("") || pass.equals("") || phone.equals("") || email.equals("")) {
                     signUpListener.onError("Please check your inform");
@@ -36,9 +35,9 @@ public class UserSignUp  {
                                 if (email.trim().matches(emailPattern)) {
                                     if (check == true) {
                                         //progress.dismiss();
-                                        signUpListener.onError("This phone is exist");
+                                        signUpListener.onError("Số điện thoại này đã tồn tại");
                                     } else if (snapshot.exists()) {
-                                        signUpListener.onError("This email is exist");
+                                        signUpListener.onError("Email đã tồn tại");
                                     } else {
                                         DatabaseReference table_user = FirebaseDatabase.getInstance().getReference("User");
                                         HashMap<String, String> map = new HashMap<>();
@@ -48,10 +47,10 @@ public class UserSignUp  {
                                         map.put("status", "offline");
                                         map.put("avatar", "default");
                                         table_user.child(phone).setValue(map);
-                                        signUpListener.onSuccess("Sign up success");
+                                        signUpListener.onSuccess("Đăng ký thành công");
                                     }
                                 } else {
-                                    signUpListener.onError("Invalid email");
+                                    signUpListener.onError("Email không hợp lệ");
                                 }
                             }
 

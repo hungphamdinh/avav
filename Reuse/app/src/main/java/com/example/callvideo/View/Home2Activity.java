@@ -72,6 +72,7 @@ public class Home2Activity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         if (Common.isConnectedToInternet(this)) {
             // loadMenu();
+
         } else {
             Toast.makeText(Home2Activity.this, "Check your connection", Toast.LENGTH_SHORT).show();
             return;
@@ -86,12 +87,12 @@ public class Home2Activity extends AppCompatActivity
         if (!userPhone.isEmpty() && userPhone != null) {
             if (Common.isConnectedToInternet(this)) {
                 setupViewPager(mViewPager);
+                setStatus();
             } else {
                 Toast.makeText(Home2Activity.this, "Check your connection", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
-        //setStatus("online");
     }
 
     @Override
@@ -197,18 +198,15 @@ public class Home2Activity extends AppCompatActivity
 
     }
 
-    private void setStatus(final String status) {
-        final DatabaseReference user = database.getReference("User").child(userPhone);
+    private void setStatus() {
+        final DatabaseReference user = FirebaseDatabase.getInstance().getReference("User");
         HashMap<String, Object> map = new HashMap<>();
-        map.put("status", status);
-        user.updateChildren(map);
+        map.put("status", "online");
+        HashMap<String, Object> offMap = new HashMap<>();
+        offMap.put("status","offline");
+        user.child(userPhone).onDisconnect().updateChildren(offMap);
+        user.child(userPhone).updateChildren(map);
         //  user.child(phone).setValue(map);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //setStatus("online");
     }
 
     @Override
@@ -216,5 +214,4 @@ public class Home2Activity extends AppCompatActivity
         super.onPause();
         //setStatus("offline");
     }
-
 }
