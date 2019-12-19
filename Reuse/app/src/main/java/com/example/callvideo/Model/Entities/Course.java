@@ -7,6 +7,15 @@ public class Course {
     private String price;
     private String image;
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    private int status;
     public String getImage() {
         return image;
     }

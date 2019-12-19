@@ -92,7 +92,7 @@ public class CourseDetailActivity extends AppCompatActivity implements LoadCours
         txtDCDescript.setText(map.get("courseDescript").toString());
         txtDCDiscount.setText(map.get("courseDiscount").toString());
         txtSchedule.setText(map.get("courseSchedule").toString());
-        Glide.with(CourseDetailActivity.this)
+        Glide.with(getApplicationContext())
                 .load(map.get("courseImage"))
                 .centerCrop()
                 .into(imageCourse);
@@ -111,7 +111,7 @@ public class CourseDetailActivity extends AppCompatActivity implements LoadCours
         txtExp.setText(map.get("Exp").toString());
         txtGmail.setText(map.get("Gmail").toString());
         txtTutorName.setText(map.get("Name").toString());
-        Glide.with(CourseDetailActivity.this)
+        Glide.with(getApplicationContext())
                 .load(map.get("Image").toString())
                 .centerCrop()
                 // .placeholder(R.drawable.loading_spinner)

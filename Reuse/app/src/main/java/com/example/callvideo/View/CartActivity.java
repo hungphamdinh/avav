@@ -102,7 +102,7 @@ public class CartActivity extends AppCompatActivity {
                 request.setName(Common.currentUser.getUsername());
                 request.setPhone(Common.currentUser.getPhone());
                 request.setTotal(txtTotalCart.getText().toString());
-                request.setStatus("On");
+                request.setStatus(1);
                 for(int i=0;i<cartList.size();i++) {
                     request.setCourseId(cartList.get(i).getCourseId());
                     checkBuy(cartList.get(i).getCourseId());

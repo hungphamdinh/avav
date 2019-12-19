@@ -6,4 +6,5 @@ import java.util.ArrayList;
 
 public interface IMyCourseAdapterView {
     void callAdapter(ArrayList<Request>requestArrayList);
+    void onErrorLoadCourse(String msg);
 }

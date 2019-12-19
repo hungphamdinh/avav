@@ -66,8 +66,8 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
     @Override
     public void onBindViewHolder(@NonNull StaffViewHolder holder, int position) {
         holder.txtName.setText(requests.get(position).getName());
-        courseListPresenter=new MyCourseListPresenter(this,holder,requests);
-        courseListPresenter.setCourseList(position,userId);
+            courseListPresenter = new MyCourseListPresenter(this, holder, requests);
+            courseListPresenter.setCourseList(position, userId);
     }
     @Override
     public int getItemCount() {

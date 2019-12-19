@@ -23,10 +23,10 @@ public class MyCourseListCallAdapter {
                     ArrayList<Request> requestList = new ArrayList<>();
                     for (DataSnapshot childSnap : dataSnapshot.getChildren()) {
                         Request requestCk = childSnap.getValue(Request.class);
-                        //  if (requestCk.getStatus().equals("On")) {
-                        requestList.add(requestCk);
-                        myCourseListAdaperListener.callAdapter(requestList);
-                        //  }
+                          if (requestCk.getStatus()==1) {
+                            requestList.add(requestCk);
+                              myCourseListAdaperListener.callAdapter(requestList);
+                          }
 
                     }
                 }

@@ -20,4 +20,9 @@ public class MyCourseListAdapterPre implements IMyCourseListAdaperListener {
     public void callAdapter(ArrayList<Request> requestList) {
         myCourseAdapterView.callAdapter(requestList);
     }
+
+    @Override
+    public void onErrorLoadCourse(String msg) {
+        myCourseAdapterView.onErrorLoadCourse(msg);
+    }
 }

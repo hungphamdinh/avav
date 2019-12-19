@@ -64,14 +64,18 @@ public class CourseActivity extends AppCompatActivity {
                         course.orderByChild("isBuy").equalTo("false")) {
             @Override
             protected void populateViewHolder(CourseViewHolder viewHolder, final Course model, int position) {
-                viewHolder.txtName.setText(model.
-                        getCourseName());
-                viewHolder.txtPrice.setText("Giá: " + model.getPrice());
-                viewHolder.txtDescript.setText(model.getDescript());
-                Glide.with(CourseActivity.this)
-                        .load(model.getImage())
-                        .centerCrop()
-                        .into(viewHolder.courseImage);
+                if(model.getStatus()==1){
+                    viewHolder.txtName.setText(model.getCourseName());
+                    viewHolder.txtPrice.setText("Giá: " + model.getPrice());
+                    viewHolder.txtDescript.setText(model.getDescript());
+                    Glide.with(getApplicationContext())
+                            .load(model.getImage())
+                            .centerCrop()
+                            .into(viewHolder.courseImage);
+                }
+                else {
+                    recyclerMenu.setVisibility(View.GONE);
+                }
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {

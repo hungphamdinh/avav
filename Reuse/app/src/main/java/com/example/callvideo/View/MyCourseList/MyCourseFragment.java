@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -63,5 +64,9 @@ public class MyCourseFragment extends Fragment implements IMyCourseAdapterView{
         staffAdapter=new StaffAdapter(context,requestArrayList,requestArrayList.get(0).getCourseId(),userPhone);
         staffAdapter.notifyDataSetChanged();
         recyclerMenu.setAdapter(staffAdapter);
+    }
+
+    @Override
+    public void onErrorLoadCourse(String msg) {
     }
 }
