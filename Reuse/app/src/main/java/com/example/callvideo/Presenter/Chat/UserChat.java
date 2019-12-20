@@ -41,7 +41,6 @@ public class UserChat {
                 else {
                     chatListener.onError("You can't send empty message");
                 }
-     //           editText.setText("");
     }
 
     private void sendMessage(HashMap<String,Object>msgMap){

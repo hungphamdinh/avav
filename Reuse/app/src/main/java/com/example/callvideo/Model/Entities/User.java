@@ -5,6 +5,16 @@ public class User {
     private String password;
     private String phone;
     private String avatar;
+    private int ckAccount;
+
+    public int getCkAccount() {
+        return ckAccount;
+    }
+
+    public void setCkAccount(int ckAccount) {
+        this.ckAccount = ckAccount;
+    }
+
     public String getAvatar() {
         return avatar;
     }

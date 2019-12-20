@@ -21,17 +21,21 @@ public class UserLogin {
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (phone.equals("") || password.equals("")||phone.length()!=10) {
+                    if (phone.equals("") || password.equals("")) {
                         userLoginListener.onLoginError("Vui lòng kiểm tra lại thông tin");
                     } else {
                         if (dataSnapshot.child(phone).exists()) {
                             User uUser = dataSnapshot.child(phone).getValue(User.class);
                             uUser.setPhone(phone);
                             //uUser.setUsername(uUser.getUsername());
-                            if (password.equals(uUser.getPassword())) {
+                            if (password.equals(uUser.getPassword())&&uUser.getCkAccount()==1) {
                                 Common.currentUser = uUser;
                                 userLoginListener.onLoginSucess("Đăng nhập thành công");
-                            } else {
+                            }
+                            else if(uUser.getCkAccount()!=1){
+                                userLoginListener.onLoginError("Tài khoản của bạn hiện chưa được xác thực");
+                            }
+                            else {
                                 userLoginListener.onLoginError("Vui lòng kiểm tra lại mật khẩu");
                             }
 

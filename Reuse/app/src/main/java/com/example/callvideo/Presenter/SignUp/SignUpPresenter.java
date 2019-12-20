@@ -11,9 +11,9 @@ public class SignUpPresenter implements ISignUpListener {
         this.signUpView=signUpView;
         this.userSignUp=new UserSignUp(this);
     }
-    public void onSignUp(HashMap<String,Object>edt){
+    public void onSignUp(HashMap<String,Object>edt,String token){
 
-        userSignUp.isValidData(edt);
+        userSignUp.isValidData(edt,token);
     }
 
     @Override

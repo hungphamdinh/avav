@@ -18,6 +18,7 @@ import com.example.callvideo.R;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,10 +52,9 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
                 edt.put("pass",password.getText().toString());
                 edt.put("email",emailId.getText().toString());
                 edt.put("checkPass",checkPass.getText().toString());
-                signUpPresenter.onSignUp(edt);
+                signUpPresenter.onSignUp(edt, FirebaseInstanceId.getInstance().getToken());
             }
         });
-        setupUI(findViewById(R.id.parentSignUp));
 
     }
 
@@ -62,6 +62,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
     public void onSignUpSuccess(String msg) {
         progressDialog.cancel();
         Toast.makeText(SignUpActivity.this,msg,Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
@@ -71,34 +72,6 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
 
     }
 
-    public static void hideSoftKeyboard(Activity activity) {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) activity.getSystemService(
-                        Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(
-                activity.getCurrentFocus().getWindowToken(), 0);
-    }
-
-    public void setupUI(View view) {
-
-        // Set up touch listener for non-text box views to hide keyboard.
-        if (!(view instanceof EditText)) {
-            view.setOnTouchListener(new View.OnTouchListener() {
-                public boolean onTouch(View v, MotionEvent event) {
-                    hideSoftKeyboard(SignUpActivity.this);
-                    return false;
-                }
-            });
-        }
-
-        //If a layout container, iterate over children and seed recursion.
-        if (view instanceof ViewGroup) {
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                View innerView = ((ViewGroup) view).getChildAt(i);
-                setupUI(innerView);
-            }
-        }
-    }
     private ProgressDialog getProgressDialog() {
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setTitle("Loading");
