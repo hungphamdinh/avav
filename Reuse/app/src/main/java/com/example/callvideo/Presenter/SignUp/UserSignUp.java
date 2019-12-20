@@ -22,9 +22,11 @@ public class UserSignUp  {
                 String pass = editText.get("pass").toString();
                 String phone = editText.get("phone").toString();
                 String email = editText.get("email").toString();
+                String checkPass=editText.get("checkPass").toString();
                 String emailPattern = "[a-zA-Z0-9._-]+@gmail+\\.+com+";
-                if (userName.equals("") || pass.equals("") || phone.equals("") || email.equals("")) {
-                    signUpListener.onError("Please check your inform");
+                if (userName.equals("") || pass.equals("") || phone.equals("")
+                        || email.equals("")||checkPass.equals("")||checkPass.compareTo(pass)!=0||phone.length()!=10) {
+                    signUpListener.onError("Vui lòng kiểm tra lại tài khoản của bạn");
                 } else {
                     boolean check = dataSnapshot.child(phone).exists();
                     if (check == false) {

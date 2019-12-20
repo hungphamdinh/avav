@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity implements ISignUpView {
-    private EditText edtPhone, password, edtUsername;
+    private EditText edtPhone, password, edtUsername,checkPass;
     private Button btnSignUp;
     private EditText emailId;
     private SignUpPresenter signUpPresenter;
@@ -35,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
         edtUsername = findViewById(R.id.edtUsernameSignUp);
         edtPhone = findViewById(R.id.edtPhoneNumberSignUp);
         password = findViewById(R.id.edtPasswordSignUp);
+        checkPass=(EditText)findViewById(R.id.edtCheckPasswordSignUp);
         emailId = findViewById(R.id.edtEmailSignUp);
         btnSignUp = findViewById(R.id.btnSignUpSignIn);
 
@@ -49,7 +50,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
                 edt.put("phone",edtPhone.getText().toString());
                 edt.put("pass",password.getText().toString());
                 edt.put("email",emailId.getText().toString());
-
+                edt.put("checkPass",checkPass.getText().toString());
                 signUpPresenter.onSignUp(edt);
             }
         });
