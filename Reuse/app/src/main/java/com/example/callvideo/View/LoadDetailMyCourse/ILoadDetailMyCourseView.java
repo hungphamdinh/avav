@@ -10,6 +10,7 @@ public interface ILoadDetailMyCourseView {
     void onDisplayDoc(ArrayList<Doc>docList);
     void onDisplayTutorTest(ArrayList<Doc>docArrayList,ArrayList<String>docKey);
     void onDisplayOnline(String msg);
+    void onError(String msg);
     void onDisplayOffline(String msg);
     void onUpdateToken(String msg);
 }

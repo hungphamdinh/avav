@@ -10,6 +10,7 @@ public interface ILoadMyCourseListener {
     void onLoadDocMyCourse(ArrayList<Doc> docList);
     void onLoadTutorTest(ArrayList<Doc>docArrayList,ArrayList<String>key);
     void offlineStatus(String msg);
+    void onError(String msg);
     void onlineStatus(String msg);
     void updateToken(String msg);
 }

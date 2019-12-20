@@ -1,5 +1,7 @@
 package com.example.callvideo.Presenter.LoadDetailMyCourse;
 
+import android.util.Log;
+
 import com.example.callvideo.Model.Entities.Doc;
 import com.example.callvideo.Model.Entities.Tutor;
 import com.example.callvideo.Notification.Token;
@@ -53,7 +55,7 @@ public class LoadMyCourse {
                 docList.clear();
                 for (DataSnapshot childSnap:dataSnapshot.getChildren()) {
                     Doc doc = childSnap.getValue(Doc.class);
-                    if(doc.getType().compareTo("tutorTest")!=0) {
+                    if(doc.getType().compareTo("tutorTest")!=0&&doc.getStatus()==1) {
                         docList.add(doc);
                         loadCourseListener.onLoadDocMyCourse(docList);
                     }
@@ -78,10 +80,14 @@ public class LoadMyCourse {
                 for (DataSnapshot childSnap:dataSnapshot.getChildren()) {
 
                     Doc doc = childSnap.getValue(Doc.class);
-                    if(doc.getType().equals("tutorTest")) {
+                    if(doc.getType().equals("tutorTest")&&doc.getStatus()==1) {
                         docList.add(doc);
                         docKey.add(childSnap.getKey());
                         loadCourseListener.onLoadTutorTest(docList,docKey);
+                    }
+                    else {
+                        //loadCourseListener.onError("Tải lại bài test");
+                        Log.e("NullTest","Check your test status");
                     }
                 }
             }

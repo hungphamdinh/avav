@@ -16,7 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.NewsActivity"></activity>
         <activity android:name=".View.TranslationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

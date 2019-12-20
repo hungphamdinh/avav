@@ -29,7 +29,7 @@ public class MyCourseList {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //requests=new ArrayList<>();
                 Course course=dataSnapshot.getValue(Course.class);
-                if(course==null&&course.getStatus()==0){
+                if(course.getStatus()==0){
 //                    map.put("courseName", "");
                     myCourseListListener.onErrorLoadData("Cập nhật khóa học");
                 }

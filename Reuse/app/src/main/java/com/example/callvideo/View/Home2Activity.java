@@ -170,6 +170,8 @@ public class Home2Activity extends AppCompatActivity
             Intent signIn = new Intent(Home2Activity.this, LoginActivity2.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);
+            DatabaseReference.goOffline();
+            finish();
         } else if (id == R.id.nav_feedback) {
             Uri uri = Uri.parse("https://forms.gle/uKm5YsnwTdje7sFf6");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -210,8 +212,11 @@ public class Home2Activity extends AppCompatActivity
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        //setStatus("offline");
+    protected void onDestroy() {
+        super.onDestroy();
+        final DatabaseReference user = FirebaseDatabase.getInstance().getReference("User");
+        HashMap<String, Object> offMap = new HashMap<>();
+        offMap.put("status","offline");
+        user.child(userPhone).updateChildren(offMap);
     }
 }

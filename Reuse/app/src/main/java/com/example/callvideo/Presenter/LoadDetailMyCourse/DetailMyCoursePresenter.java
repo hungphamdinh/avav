@@ -49,6 +49,11 @@ public class DetailMyCoursePresenter implements ILoadMyCourseListener {
     }
 
     @Override
+    public void onError(String msg) {
+        loadView.onError(msg);
+    }
+
+    @Override
     public void onlineStatus(String msg) {
         loadView.onDisplayOnline(msg);
     }

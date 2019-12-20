@@ -108,7 +108,7 @@ public class StaffAdapter extends RecyclerView.Adapter<StaffAdapter.StaffViewHol
     @Override
     public void onDisplayError(String msg,StaffViewHolder holder) {
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
-        holder.itemView.setVisibility(View.INVISIBLE);
+        holder.itemView.setVisibility(View.GONE);
     }
 
     @Override

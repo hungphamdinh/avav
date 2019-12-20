@@ -30,7 +30,6 @@ public class CourseDetailActivity extends AppCompatActivity implements LoadCours
     private FirebaseDatabase database;
     private ArrayList<String> courseDetailList;
     private Button btnAdd;
-    private BaseResipistory baseResipistory;
     private ImageView imageCourse,profile;
     private DetailCoursePresenter detailCoursePresenter;
     private Course course;
@@ -54,7 +53,6 @@ public class CourseDetailActivity extends AppCompatActivity implements LoadCours
         imageCourse=(ImageView)findViewById(R.id.imgDetailCourse);
         txtSchedule=(TextView)findViewById(R.id.txtScheduleTutor);
         profile=(ImageView) findViewById(R.id.imgProfileCourseDetail);
-        baseResipistory = new BaseResipistory(this);
         btnAdd = (Button) findViewById(R.id.btnAddCart);
         detailCoursePresenter=new DetailCoursePresenter(this);
 
@@ -99,9 +97,14 @@ public class CourseDetailActivity extends AppCompatActivity implements LoadCours
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                baseResipistory.insert(map);
+                ArrayList<String>listId=new ArrayList<>();
+                listId.add(userPhone);
+                listId.add(courseID);
+                Intent intent=new Intent(CourseDetailActivity.this, CartActivity.class);
+                intent.putStringArrayListExtra("listId",listId);
                 Toast.makeText(CourseDetailActivity.this, "Add to cart successed", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(CourseDetailActivity.this, CartActivity.class));
+                startActivity(intent);
+                finish();
             }
         });
     }

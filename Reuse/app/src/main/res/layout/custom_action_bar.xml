@@ -5,7 +5,6 @@
     android:layout_height="36dp"
     android:adjustViewBounds="true"
     android:background="@color/fbutton_color_transparent"
-    android:onClick="TrashOnClick"
     android:scaleType="fitCenter"
     android:layout_gravity="right"
     android:src="@drawable/trash"

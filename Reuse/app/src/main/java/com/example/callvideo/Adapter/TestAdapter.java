@@ -42,6 +42,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.TestViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull TestViewHolder holder, int position) {
+
         holder.txtDocName.setText(doc.get(position).getDocName());
         holder.setItemClickListener(new ItemClickListener() {
             @Override

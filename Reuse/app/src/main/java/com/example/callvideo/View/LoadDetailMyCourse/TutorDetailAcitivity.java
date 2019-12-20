@@ -166,7 +166,7 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
     public void onDisplayTutorTest(ArrayList<Doc> docArrayList, ArrayList<String> docKey) {
         testAdapter=new TestAdapter(TutorDetailAcitivity.this,docArrayList,docKey);
         testAdapter.notifyDataSetChanged();
-        if(docArrayList.size()==0){
+        if(docArrayList==null){
             testList.setVisibility(View.INVISIBLE);
         }
         testList.setAdapter(testAdapter);
@@ -177,6 +177,12 @@ public class TutorDetailAcitivity extends BaseActivity implements ILoadDetailMyC
         txtStatus.setText(msg);
         txtStatus.setTextColor(Color.parseColor("#00FF00"));
         imgStatus.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onError(String msg) {
+        Toast.makeText(TutorDetailAcitivity.this,msg,Toast.LENGTH_SHORT).show();
+        //testList.setVisibility(View.GONE);
     }
 
     @Override
