@@ -92,7 +92,7 @@ public class UserChat {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnap:dataSnapshot.getChildren()){
                     Token token=childSnap.getValue(Token.class);
-                    Data data=new Data(sender, R.mipmap.ic_launcher,userName+": "+msg,"Cập nhật khóa học",
+                    Data data=new Data(sender, R.mipmap.ic_launcher,userName+": "+msg,"Tin nhắn mới",
                             reciever);
                     Sender send=new Sender(data,token.getToken());
                     apiService.sendNotification(send)
