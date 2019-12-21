@@ -65,6 +65,7 @@ public class CourseActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(CourseViewHolder viewHolder, final Course model, int position) {
                 if(model.getStatus()==1){
+                    viewHolder.txtIsBuy.setVisibility(View.GONE);
                     viewHolder.txtName.setText(model.getCourseName());
                     viewHolder.txtPrice.setText("Giá: " + model.getPrice());
                     viewHolder.txtDescript.setText(model.getDescript());
@@ -73,8 +74,19 @@ public class CourseActivity extends AppCompatActivity {
                             .centerCrop()
                             .into(viewHolder.courseImage);
                 }
+                else if(model.getStatus()==2){
+                    viewHolder.txtIsBuy.setVisibility(View.VISIBLE);
+                    viewHolder.txtName.setText(model.getCourseName());
+                    viewHolder.txtPrice.setText("Giá: " + model.getPrice());
+                    viewHolder.txtDescript.setText(model.getDescript());
+                    Glide.with(getApplicationContext())
+                            .load(model.getImage())
+                            .centerCrop()
+                            .into(viewHolder.courseImage);
+                    viewHolder.itemView.setEnabled(false);
+                }
                 else {
-                    recyclerMenu.setVisibility(View.GONE);
+                    viewHolder.itemView.setVisibility(View.GONE);
                 }
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
@@ -83,7 +95,7 @@ public class CourseActivity extends AppCompatActivity {
                         ArrayList<String> listIntent = new ArrayList<>();
                         listIntent.add(viewHolder.txtName.getText().toString());
                         listIntent.add(viewHolder.txtPrice.getText().toString());
-                        listIntent.add(viewHolder.txtTutorName.getText().toString());
+                        listIntent.add(viewHolder.txtIsBuy.getText().toString());
                         listIntent.add(phoneUser);
                         listIntent.add(adapter.getRef(position).getKey());
                         intent.putStringArrayListExtra("DetailList", listIntent);

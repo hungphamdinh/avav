@@ -11,13 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.callvideo.View.CartActivity;
+import com.example.callvideo.View.Cart.CartActivity;
 import com.example.callvideo.Common.Common;
 import com.example.callvideo.Model.Entities.Course;
 import com.example.callvideo.Model.Entities.Order;
 import com.example.callvideo.Presenter.LoadCourse.DetailCoursePresenter;
 import com.example.callvideo.R;
-import com.example.callvideo.SQliteDatabase.BaseResipistory;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

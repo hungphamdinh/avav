@@ -12,7 +12,7 @@ import com.example.callvideo.Interface.ItemClickListener;
 import com.example.callvideo.R;
 
 public class CourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnCreateContextMenuListener {
-    public TextView txtName,txtPrice,txtDescript, txtTutorName;
+    public TextView txtName,txtPrice,txtDescript, txtIsBuy;
     public ImageView courseImage;
     private ItemClickListener itemClickListener;
     public CourseViewHolder(View itemView) {
@@ -20,7 +20,7 @@ public class CourseViewHolder extends RecyclerView.ViewHolder implements View.On
         txtName=(TextView)itemView.findViewById(R.id.txtCourseName);
         txtPrice=(TextView)itemView.findViewById(R.id.txtCoursePrice);
         txtDescript=(TextView)itemView.findViewById(R.id.txtCourseDescript);
-        txtTutorName =(TextView)itemView.findViewById(R.id.txtTutorName);
+        txtIsBuy =(TextView)itemView.findViewById(R.id.txtIsBuy);
         courseImage=(ImageView)itemView.findViewById(R.id.imgCourse);
         itemView.setOnClickListener(this);
         itemView.setOnCreateContextMenuListener(this);
