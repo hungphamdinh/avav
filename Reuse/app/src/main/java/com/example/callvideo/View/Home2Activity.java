@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 
 public class Home2Activity extends AppCompatActivity
@@ -51,7 +53,8 @@ public class Home2Activity extends AppCompatActivity
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
     private String userPhone = "";
-
+    private TextView nav_user,nav_usermane;
+    private ImageView profile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +72,11 @@ public class Home2Activity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View hView =  navigationView.getHeaderView(0);
+        nav_user = (TextView)hView.findViewById(R.id.txtGmailProfile);
+        profile=(CircleImageView) hView.findViewById(R.id.imageViewProfile);
+        nav_usermane=(TextView)hView.findViewById(R.id.txtNameProfile);
+        navigationView.setNavigationItemSelectedListener(this);
         navigationView.setNavigationItemSelectedListener(this);
         if (Common.isConnectedToInternet(this)) {
             // loadMenu();
@@ -88,6 +96,7 @@ public class Home2Activity extends AppCompatActivity
             if (Common.isConnectedToInternet(this)) {
                 setupViewPager(mViewPager);
                 setStatus();
+                setProfileInform();
             } else {
                 Toast.makeText(Home2Activity.this, "Check your connection", Toast.LENGTH_SHORT).show();
                 return;
@@ -98,25 +107,6 @@ public class Home2Activity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ImageView avatar=(ImageView)findViewById(R.id.imageView);
-        TextView userName=(TextView)findViewById(R.id.textView);
-//        DatabaseReference userRef=FirebaseDatabase.getInstance().getReference("User");
-//        userRef.child(userPhone).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                User user=dataSnapshot.getValue(User.class);
-//                Glide.with(Home2Activity.this)
-//                        .load(user.getAvatar())
-//                        .centerCrop()
-//                        .into(avatar);
-//                userName.setText(user.getUsername());
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -177,14 +167,36 @@ public class Home2Activity extends AppCompatActivity
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
                 }
-         else if (id == R.id.nav_send) {
-        }
+//         else if (id == R.id.nav_send) {
+//        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
     private void openFeedBack() {
 
+
+    }
+    private void setProfileInform() {
+        DatabaseReference userRef= FirebaseDatabase.getInstance().getReference("User");
+        userRef.child(userPhone).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User tutor=dataSnapshot.getValue(User.class);
+                nav_user.setText(tutor.getEmail());
+                Glide.with(getApplicationContext())
+                        .load(tutor.getAvatar())
+                        .centerCrop()
+                        .into(profile);
+                nav_usermane.setText(tutor.getUsername());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
     public void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

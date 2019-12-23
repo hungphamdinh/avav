@@ -115,6 +115,7 @@ public class CartActivity extends AppCompatActivity implements ICartView {
         String courseName=map.get("courseName").toString();
         String price=map.get("price").toString();
         txtCourseName.setText(courseName);
-        txtPrice.setText(price);
+        txtPrice.setText(price+"vnđ");
+        txtTotalCart.setText(price+"vnđ");
     }
 }

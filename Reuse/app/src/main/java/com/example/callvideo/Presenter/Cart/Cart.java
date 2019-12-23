@@ -96,7 +96,7 @@ public class Cart {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnap:dataSnapshot.getChildren()){
                     Token token=childSnap.getValue(Token.class);
-                    Data data=new Data(sender, R.mipmap.ic_launcher,userName+": "+msg,"Thông báo",
+                    Data data=new Data(sender, R.mipmap.ic_launcher,userName+": "+msg,"Cập nhật khóa học",
                             reciever);
                     Sender send=new Sender(data,token.getToken());
                     apiService.sendNotification(send)

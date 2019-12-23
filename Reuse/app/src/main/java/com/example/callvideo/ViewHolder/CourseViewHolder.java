@@ -11,7 +11,7 @@ import com.example.callvideo.Common.Common;
 import com.example.callvideo.Interface.ItemClickListener;
 import com.example.callvideo.R;
 
-public class CourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnCreateContextMenuListener {
+public class CourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView txtName,txtPrice,txtDescript, txtIsBuy;
     public ImageView courseImage;
     private ItemClickListener itemClickListener;
@@ -23,7 +23,7 @@ public class CourseViewHolder extends RecyclerView.ViewHolder implements View.On
         txtIsBuy =(TextView)itemView.findViewById(R.id.txtIsBuy);
         courseImage=(ImageView)itemView.findViewById(R.id.imgCourse);
         itemView.setOnClickListener(this);
-        itemView.setOnCreateContextMenuListener(this);
+        //itemView.setOnCreateContextMenuListener(this);
     }
     public void setItemClickListener(ItemClickListener itemClickListener){
         this.itemClickListener=itemClickListener;
@@ -33,11 +33,11 @@ public class CourseViewHolder extends RecyclerView.ViewHolder implements View.On
         itemClickListener.onClick(view,getAdapterPosition(),false);
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.setHeaderTitle("Select this action");
-        menu.add(0,0,getAdapterPosition(), Common.UPDATE);
-        menu.add(0,1,getAdapterPosition(), Common.DELETE);
-
-    }
+//    @Override
+//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//        menu.setHeaderTitle("Select this action");
+//        menu.add(0,0,getAdapterPosition(), Common.UPDATE);
+//        menu.add(0,1,getAdapterPosition(), Common.DELETE);
+//
+//    }
 }

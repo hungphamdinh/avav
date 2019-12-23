@@ -27,7 +27,7 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
     private Button login;
     private TextView txtSignUp;
     private Cursor c=null;
-    private CheckBox ckbRemember;
+  //  private CheckBox ckbRemember;
     private ProgressDialog progressDialog;
     private LoginPresenter loginPresenter;
     @Override
@@ -36,7 +36,7 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
         setContentView(R.layout.activity_login2);
         username = (EditText)findViewById(R.id.edtPhoneLogin);
         password= (EditText)findViewById(R.id.edtPassword);
-        ckbRemember=(CheckBox) findViewById(R.id.ckbRememberUser);
+    //    ckbRemember=(CheckBox) findViewById(R.id.ckbRememberUser);
         login= (Button)findViewById(R.id.btnLogin);
         txtSignUp=(TextView)findViewById(R.id.txtSignUpNewAc);
        // setupUI(findViewById(R.id.parent));
@@ -83,6 +83,7 @@ public class LoginActivity2 extends BaseActivity implements SinchService.StartFa
     private ProgressDialog getProgressDialog() {
         final ProgressDialog progress = new ProgressDialog(this);
         progress.setTitle("Loading");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setMessage("Wait while loading...");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();

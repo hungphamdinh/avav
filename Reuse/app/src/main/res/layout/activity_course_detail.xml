@@ -224,7 +224,7 @@
                         android:id="@+id/txtEmailTutorCourse"
                         android:textStyle="italic"
                         android:textSize="16dp"
-                        android:text="4543534"
+                        android:text="Tài liệu"
                         android:textColor="#000"
                         android:layout_marginTop="6dp"
 
@@ -303,7 +303,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/txtCourseDoc"
                         android:textStyle="italic"
-                        android:text="4543534"
+                        android:text="Tài liệu"
                         android:textColor="#666666"
                         android:background="#fff"
                         />
